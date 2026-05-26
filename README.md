@@ -2,7 +2,7 @@
 
 A [Quartz v5](https://quartz.jzhao.xyz/) site publishing a curated subset of my notes — neuroscience, climbing, training, books, and the musings that don't fit anywhere else.
 
-Lives at: `https://theoamvr.github.io/mountain-path` (after the first GitHub Pages deploy).
+Lives at: `https://thaliona.github.io/mountain-path` (after the first GitHub Pages deploy).
 
 ## Working on the site locally
 
@@ -10,7 +10,7 @@ You need **Node v22+** and **npm v10.9+**.
 
 ```bash
 # Clone (first time on a new machine)
-git clone https://github.com/theoamvr/mountain-path.git
+git clone https://github.com/ThalionA/mountain-path.git
 cd mountain-path
 npm ci
 npx quartz plugin install
@@ -41,10 +41,10 @@ quartz.config.yaml        ← site configuration (title, theme, plugins)
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds Quartz and publishes to GitHub Pages. To set this up the first time:
 
-1. Create a public repo on GitHub: `theoamvr/mountain-path`.
+1. Create a public repo on GitHub: `ThalionA/mountain-path`.
 2. `git init && git add . && git commit -m "Initial commit"`
 3. `git branch -M main`
-4. `git remote add origin git@github.com:theoamvr/mountain-path.git`
+4. `git remote add origin git@github.com:ThalionA/mountain-path.git`
 5. `git push -u origin main`
 6. In the repo's **Settings → Pages**, set **Source: GitHub Actions**.
 7. (Once the first build succeeds) — the site URL appears at the top of the Pages settings page.

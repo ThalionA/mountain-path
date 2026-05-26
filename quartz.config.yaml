@@ -6,7 +6,7 @@ configuration:
   enablePopovers: true
   analytics: null
   locale: en-US
-  baseUrl: theoamvr.github.io/mountain-path
+  baseUrl: thaliona.github.io/mountain-path
   ignorePatterns:
     - private
     - templates
