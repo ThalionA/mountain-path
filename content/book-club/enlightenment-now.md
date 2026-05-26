@@ -45,7 +45,7 @@ tags:
 - More countries are democratic now. Chaos and state collapse create more misery than autocracies.
 - Countries respect human rights and equality more. Less racism, sexism, homophobia over time. Fewer hate crimes. Most oppressive countries are in the Middle East. Most have abolished capital punishment.
 - Education has been on the rise. Developing countries now have literacy rates that match those of the developed world a few decades ago. Their young populations have high literacy rates; mostly their elderly populations are illiterate. The least-literate countries are in war-torn / authoritarian regimes (Afghanistan, where under the Taliban it's illegal for women to be educated).
-- *Hedonic treadmill* explains why we're so ungrateful about all our modern boons and comforts.
+- *Hedonic treadmill* explains why we're so ungrateful about all our modern boons and comforts. (see [[comfort-creep]])
 - Suicide rates have gone down overall (though they still increase in relation with crises and wars). They've fallen most for women; stayed relatively stable for men (whose suicide rates are 4x those of women).
 - People who vote for right-wing populist leaders/parties generally have lower education (>60% of leave votes from high school graduates, <30% from those with at least a university degree), are not primarily concerned with economics (more about immigration, terrorism), are not from the absolutely lowest classes but from the lower middle class, and are generally older. People tend to take their beliefs along with them as they age, rather than become more conservative. Younger generations are more liberal than previous ones.
 
