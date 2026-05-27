@@ -9,7 +9,7 @@ The framing is "the mountain path" because most of what I care about — researc
 
 ## Sections
 
-- [[journal-club/index|Journal Club]] — neuro papers I'm reading, with synthesis and figures. The questions I'm asking of each.
+- [[neuroscience/index|Neuroscience]] — papers I'm reading, concept syntheses, and the connective tissue around my postdoc work. Currently mostly journal-club entries.
 - [[book-club/index|Book Club]] — books and audiobooks, what I took from each, and the threads I'm following across them.
 - [[training/index|Training]] — climbing, lifting, running, football. Logs, analyses, and what the telemetry is teaching me.
 - [[expeditions/index|Expeditions]] — goals and plans. Alpine objectives, projects, training blocks built around them.
