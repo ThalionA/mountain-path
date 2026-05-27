@@ -20,11 +20,14 @@ Audiobooks get the same treatment as physical reads. Footnotes are where you fin
 
 - [[enlightenment-now|Enlightenment Now — Steven Pinker]] — The case that reason, science, humanism, and progress have driven enormous improvements in human well-being, and why we systematically underestimate them.
 - [[guns-germs-and-steel|Guns, Germs, and Steel — Jared Diamond]] — Why Europeans colonised the Americas, Australia, and Africa rather than the other way around — and why the answer is "real estate luck" rather than racial or cultural superiority.
+- [[inheritance|Inheritance — Harvey Whitehouse]] — The three behavioural patterns common to all human cultures (conformism, religiosity, tribalism), and how rituals, agriculture, and identity fusion produced the societies we live in.
+- [[nexus|Nexus — Yuval Noah Harari]] — Information as the thing that *connects* rather than *represents*, and the dictatorship-to-democracy continuum understood through how information flows.
 
-## Psychology and attention
+## Psychology, attention, and rationality
 
 - [[attention-span|Attention Span — Gloria Mark]] — How the human attention span has changed (45 seconds, down from 2.5 minutes in 2004), what drives it, and what cognitive-resource depletion actually is — with my own neuroscience-tinged questions.
 - [[comfort-crisis|The Comfort Crisis — Michael Easter]] — On engineering discomfort back into modern life: boredom, silence, hunger, hard physical work, awareness of death.
+- [[rationality|Rationality — Steven Pinker]] — Where humans are systematically rational vs systematically not. Formal and informal fallacies, signal detection, framing effects, and the my-side bias.
 
 ## Training and toughness
 
