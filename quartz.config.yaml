@@ -17,30 +17,31 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: Source Sans Pro
+      header: Newsreader
+      body: Source Sans 3
       code: IBM Plex Mono
     colors:
+      # Granite palette — cool stone background, deep teal accent
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
-        gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#fff23688"
+        light: "#f3f2ee"          # page background — stone
+        lightgray: "#dcdad4"      # dividers, borders
+        gray: "#878680"           # muted text, captions
+        darkgray: "#3a3a3a"       # body text
+        dark: "#1a1a1a"           # headings
+        secondary: "#2d5a5f"      # primary accent — links, accents
+        tertiary: "#6b8d8d"       # secondary accent — hover, active
+        highlight: rgba(45, 90, 95, 0.10)
+        textHighlight: "#a8d4d488"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#b3aa0288"
+        light: "#161617"          # page background — near-black
+        lightgray: "#2a2b2c"      # dividers
+        gray: "#6b6a66"           # muted
+        darkgray: "#cfcec9"       # body text
+        dark: "#ebebec"           # headings
+        secondary: "#7da8a8"      # accent — lighter teal for contrast
+        tertiary: "#4d7878"       # hover, active
+        highlight: rgba(125, 168, 168, 0.10)
+        textHighlight: "#3a6d7088"
 plugins:
   - source: github:quartz-community/created-modified-date
     enabled: true

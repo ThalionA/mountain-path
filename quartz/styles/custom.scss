@@ -1,3 +1,33 @@
 @use "./variables.scss" as *;
 
-// put your custom CSS here!
+// --- Home page: make the graph view much bigger ---
+// Default graph height is 250px; on the home page we want it prominent.
+body[data-slug="index"] {
+  .graph {
+    > h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    > .graph-outer {
+      height: min(75vh, 640px);
+    }
+  }
+}
+
+// --- Subtle refinements that pair well with the Granite palette ---
+
+// Tighten article title spacing a touch so the serif heading reads as a title, not a banner.
+.article-title {
+  margin-bottom: 0.25rem;
+}
+
+// Make the description in note-properties feel less like form metadata and more like a strapline.
+.note-properties-table {
+  font-size: 0.875rem;
+}
+
+// Slightly stronger link underline offset for readability with the serif body.
+.markdown-preview-view a {
+  text-underline-offset: 3px;
+}

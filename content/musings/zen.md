@@ -6,6 +6,7 @@ tags:
   - musings
   - philosophy
   - zen
+  - buddhism
 ---
 
 ## Principles:
