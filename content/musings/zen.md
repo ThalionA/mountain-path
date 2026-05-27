@@ -15,8 +15,8 @@ tags:
 - The principle of spontaneity/naturalness/"non-stickiness"/"wu-wei"/not forcing/non-interference/going with the grain/going with the flow. 
 	- Tacking against the wind while sailing. Judo. 
 
-- - "Master, what is the essence of Zen?" - "When hungry, eat; when tired, sleep". - "But, isn't that what everyone does?" - "They do no such thing; when hungry, they don't just eat, but think of countless things; when tired, they don't just sleep, but dream innumerable dreams".
-- "When sitting, just sit. When walking, just walk. But whatever you do, don't wobble. (unless wobbling is what you're doing)".
+- "-Master, what is the essence of Zen? -When hungry, eat; when tired, sleep. -But, isn't that what everyone does? -They do no such thing; when hungry, they don't just eat, but think of countless things; when tired, they don't just sleep, but dream innumerable dreams."
+- "When sitting, just sit. When walking, just walk. But whatever you do, don't wobble. (unless wobbling is what you're doing)"
 
 
 
