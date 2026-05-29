@@ -128,9 +128,9 @@ plugins:
   - source: github:quartz-community/favicon
     enabled: true
   - source: github:quartz-community/og-image
-    # Re-enable for GitHub Pages deploy (it needs network access to Google Fonts
-    # during build; sandbox builds fail without network. GH Actions has network.)
-    enabled: false
+    # Needs network access to Google Fonts during build. GitHub Actions has it,
+    # so this works on deploy; only local sandbox builds without network fail.
+    enabled: true
   - source: github:quartz-community/cname
     enabled: true
   - source: github:quartz-community/canvas-page
