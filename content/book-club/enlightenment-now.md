@@ -51,4 +51,4 @@ tags:
 
 ## From the same author
 
-- *Rationality*.
+- [[rationality|Rationality]].
