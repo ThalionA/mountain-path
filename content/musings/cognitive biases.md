@@ -17,4 +17,3 @@ Some of the most common/best known ones:
 - [[Conjunction fallacy]]
 - [[The illusion of explanatory depth]]
 - [[Arrival fallacy]]
-- 

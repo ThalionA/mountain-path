@@ -16,4 +16,3 @@ Two systems, system 1 and system 2. Anthropomorphised for ease of understanding.
 - System 2:
 	- Slow
 	- Effortful
-	- 
