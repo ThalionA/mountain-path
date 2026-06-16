@@ -4,7 +4,9 @@ configuration:
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
-  analytics: null
+  analytics:
+    provider: "goatcounter"
+    websiteCode: "theoamvr"
   locale: en-US
   baseUrl: thaliona.github.io/mountain-path
   ignorePatterns:
