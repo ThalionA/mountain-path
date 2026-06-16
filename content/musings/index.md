@@ -5,9 +5,9 @@ tags:
   - section-index
 ---
 
-Some things don't belong in a paper note, a training log, or a book entry. They're the connective tissue — observations about cognition, AI, motivation, mortality, the slow accumulation of skill, the way different domains rhyme. This is where they live.
+Some things don't belong in a paper note, a training log, or a book entry. They're quite unstructured, random observations about cognition, AI, motivation, mortality, the slow accumulation of skill, the way different domains connect. This is where they live.
 
-The pieces here range from a paragraph to a short essay. I keep them dated, because I expect to disagree with past-me, and the disagreement is half the point.
+The pieces here range from a paragraph to a short essay. I keep them dated, because I expect I might disagree with past-me.
 
 - [[zen-in-the-art-of-climbing|Zen in the art of climbing]] *(2025-05-24)* — On the impossibility of writing about Zen, the trap of grading rocks, and why our best climbs are the ones where the "I" disappears.
 - [[everything-is-a-trade-off|Everything is a trade off]] *(2024-10-18)* — Every pursuit gives up something else. The opportunity-cost view.

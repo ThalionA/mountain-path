@@ -10,8 +10,11 @@ tags:
 For mountain trips, the public write-up usually has:
 - **Objective and constraints** — what I'm trying to climb, the season, partner logistics.
 - **Training arc** — the block leading into it, benchmarks I'm using as green-light criteria.
-- Logistics, panning, itinerary
+- Logistics, planning, itinerary
 - **Trip narrative** — after the fact, what happened and what I learned. Failures get equal billing with summits.
 
+## Tools
+- [[gpx_files]]
+
 > [!note] More notes incoming
-> First write-ups going up as I clean them off the back of recent trips.
+> Stay tuned
