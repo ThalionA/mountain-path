@@ -13,8 +13,9 @@ For mountain trips, the public write-up usually has:
 - Logistics, planning, itinerary
 - **Trip narrative** — after the fact, what happened and what I learned. Failures get equal billing with summits.
 
-## Expeditions
+## Current Expeditions
 - [[alps2026|Alps 2026]]
+## Past Expeditions
 - [[ebc2023|Everest Base Camp 2023]]
 ## Tools
 - [[gpx_files]]
