@@ -9,12 +9,13 @@ The framing is "the mountain path" because most of what I care about — researc
 
 ## Sections
 
-- [[neuroscience/index|Neuroscience]] — papers I'm reading, concept syntheses, and the connective tissue around my postdoc work. Currently mostly journal-club entries.
-- [[book-club/index|Book Club]] — books and audiobooks, what I took from each, and the threads I'm following across them.
-- [[training/index|Training]] — climbing, lifting, running, football. Logs, analyses, and what the telemetry is teaching me.
+- [[neuroscience/index|Neuroscience]] — papers I'm reading, concept syntheses, and thoughts on experimental/analytical/computational methods. 
+- [[book-club/index|Book Club]] — books and audiobooks, what I took from each, and (hopefully) connections between them and some further thoughts. 
+- [[training/index|Training]] — climbing, lifting, running, football. Logs, analyses, and what lessons I extract from them. 
 - [[expeditions/index|Expeditions]] — goals and plans. Alpine objectives, projects, training blocks built around them.
 - [[musings/index|Musings]] — essays and half-formed thoughts. The interpretive layer that doesn't fit anywhere else.
 - [[youtube/index|YouTube]] — video plans, transcripts, and links to anything that gets published.
+- [[content/side-projects/index|Side Projects]] - fun side projects, usually with Claude
 
 ## A note on completeness
 
