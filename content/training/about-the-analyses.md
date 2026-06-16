@@ -40,6 +40,6 @@ The analysis pipeline produces a small set of named questions:
 
 ## What's published
 
-Methodology, headline findings, and the occasional figure. **Specific day-by-day numbers, the live decision system, and the per-session injury log stay private** — partly because they're not interesting outside their original use, and partly because publishing the live decision-making layer would degrade it (more on this in [[content/training/index|the training section overview]]).
+Methodology, headline findings, and the occasional figure. **Specific day-by-day numbers, the live decision system, and the per-session injury log stay private** — partly because they're not interesting outside their original use, and partly because publishing the live decision-making layer would degrade it (more on this in [[training/index|the training section overview]]).
 
 Expect this section to fill out as I lift specific analyses out of the private layer and rewrite them for a public reader.

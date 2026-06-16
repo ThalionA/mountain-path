@@ -5,7 +5,7 @@ description: Notes across climbing, training, neuroscience, books, side projects
 
 This is a working notebook — a place to publish a curated subset of the notes I keep across several private vaults. It is not a finished essay collection; pages here are deliberately rough, dated, and revisable.
 
-The framing is "the mountain path" because most of what I care about — research, alpinism, strength, reading books — is a path, a process, rather than an endpoint (summit). A song that feels quite fitting is "I'm the mountain" by Stoned Jesus. In my mind, it describes exactly the process of "scaling oneself", self-improvement/discovery/actualisation to put it in less flowery terms. 
+The framing is "the mountain path" because most of what I care about — research, alpinism, strength, reading books — is a path, a process, rather than an endpoint (summit). A song that feels quite fitting is ["I'm the Mountain" by Stoned Jesus](https://www.youtube.com/results?search_query=stoned+jesus+i%27m+the+mountain). In my mind, it describes exactly the process of "scaling oneself", self-improvement/discovery/actualisation to put it in less flowery terms. 
 
 ## Sections
 
@@ -15,7 +15,7 @@ The framing is "the mountain path" because most of what I care about — researc
 - [[expeditions/index|Expeditions]] — goals and plans. Alpine objectives, projects, training blocks built around them.
 - [[musings/index|Musings]] — essays and half-formed thoughts. The interpretive layer that doesn't fit anywhere else.
 - [[youtube/index|YouTube]] — video plans, transcripts, and links to anything that gets published.
-- [[content/side-projects/index|Side Projects]] - fun side projects, usually with Claude
+- [[side-projects/index|Side Projects]] — fun side projects, usually with Claude
 
 ## A note on completeness
 

@@ -18,7 +18,7 @@ For mountain trips, the public write-up usually has:
 ## Past Expeditions
 - [[ebc2023|Everest Base Camp 2023]]
 ## Tools
-- [[gpx_files]]
+- [[gpx_files|GPX files for navigation]]
 
 > [!note] More notes incoming
 > Stay tuned
