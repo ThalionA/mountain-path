@@ -1,11 +1,11 @@
 ---
 title: The Mountain Path
-description: Notes from a long-horizon project across neuroscience, climbing, training, and the books and ideas that shape the rest of it.
+description: Notes across climbing, training, neuroscience, books, side projects, and general ideas/musings.
 ---
 
 This is a working notebook — a place to publish a curated subset of the notes I keep across several private vaults. It is not a finished essay collection; pages here are deliberately rough, dated, and revisable.
 
-The framing is "the mountain path" because most of what I care about — research, alpinism, strength, the books I'm sitting with — is structured around a long compounding curve, not a near-term ceiling. The point of writing publicly is to make that curve visible to myself.
+The framing is "the mountain path" because most of what I care about — research, alpinism, strength, reading books — is a path, a process, rather than an endpoint (summit). A song that feels quite fitting is "I'm the mountain" by Stoned Jesus. In my mind, it describes exactly the process of "scaling oneself", self-improvement/discovery/actualisation to put it in less flowery terms. 
 
 ## Sections
 
