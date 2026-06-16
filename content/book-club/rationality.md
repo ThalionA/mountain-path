@@ -10,7 +10,7 @@ tags:
   - rationality
 ---
 
-Audiobook. Talks about [[Cognitive biases|cognitive biases]]. 
+Audiobook. Talks about [[cognitive biases|cognitive biases]]. 
 
 - Weirdly, people's degree of rationality does not only depend on the type of problem at hand, but also the formulation/content of the problem. It is not just formal logic that matters. For example, people are better able to solve problems if they involve fairness/cheating or danger (presumably, because these are [[Evolution|evolutionarily]] important objectives to keep in mind)
 - [[Conjunction fallacy]]
