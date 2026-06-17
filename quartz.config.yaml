@@ -6,7 +6,7 @@ configuration:
   enablePopovers: true
   analytics:
     provider: "goatcounter"
-    websiteCode: "theoamvr"
+    websiteId: "theoamvr"
   locale: en-US
   baseUrl: thaliona.github.io/mountain-path
   ignorePatterns:
