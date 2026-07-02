@@ -28,6 +28,7 @@ Audiobooks get the same treatment as physical reads. Footnotes are where you fin
 - [[attention-span|Attention Span — Gloria Mark]] — How the human attention span has changed (45 seconds, down from 2.5 minutes in 2004), what drives it, and what cognitive-resource depletion actually is — with my own neuroscience-tinged questions.
 - [[comfort-crisis|The Comfort Crisis — Michael Easter]] — On engineering discomfort back into modern life: boredom, silence, hunger, hard physical work, awareness of death.
 - [[rationality|Rationality — Steven Pinker]] — Where humans are systematically rational vs systematically not. Formal and informal fallacies, signal detection, framing effects, and the my-side bias.
+- [[thinking-fast-and-slow|Thinking, Fast and Slow — Daniel Kahneman]] — The two-systems model of thinking. One of the best books I've ever read, and the one I've gifted most often.
 
 ## Training and toughness
 

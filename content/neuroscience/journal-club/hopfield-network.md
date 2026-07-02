@@ -29,7 +29,7 @@ where $w_{ij}$ are the weights between units $i$ and $j$, and $s_i, s_j$ are the
 
 	- The network evolves towards a state of minimum energy, which corresponds to a stable pattern or memory.
 	- The stable states (memories) are attractors in the energy landscape. Each attractor has a basin of attraction, and the initial state of the network determines which attractor it converges to.
-	- The energy function acts as a [[Lyapunov function]], guaranteeing that the dynamics are stable and will converge to a local minimum.
+	- The energy function acts as a Lyapunov function, guaranteeing that the dynamics are stable and will converge to a local minimum.
 
 - **Update rule**:
 $$s_i^{new} = \text{sgn}\left(\sum_{j} w_{ij} s_j\right)$$

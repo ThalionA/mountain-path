@@ -1,6 +1,7 @@
 ---
 title: Thinking, Fast and Slow
 author: Daniel Kahneman
+description: Kahneman's two-systems model of thinking — one of the best books I've ever read, and the one I've gifted most often.
 aliases:
   - "thinking, fast and slow"
 ---

@@ -20,4 +20,4 @@ Challenge, discomfort, uncertainty. All these things build resilience, but we ha
 
 But not any longer. Now, we have engineered our lives in such a way that these adversities are largely absent. The adversities that remain are of a low-intensity, long-term stress sort. Precisely the sort that does not breed resilience, but helplessness and, when coupled with comfort in every other department, entitlement. 
 
-Because, to become resilient, you would need short periods of intense effort or challenge, followed by periods of rest/consolidation, during which, either physically or mentally, you can recover and grow. Similar to what muscles would need during [[Modulation|recovery from training]].
+Because, to become resilient, you would need short periods of intense effort or challenge, followed by periods of rest/consolidation, during which, either physically or mentally, you can recover and grow. Similar to what muscles would need during recovery from training.

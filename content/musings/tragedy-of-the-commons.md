@@ -17,6 +17,6 @@ The best example is a shared pasture that can maintain only so many animals. Eac
 
 Another example is carbon emissions. Each of us benefits from more energy, but global warming exceeds a certain level, then we all suffer the consequences. 
 
-Other examples are arms races and the race to [[Artificial General Intelligence|AGI]], that present existential risks to humans.
+Other examples are arms races and the race to AGI, that present existential risks to humans.
 
 Sometimes, this situation is anthropomorphised as "Moloch", an evil being that makes us act in a self-destructive way, even though it's a behaviour that arises collectively without a certain agent. [Liv Boeree](https://youtu.be/fifVuhgvQQ8?si=9q79-c-LzJF7lX4W), Max Tegmark, Eliezer Yudkowsky, among others, refer to this "entity".

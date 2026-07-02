@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: "goatcounter"
     websiteId: "theoamvr"
-  locale: en-US
+  locale: en-GB
   baseUrl: thaliona.github.io/mountain-path
   ignorePatterns:
     - private
@@ -215,7 +215,10 @@ plugins:
   - source: github:quartz-community/footer
     enabled: true
     options:
-      links: {}
+      links:
+        YouTube: https://www.youtube.com/@theoamvr
+        GitHub: https://github.com/ThalionA/mountain-path
+        RSS: https://thaliona.github.io/mountain-path/index.xml
   - source: github:quartz-community/recent-notes
     enabled: true
     options:

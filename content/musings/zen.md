@@ -20,5 +20,5 @@ tags:
 
 
 
-- A bit simplistically, [[Buddhism]] + [[Taoism]] = Zen 
+- A bit simplistically, [[Buddhism]] + Taoism = Zen 
 - Zen comes from the word "diana", which means meditation

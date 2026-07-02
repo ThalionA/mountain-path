@@ -45,5 +45,5 @@ tags:
 
 
 From the same author:
-- [[Sapiens - Yuval Noah Harari]]
-- [[Homo Deus - Yuval Noah Harari]]
+- Sapiens - Yuval Noah Harari
+- Homo Deus - Yuval Noah Harari

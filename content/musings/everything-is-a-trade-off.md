@@ -10,13 +10,13 @@ tags:
 
 Everything in life involves some sort of tradeoff. This is a consequence of the finitude of our time (primarily) and our resources in general.
 
-For any kind of pursuit, something else needs to be given up ([[Opportunity cost|opportunity cost]]). 
+For any kind of pursuit, something else needs to be given up (opportunity cost). 
 
 - Speed - accuracy
 - Convenience - privacy
 - Treatment efficacy - side effects
 - Liquidity - returns
-- [[Strength training|Strength]] - [[Endurance (running) training|endurance]]
+- Strength - endurance
 - Memory recall - generalisation
 - Hits - false alarms
 - [[pain-is-inescapable|Pain is inescapable]]

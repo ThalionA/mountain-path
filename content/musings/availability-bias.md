@@ -1,5 +1,6 @@
 ---
 title: Availability bias
+description: Judging frequency or probability by how easily examples come to mind — useful in the ancestral environment, misleading in the news era.
 aliases:
   - "availability bias"
 ---

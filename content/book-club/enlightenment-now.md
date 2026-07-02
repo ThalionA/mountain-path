@@ -11,7 +11,7 @@ tags:
 ---
 
 > [!note] About these notes
-> Listened to as audiobook. Made me think of how grateful I am to be living in this era — see the related [[../musings/gratitude|Gratitude]] musing. I'd place it in the same category as Sapiens and [[guns-germs-and-steel|Guns, Germs, and Steel]].
+> Listened to as audiobook. Made me think of how grateful I am to be living in this era — see the related [[gratitude|Gratitude]] musing. I'd place it in the same category as Sapiens and [[guns-germs-and-steel|Guns, Germs, and Steel]].
 
 - Enlightenment values (reason, science, humanism, progress) are relevant now as much as ever.
 - The general point of the book is not to self-congratulate, but to find out the reasons behind the progress we've witnessed over the past couple of centuries, and do more of what helps and less of what doesn't.

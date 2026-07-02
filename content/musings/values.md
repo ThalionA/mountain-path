@@ -15,8 +15,8 @@ Here's an unordered list of things I value:
 - Integrity
 - Diligence
 - Perseverance
-- [[Discipline]]
-- [[Stoicism]] (here to mean not complaining)
+- Discipline
+- Stoicism (here to mean not complaining)
 - Honesty
 - Curiosity
 - Grace/poise
