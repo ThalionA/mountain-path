@@ -1,0 +1,5 @@
+node_modules/
+.quartz/
+public/
+tsconfig.tsbuildinfo
+prof/
