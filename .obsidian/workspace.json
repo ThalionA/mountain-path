@@ -1,0 +1,293 @@
+{
+  "main": {
+    "id": "c251face717c10b4",
+    "type": "split",
+    "children": [
+      {
+        "id": "56112ac86b978397",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e3ff0e8a94b31037",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/youtube/how-strong-is-strong-enough.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "how-strong-is-strong-enough"
+            }
+          },
+          {
+            "id": "73c6fdd199988414",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/index.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "index"
+            }
+          },
+          {
+            "id": "45a947613ec46abc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "content/expeditions/index.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
+              },
+              "icon": "lucide-file",
+              "title": "index"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "df50868416d96f16",
+    "type": "split",
+    "children": [
+      {
+        "id": "40ac2ba65a5e4e3d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b55705f4d3a2d8d6",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "353166efc57807ce",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "e8614102c2ab6f8d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "228f95538f014773",
+    "type": "split",
+    "children": [
+      {
+        "id": "ca03f0f78ff5b062",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "729309cfb20ba400",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "content/book-club/enlightenment-now.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for enlightenment-now"
+            }
+          },
+          {
+            "id": "4725b666cc3fa726",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "content/book-club/enlightenment-now.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from enlightenment-now"
+            }
+          },
+          {
+            "id": "3f2cbed29d3e658a",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "1116835dc44628a7",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "1ece4b2a62b3bcf2",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "content/book-club/enlightenment-now.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of enlightenment-now"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "e3ff0e8a94b31037",
+  "lastOpenFiles": [
+    "content/youtube/index.md",
+    "content/index.md",
+    "AGENTS.md",
+    "content/musings/cognitive-biases.md",
+    "content/musings/availability-bias.md",
+    "content/book-club/thinking-fast-and-slow.md",
+    "content/expeditions/tools/gpx_files.md",
+    "content/expeditions/tools",
+    "CLAUDE.md",
+    "public/side-projects",
+    "public/static/icon.png",
+    "public/static/og-image.png",
+    "node_modules/stringify-entities/readme.md",
+    "node_modules/parse5/README.md",
+    "node_modules/function-bind/README.md",
+    "node_modules/@quartz-community/types/README.md",
+    "README.md",
+    "content/side-projects/index.md",
+    "content/expeditions/index.md",
+    "content/side-projects",
+    "Untitled",
+    "content/expeditions/alps2026.md",
+    "content/expeditions/Tools",
+    "content/expeditions/Tools/gpx_files.md",
+    "content/expeditions/ebc2023.md",
+    "content/book-club/rationality.md",
+    "content/musings/availability bias.md",
+    "content/musings/cognitive biases.md",
+    "content/musings/buddhism.md",
+    "content/book-club/thinking, fast and slow.md",
+    "content/book-club/nexus.md",
+    "content/book-club/enlightenment-now.md",
+    "content/book-club/index.md",
+    "public/tags/buddhism.html",
+    "public/musings/buddhism.html",
+    "public/static/giscus/light.css",
+    "public/static/giscus/dark.css",
+    "public/static/giscus",
+    "public/book-club/attachments/guns-germs-origins-of-food-production.png",
+    "public/book-club/attachments/guns-germs-world-map.png",
+    "public/book-club/attachments/guns-germs-animal-domestication.png",
+    "content/book-club/attachments/guns-germs-world-map.png",
+    "content/book-club/attachments/guns-germs-animal-domestication.png",
+    "content/book-club/attachments/guns-germs-origins-of-food-production.png"
+  ]
+}

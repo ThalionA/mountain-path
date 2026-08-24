@@ -1,0 +1,10 @@
+{
+  "id": "advanced-pdf-export",
+  "name": "Advanced PDF Export",
+  "version": "3.8.6-math",
+  "minAppVersion": "1.11.1",
+  "description": "Export notes as pixel-perfect PDFs with live preview, style presets, manual page breaks, tables, and full layout control. (Local build: reads MathJax glyph CSS from the CSSOM and inlines its fonts so complex equations render in exported PDFs.)",
+  "author": "ShrekBytes",
+  "authorUrl": "https://github.com/ShrekBytes",
+  "isDesktopOnly": true
+}

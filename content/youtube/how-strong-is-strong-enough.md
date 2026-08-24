@@ -16,3 +16,5 @@ duration: "24:53"
 [Watch on YouTube →](https://youtu.be/asEAL6x5fEA)
 
 Are you too strong for the grade you're climbing, or is there low-hanging fruit you'd pick up by adding a couple of strength exercises into your routine? In this one I lay out the climbing-specific benchmark tests I actually use — what makes a benchmark good (objective, repeatable, safe), the traps I see people fall into (testing too often, training for the test, mistaking high pullup numbers for climbing ability), and how to read the results honestly. The companion to [[role-of-strength-training-in-climbing|the misunderstood role of strength training]], which makes the case for why we're doing this in the first place.
+
+You can find a template sheet for the assessments I did [here](https://docs.google.com/spreadsheets/d/1RkJT33kVnICtIPIWQZea_CyZ28PWhgzeKF1DP39OLEU/edit?usp=sharing)
