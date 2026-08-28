@@ -1,0 +1,50 @@
+{
+  "name": "open-comments",
+  "version": "0.1.0",
+  "description": "Login-free comments for Quartz, backed by a Cloudflare Worker + D1.",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./components": {
+      "import": "./dist/components/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "preact": "^10.0.0"
+  },
+  "quartz": {
+    "name": "open-comments",
+    "displayName": "Open comments",
+    "description": "Login-free comments backed by a Cloudflare Worker + D1.",
+    "category": "component",
+    "version": "0.1.0",
+    "quartzVersion": ">=5.0.0",
+    "dependencies": [],
+    "defaultOrder": 50,
+    "defaultEnabled": false,
+    "defaultOptions": {
+      "apiUrl": "",
+      "title": "Comments"
+    },
+    "optionSchema": {
+      "apiUrl": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      }
+    },
+    "components": {
+      "OpenComments": {
+        "displayName": "Open comments",
+        "defaultPosition": "afterBody",
+        "defaultPriority": 10
+      }
+    }
+  }
+}

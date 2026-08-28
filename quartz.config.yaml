@@ -212,6 +212,16 @@ plugins:
     layout:
       position: afterBody
       priority: 10
+  # Login-free comments. Backed by comments-worker/ (Cloudflare Worker + D1).
+  # Set apiUrl to the deployed worker URL.
+  - source: ./plugins/open-comments
+    enabled: true
+    options:
+      apiUrl: "https://mountainpath-comments.theoamvr.workers.dev"
+      title: Comments
+    layout:
+      position: afterBody
+      priority: 10
   - source: github:quartz-community/footer
     enabled: true
     options:
