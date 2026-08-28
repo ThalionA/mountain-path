@@ -9,6 +9,10 @@ I publish long-form videos at [@theoamvr](https://www.youtube.com/@theoamvr) —
 
 Each video below has its own page on this site with the embed, a short description, and links to related videos. Listed newest first.
 
+## 2026
+
+- [[identify-your-climbing-weaknesses|How to identify your climbing weaknesses like a scientist]] *(Aug 2026, 14:32)* — Only the weaknesses that actually limit your goal are worth fixing; three frameworks for finding them, borrowed loosely from machine learning.
+
 ## 2025
 
 - [[how-strong-is-strong-enough|How strong is strong enough? Climbing benchmark deep dive]] *(Nov 2025, 24:53)* — A long-form take on climbing-specific strength benchmarks: what they're for, what makes a good one, traps to avoid, and how to interpret results.
