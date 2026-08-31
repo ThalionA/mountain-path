@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/index.md",
+                "file": "content/training/brachialis-rehab-schedule.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "brachialis-rehab-schedule"
             }
           },
           {
@@ -79,7 +79,8 @@
               "title": "index"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -243,51 +244,53 @@
       "bases:Create new base": false
     }
   },
-  "active": "e3ff0e8a94b31037",
+  "active": "73c6fdd199988414",
   "lastOpenFiles": [
-    "content/youtube/index.md",
+    "content/youtube/brachialis-tendon-recovery.md",
     "content/index.md",
-    "AGENTS.md",
-    "content/musings/cognitive-biases.md",
-    "content/musings/availability-bias.md",
-    "content/book-club/thinking-fast-and-slow.md",
-    "content/expeditions/tools/gpx_files.md",
-    "content/expeditions/tools",
-    "CLAUDE.md",
-    "public/side-projects",
-    "public/static/icon.png",
-    "public/static/og-image.png",
-    "node_modules/stringify-entities/readme.md",
-    "node_modules/parse5/README.md",
-    "node_modules/function-bind/README.md",
-    "node_modules/@quartz-community/types/README.md",
-    "README.md",
-    "content/side-projects/index.md",
-    "content/expeditions/index.md",
-    "content/side-projects",
-    "Untitled",
-    "content/expeditions/alps2026.md",
-    "content/expeditions/Tools",
-    "content/expeditions/Tools/gpx_files.md",
-    "content/expeditions/ebc2023.md",
-    "content/book-club/rationality.md",
-    "content/musings/availability bias.md",
-    "content/musings/cognitive biases.md",
-    "content/musings/buddhism.md",
-    "content/book-club/thinking, fast and slow.md",
-    "content/book-club/nexus.md",
-    "content/book-club/enlightenment-now.md",
-    "content/book-club/index.md",
-    "public/tags/buddhism.html",
-    "public/musings/buddhism.html",
+    "_drafts/brachialis-youtube-paste.md",
+    "public/tags/index-og-image.webp",
+    "public/tags/weightlifting-og-image.webp",
+    "public/tags/warmup-og-image.webp",
+    "public/tags/running-og-image.webp",
+    "public/tags/technique-og-image.webp",
+    "public/tags/machine-learning-og-image.webp",
+    "public/tags/self-assessment-og-image.webp",
+    "public/tags/benchmarks-og-image.webp",
+    "public/tags/books-og-image.webp",
+    "public/tags/stoicism-og-image.webp",
     "public/static/giscus/light.css",
     "public/static/giscus/dark.css",
     "public/static/giscus",
-    "public/book-club/attachments/guns-germs-origins-of-food-production.png",
-    "public/book-club/attachments/guns-germs-world-map.png",
-    "public/book-club/attachments/guns-germs-animal-domestication.png",
-    "content/book-club/attachments/guns-germs-world-map.png",
-    "content/book-club/attachments/guns-germs-animal-domestication.png",
-    "content/book-club/attachments/guns-germs-origins-of-food-production.png"
+    "public/moloch.html",
+    "public/grit.html",
+    "public/cognitive-biases.html",
+    "public/static/contentIndex.json",
+    "public/availability-bias.html",
+    "public/index.xml",
+    "public/thinking,-fast-and-slow.html",
+    "content/training/brachialis-rehab-schedule.md",
+    "_drafts/alps2026-writing-prompts.md",
+    "comments-worker/node_modules/@cloudflare/workerd-darwin-arm64/README.md",
+    "comments-worker/node_modules/@img/sharp-libvips-darwin-arm64/README.md",
+    "comments-worker/node_modules/@esbuild/darwin-arm64/README.md",
+    "comments-worker/node_modules/undici/types/README.md",
+    "comments-worker/node_modules/undici/README.md",
+    "comments-worker/node_modules/undici/docs/docs/api/api-lifecycle.md",
+    "comments-worker/node_modules/undici/docs/docs/api/WebSocket.md",
+    "comments-worker/node_modules/undici/docs/docs/api/Util.md",
+    "comments-worker/node_modules/undici/docs/docs/api/Socks5ProxyAgent.md",
+    "comments-worker/node_modules/undici/docs/docs/api/SnapshotAgent.md",
+    "comments-worker/node_modules/undici/docs/docs/api/RoundRobinPool.md",
+    "comments-worker/node_modules/undici/docs/docs/api/RetryHandler.md",
+    "comments-worker/node_modules/undici/docs/docs/api/RetryAgent.md",
+    "comments-worker/node_modules/undici/docs/docs/api/RedirectHandler.md",
+    "comments-worker/node_modules/undici/docs/docs/api/ProxyAgent.md",
+    "comments-worker/node_modules/undici/docs/docs/api/PoolStats.md",
+    "comments-worker/node_modules/undici/docs/docs/api/Pool.md",
+    "comments-worker/node_modules/undici/docs/docs/api/MockPool.md",
+    "comments-worker/node_modules/undici/docs/docs/api/MockErrors.md",
+    "comments-worker/node_modules/undici/docs/docs/api/MockClient.md",
+    "comments-worker/node_modules/undici/docs/docs/api/MockCallHistoryLog.md"
   ]
 }
