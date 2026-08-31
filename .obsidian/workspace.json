@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/training/brachialis-rehab-schedule.md",
+                "file": "content/training/about-the-analyses.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": true,
@@ -52,7 +52,7 @@
                 }
               },
               "icon": "lucide-file",
-              "title": "brachialis-rehab-schedule"
+              "title": "about-the-analyses"
             }
           },
           {
@@ -246,6 +246,7 @@
   },
   "active": "73c6fdd199988414",
   "lastOpenFiles": [
+    "content/training/brachialis-rehab-schedule.md",
     "content/youtube/brachialis-tendon-recovery.md",
     "content/index.md",
     "_drafts/brachialis-youtube-paste.md",
@@ -269,7 +270,6 @@
     "public/availability-bias.html",
     "public/index.xml",
     "public/thinking,-fast-and-slow.html",
-    "content/training/brachialis-rehab-schedule.md",
     "_drafts/alps2026-writing-prompts.md",
     "comments-worker/node_modules/@cloudflare/workerd-darwin-arm64/README.md",
     "comments-worker/node_modules/@img/sharp-libvips-darwin-arm64/README.md",
