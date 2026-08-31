@@ -8,15 +8,15 @@ tags:
   - telemetry
 ---
 
-The training analyses on this site sit on top of a longer-running personal data pipeline: a multi-year spreadsheet of session-by-session entries (lifts, climbs, runs, football, body weight, nutrition) cross-referenced with Garmin telemetry (HRV, RHR, sleep stages, VO2max estimates, stress channel) and the occasional perturbation event (illness, PR, hard trip).
+The training analyses on this site sit on top of a longer-running personal data pipeline: a multi-year spreadsheet (and now a custom-made app) of session-by-session entries (lifts, climbs, runs, football, body weight, nutrition) cross-referenced with Garmin biometrics (HRV, RHR, sleep stages, VO2max estimates, stress channel) and the occasional perturbation event (illness, PR, hard trip).
 
 ## What's measured
 
 The session log holds, for each training day:
 
-- **Sessions** — discipline (climb, lift, run, football, hike), duration, perceived intensity, key sets/loads.
-- **Body composition** — weight (most days), occasional DEXA-style spot-checks.
-- **Nutrition** — protein intake (the binding constraint), total kcal when relevant.
+- **Sessions** — discipline (climb, lift, run, cycling, football, hike, etc), duration, perceived intensity, key sets/loads.
+- **Body composition** — weight (most days), (potentially in the future) occasional DEXA measurements.
+- **Nutrition** — protein intake (the main macro I care about keeping constant), total kcal when relevant.
 - **Subjective state** — sleep quality, niggles, mood.
 
 Garmin handles the autonomic and sleep-architecture layer: resting heart rate, overnight HRV, sleep stages and continuity, stress score, VO2max, training load.
