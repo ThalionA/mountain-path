@@ -14,5 +14,5 @@ This section will have posts related to:
 
 ## Operating principles
 
-I try to adhere to the fundamental [[Training Principles|training principles]]. As an adjunct, I try to use data from my garmin watch about sleep, recovery, stress, etc. The data does not fully dictate my training, but sometimes it does inform my decisions. I try to stay in touch with my own subjective feelings about recovery and so on. 
+I try to adhere to the fundamental [[training-principles|training principles]]. As an adjunct, I try to use data from my garmin watch about sleep, recovery, stress, etc. The data does not fully dictate my training, but sometimes it does inform my decisions. I try to stay in touch with my own subjective feelings about recovery and so on. 
 
