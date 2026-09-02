@@ -1,8 +1,0 @@
-- [[Consistency]]
-- [[Progressive overload (gradualness)]]
-- [[Modulation]]
-- [[Specificity]]
-- [[Simplicity]]
-- Stress needs to be taken into account. Training is a stressor to which the body needs to adapt. Other stressors (life, work, travel) will have additive (if not multiplicative) effects
-- [[Everything is a trade off]] need to be taken into account. Anything you choose to train takes time from something else
--  Test every one-two months in depth. Day to day go by feel
