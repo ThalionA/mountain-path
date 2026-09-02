@@ -21,3 +21,4 @@ For any kind of pursuit, something else needs to be given up (opportunity cost).
 - Hits - false alarms
 - [[pain-is-inescapable|Pain is inescapable]]
 - [[generalism-vs-specialisation|Generalism vs specialisation]] 
+- [[exploration-vs-exploitation]]
