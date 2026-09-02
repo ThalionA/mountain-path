@@ -1,0 +1,4 @@
+- Focus on doing the fundamentals well and consistently
+- 80/20 principle
+- A simpler plan is easier to follow in the long term ([[consistency]]) - related to Occam's razor as well. The more conditions need to be met for you to adhere to a training/nutrition plan, the more likely it is for you to fail to do so. 
+- Also known as the KISS principle (Keep It Simple Stupid)
