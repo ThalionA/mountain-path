@@ -1,7 +1,7 @@
 ---
 title: The Explorer's Gene
 author: Alex Hutchinson
-description:
+description: A book about exploration, with research into related history, neuroscience, evolution etc
 date: 2026-09-02
 tags:
   - psychology
