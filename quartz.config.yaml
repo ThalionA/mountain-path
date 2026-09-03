@@ -226,6 +226,7 @@ plugins:
     enabled: true
     options:
       links:
+        Email: mailto:mountainpath.theo@gmail.com
         YouTube: https://www.youtube.com/@theoamvr
         GitHub: https://github.com/ThalionA/mountain-path
         RSS: https://thaliona.github.io/mountain-path/index.xml

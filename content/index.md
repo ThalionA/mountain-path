@@ -24,3 +24,7 @@ The framing is "the mountain path" because most of what I care about — researc
 ## A note on completeness
 
 Most pages here are stubs, drafts, or work-in-progress. Some sections (book club, YouTube) start with placeholder content while I work out what to pull from my private notes. Expect the site to fill out over time.
+
+## Contact
+
+If anything here is useful, wrong, or worth a conversation — climbing, training, neuroscience, or otherwise — write to [mountainpath.theo@gmail.com](mailto:mountainpath.theo@gmail.com).
