@@ -24,3 +24,4 @@ Here, I almost exclusively use La Sportiva shoes. I've tried the Scarpa Instinct
 ## Mountaineering boots (size 9.5UK, 43-44EU)
 So far I've only owned one pair:
 - Scarpa Charmoz OD
+- 
