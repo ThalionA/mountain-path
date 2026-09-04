@@ -20,6 +20,7 @@ The framing is "the mountain path" because most of what I care about — researc
 - [[musings/index|Musings]] — essays and half-formed thoughts. The interpretive layer that doesn't fit anywhere else.
 - [[youtube/index|YouTube]] — video plans, transcripts, and links to anything that gets published.
 - [[side-projects/index|Side Projects]] — fun side projects, usually with Claude
+- [[content/gear/index|Gear]] - Notes and reviews on gear I use (no sponsors)
 
 ## A note on completeness
 

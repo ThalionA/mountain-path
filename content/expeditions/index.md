@@ -4,7 +4,6 @@ description: Goals, plans, and trip write-ups. Alpine objectives and the project
 tags:
   - section-index
 ---
-
 "Expedition" is the unit I plan around — not single trips, but bounded multi-month projects with an objective, a training arc, a logistics layer, and a post-mortem. Some are literally alpine; others are research blocks or personal projects framed the same way.
 
 For mountain trips, the public write-up usually has:
