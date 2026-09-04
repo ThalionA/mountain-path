@@ -9,8 +9,10 @@ The best "workflow" is to try shoes in a shop, understand which model and size i
 
 ## Running shoes (size 9UK, 43EU)
 I generally prefer Salomon shoes here, both for road and for trail. I haven't really tried other brands so far to be fair, since they fit me quite well and I know the sizing. Might try in the future and update. 
-- Salomon Aero Blaze 3 Grvl GTX
-- Salomon Glide Max
+- Salomon Aero Blaze 3 Grvl GTX (on trails only)
+- Salomon Glide Max (for road only)
+- Salomon Sense Ride 5 (nice and light, can do both road and trails)
+- Salomon Speedcross 4 (ran a lot with them - now retired)
 
 ## Climbing shoes (size 7.5UK, 41EU)
 Here, I almost exclusively use La Sportiva shoes. I've tried the Scarpa Instinct VS and didn't love them. 
