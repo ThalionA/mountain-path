@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kilter Board Explainer</title>
+<meta name="description" content="Why is this problem a V6? Every Kilter Board Original problem explained as a sum of hold contributions, an angle curve and a costed move sequence — and your own logbook read against the same model, in your browser.">
+<style>
+  :root {
+    --bg: #f3f2ee; --line: #dcdad4; --muted: #878680; --text: #3a3a3a; --head: #1a1a1a;
+    --accent: #2d5a5f; --accent2: #6b8d8d; --hl: rgba(45,90,95,.10); --card: #ffffff;
+    --start: #0fa864; --middle: #1a9bb0; --finish: #c43ab5; --foot: #e0891c;
+    --harder: #c2571a; --easier: #2d5a5f; --warn: #a65d1a;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161617; --line: #2a2b2c; --muted: #6b6a66; --text: #cfcec9; --head: #ebebec;
+      --accent: #7da8a8; --accent2: #4d7878; --hl: rgba(125,168,168,.10); --card: #1f2021;
+      --start: #3ed48d; --middle: #4fc3d8; --finish: #e06fd4; --foot: #f0a94d;
+      --harder: #e8895a; --easier: #7da8a8; --warn: #e0a56a;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161617; --line: #2a2b2c; --muted: #6b6a66; --text: #cfcec9; --head: #ebebec;
+    --accent: #7da8a8; --accent2: #4d7878; --hl: rgba(125,168,168,.10); --card: #1f2021;
+    --start: #3ed48d; --middle: #4fc3d8; --finish: #e06fd4; --foot: #f0a94d;
+    --harder: #e8895a; --easier: #7da8a8; --warn: #e0a56a;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  body { padding: 16px; max-width: 1020px; margin: 0 auto; }
+  h1 { color: var(--head); font-size: 1.7rem; margin: 0 0 4px; letter-spacing: -.01em; }
+  h2 { color: var(--head); font-size: 1.05rem; margin: 0 0 10px; }
+  h3 { color: var(--head); font-size: .95rem; margin: 14px 0 6px; }
+  p { margin: 0 0 8px; }
+  .lede { color: var(--muted); margin-bottom: 14px; max-width: 70ch; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .tabs button { background: transparent; color: var(--muted); border: 0; border-bottom: 3px solid transparent; padding: 8px 12px; font: inherit; font-weight: 600; cursor: pointer; border-radius: 0; }
+  .tabs button[aria-selected="true"] { color: var(--head); border-bottom-color: var(--accent); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: flex-end; }
+  label { font-size: .85rem; color: var(--muted); display: block; }
+  select, input[type=text], input[type=number], input[type=date], textarea { font: inherit; color: var(--text); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
+  input[type=text] { min-width: 260px; }
+  input[type=number] { width: 84px; }
+  textarea { width: 100%; min-height: 120px; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .85rem; }
+  button { font: inherit; font-weight: 600; color: #fff; background: var(--accent); border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; }
+  button.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  button:disabled { opacity: .5; cursor: default; }
+  button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .two { display: grid; grid-template-columns: minmax(280px, 380px) 1fr; gap: 16px; }
+  @media (max-width: 720px) { .two { grid-template-columns: 1fr; } }
+  svg.board { width: 100%; height: auto; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; display: block; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin: 10px 0; }
+  .stat { background: var(--bg); border-radius: 8px; padding: 8px 10px; }
+  .stat .v { font-size: 1.15rem; font-weight: 700; color: var(--head); font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  table { border-collapse: collapse; width: 100%; font-size: .88rem; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+  td.num, th.num { text-align: right; }
+  .tbl { overflow-x: auto; }
+  .bar { height: 10px; border-radius: 5px; background: var(--line); position: relative; overflow: hidden; }
+  .bar i { position: absolute; top: 0; bottom: 0; }
+  .axis { display: grid; grid-template-columns: 170px 1fr 120px; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .axis .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .axis .lab { font-weight: 600; color: var(--head); }
+  .axis .sub { color: var(--muted); font-size: .8rem; display: block; font-weight: 400; }
+  .drop { border: 2px dashed var(--line); border-radius: 12px; padding: 14px; color: var(--muted); }
+  .drop.over { border-color: var(--accent); background: var(--hl); }
+  .note { font-size: .85rem; color: var(--muted); }
+  .warn { color: var(--warn); }
+  .legend span { display: inline-block; margin-right: 12px; font-size: .8rem; color: var(--muted); }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: -1px; border: 2px solid; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+  .chip { background: var(--hl); border-radius: 999px; padding: 2px 10px; font-size: .8rem; color: var(--head); }
+  ul.moves { list-style: none; padding: 0; margin: 0; font-size: .88rem; }
+  ul.moves li { padding: 3px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 24px 1fr auto; gap: 8px; }
+  ul.moves li.crux { color: var(--head); font-weight: 700; }
+  ul.moves li.crux .c { color: var(--harder); }
+  #progress { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; margin: 8px 0; }
+  #progress i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+  datalist { display: none; }
+  .hidden { display: none !important; }
+  details summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<h1>Kilter Board Explainer</h1>
+<p class="lede">Why is this problem a V6? Pick any Kilter Board Original problem and see its grade as a sum of hold contributions, an angle curve and a costed move sequence. Then paste your own logbook and find out which of those parts is yours. Everything runs in your browser; nothing is uploaded.</p>
+<div id="progress"><i></i></div>
+<p id="status" class="note">Loading the board catalogue (36,791 problems, ~3 MB)…</p>
+
+<div class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-tab="a">Why is this a V6?</button>
+  <button role="tab" aria-selected="false" data-tab="b">Which axis is yours?</button>
+</div>
+
+<section id="tab-a">
+  <div class="card">
+    <div class="row">
+      <div><label for="q">Problem</label><input id="q" type="text" list="names" placeholder="start typing a name…" autocomplete="off" disabled><datalist id="names"></datalist></div>
+      <div><label for="angle">Angle</label><select id="angle" disabled></select></div>
+      <div><label for="height">Your height (cm)</label><input id="height" type="number" value="165" min="120" max="220"></div>
+      <div><label for="ape">Ape index (cm)</label><input id="ape" type="number" value="0" min="-20" max="30"></div>
+      <div><button id="random" class="ghost" disabled>Random classic</button></div>
+    </div>
+    <p class="note">Height and ape index only change the drawn sequence and its costs (the model is span-relative). Grades are the community's, frozen in the March 2026 snapshot.</p>
+  </div>
+  <div class="two">
+    <div class="card">
+      <svg class="board" id="board" viewBox="-6 -6 156 168" aria-label="Board map"></svg>
+      <div class="legend" style="margin-top:8px">
+        <span><i style="border-color:var(--start)"></i>start</span><span><i style="border-color:var(--middle)"></i>hand</span>
+        <span><i style="border-color:var(--finish)"></i>finish</span><span><i style="border-color:var(--foot)"></i>foot</span>
+        <span>fill: <b style="color:var(--harder)">harder</b> / <b style="color:var(--easier)">easier</b> than average · arrow width = move cost</span>
+      </div>
+    </div>
+    <div>
+      <div class="card" id="decomp"><h2>Pick a problem</h2><p class="note">The three most-climbed problems on the board are a good start: try the “Random classic” button.</p></div>
+      <div class="card" id="seq"></div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-b" class="hidden">
+  <div class="card">
+    <h2>Your logbook</h2>
+    <p class="note">Three formats work: the <a href="example-logbook.csv" download>CSV template</a> (columns <code>name, angle, date, topped, first_go, attempts</code>), the JSON that the local Kilter puller writes (<code>climbUuid, angle, topped, flashed…</code>), or an Aurora data export (<code>ascents / attempts</code>). Names are matched exactly; a name shared by two problems is skipped, not guessed.</p>
+    <div class="drop" id="drop">Drop a file here, choose one, or paste below. <label style="display:inline"><input type="file" id="file" accept=".csv,.json,.txt" style="display:none"><b style="color:var(--accent);cursor:pointer">Choose a file</b></label></div>
+    <textarea id="paste" placeholder="name,angle,date,topped,first_go,attempts&#10;Bell of the Wall,40,2026-05-01,yes,yes,1"></textarea>
+    <div class="row" style="margin-top:8px">
+      <button id="run" disabled>Read my logbook</button>
+      <button id="example" class="ghost" disabled>Load the example (a synthetic, reach-limited climber)</button>
+      <span class="note" id="bstatus"></span>
+    </div>
+  </div>
+  <div id="results"></div>
+</section>
+
+<p class="note" style="margin-top:20px">Model and data: <a href="/side-projects/kilter-board-difficulty">the write-up</a>. Hold difficulty is the community grade of the climbs a hold appears in (no hold was labelled); the additive model was scored strictly by climb; the sequence model is hand-tuned and never fitted to grades. Grade-relative comparisons use the 40° population, so the style analysis runs at your most-climbed angle and is exact only at 40°.</p>
+
+<script src="kilter-tool.js"></script>
+<script>
+(function () {
+  const $ = (s) => document.querySelector(s);
+  let DATA = null, INDEX = null, BADZ = null, CUR = null, SORTED = [];
+  const fmt = (x, d = 2) => (x === null || x === undefined || Number.isNaN(x)) ? "—" : (+x).toFixed(d);
+  const vname = (g) => DATA.grades[g] || String(g);
+  const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  // ---- tabs ----
+  document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
+    $("#tab-a").classList.toggle("hidden", b.dataset.tab !== "a"); $("#tab-b").classList.toggle("hidden", b.dataset.tab !== "b");
+  }));
+
+  // ---- load ----
+  fetch("kilter-data.json").then(async r => {
+    const total = +r.headers.get("content-length") || 0; const reader = r.body.getReader(); const chunks = []; let got = 0;
+    for (;;) { const { done, value } = await reader.read(); if (done) break; chunks.push(value); got += value.length;
+      if (total) $("#progress i").style.width = (100 * got / total) + "%"; }
+    const blob = new Blob(chunks); return JSON.parse(await blob.text());
+  }).then(d => {
+    DATA = d; INDEX = KT.buildIndex(d); BADZ = KT.badZTable(d.holds).z;
+    SORTED = d.climbs.filter(c => c.g[40]).sort((a, b) => b.g[40][1] - a.g[40][1]);
+    const dl = $("#names"); const frag = document.createDocumentFragment();
+    for (const c of SORTED.slice(0, 4000)) { const o = document.createElement("option"); o.value = c.n; o.label = `${vname(Math.round(c.g[40][0]))} · ${c.st} · ${c.g[40][1]} ascents`; frag.appendChild(o); }
+    dl.appendChild(frag);
+    $("#progress").classList.add("hidden"); $("#status").textContent = `${d.climbs.length.toLocaleString()} problems loaded · ${d.snapshot}.`;
+    ["#q", "#angle", "#random", "#run", "#example"].forEach(s => $(s).disabled = false);
+    drawBoard(null);
+  }).catch(e => { $("#status").textContent = "Could not load the catalogue: " + e.message; $("#status").classList.add("warn"); });
+
+  // ---- pane A ----
+  function findByName(name) { const l = INDEX.byName.get(name.trim().toLowerCase()); if (!l) return null;
+    return l.length === 1 ? l[0] : l.sort((a, b) => ((b.g[40] || [0, 0])[1]) - ((a.g[40] || [0, 0])[1]))[0]; }
+  $("#q").addEventListener("change", () => { const c = findByName($("#q").value); if (c) select(c); });
+  $("#random").addEventListener("click", () => { select(SORTED[Math.floor(Math.random() * 200)]); });
+  $("#angle").addEventListener("change", render);
+  $("#height").addEventListener("change", render); $("#ape").addEventListener("change", render);
+  function select(c) { CUR = c; $("#q").value = c.n;
+    const sel = $("#angle"); sel.innerHTML = ""; const angles = Object.keys(c.g).map(Number).sort((a, b) => a - b);
+    for (const a of angles) { const o = document.createElement("option"); o.value = a; o.textContent = `${a}° · ${vname(Math.round(c.g[a][0]))} · ${c.g[a][1]} ascents`; sel.appendChild(o); }
+    const extra = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70].filter(a => !c.g[a]);
+    for (const a of extra) { const o = document.createElement("option"); o.value = a; o.textContent = `${a}° · not graded here (model only)`; sel.appendChild(o); }
+    sel.value = c.g[40] ? 40 : angles[0]; render(); }
+  function render() { if (!CUR) return; const angle = +$("#angle").value;
+    const ex = KT.explainGrade(CUR, angle, DATA);
+    const ath = KT.athlete(+$("#height").value || 165, +$("#ape").value || 0);
+    const sol = new KT.Problem(CUR.f, DATA.holds, BADZ, ath).solve();
+    drawBoard(CUR, ex, sol);
+    const comm = CUR.g[angle] ? CUR.g[angle][0] : null;
+    const rel = (v) => v > 0 ? `<span style="color:var(--harder)">+${fmt(v)}</span>` : `<span style="color:var(--easier)">${fmt(v)}</span>`;
+    let h = `<h2>${esc(CUR.n)} <span class="note">by ${esc(CUR.st)} · set ${esc(CUR.c)}</span></h2>
+      <div class="stats">
+        <div class="stat"><div class="v">${comm !== null ? vname(Math.round(comm)) : "—"}</div><div class="l">community grade at ${angle}°${comm !== null ? ` (${fmt(comm)} pts, ${CUR.g[angle][1]} ascents)` : ""}</div></div>
+        <div class="stat"><div class="v">${vname(Math.round(ex.predicted))}</div><div class="l">model grade (${fmt(ex.predicted)} pts)</div></div>
+        <div class="stat"><div class="v">${comm !== null ? rel(ex.predicted - comm) : "—"}</div><div class="l">model − community (pts; +2 ≈ one V-grade)</div></div>
+      </div>
+      <h3>Where the grade comes from</h3>
+      <div class="tbl"><table><tr><th>term</th><th class="num">grade-pts</th></tr>
+        <tr><td>model baseline (intercept, before holds and angle)</td><td class="num">${fmt(ex.parts.intercept)}</td></tr>
+        <tr><td>wall angle ${angle}° (vs 40°)</td><td class="num">${rel(ex.parts.angle)}</td></tr>
+        <tr><td>${ex.nHand} hand holds, ${ex.nFoot} feet</td><td class="num">${rel(ex.parts.n_hand + ex.parts.n_foot)}</td></tr>
+        <tr><td>the holds themselves (sum of ${ex.holds.length})</td><td class="num">${rel(ex.holds.reduce((a, x) => a + x.contrib, 0))}</td></tr>
+      </table></div>
+      <h3>The holds that matter most</h3>
+      <div class="tbl"><table><tr><th>hold (x, y in inches)</th><th class="num">contribution</th><th class="num">difficulty w</th><th class="num">per +10°</th></tr>`;
+    const top = ex.holds.slice(0, 4).concat(ex.holds.slice(-3).reverse());
+    for (const hh of top) h += `<tr><td>(${hh.x}, ${hh.y})${DATA.holds[hh.placement].set === 20 ? " · foot chip" : ""}</td><td class="num">${rel(hh.contrib)}</td><td class="num">${fmt(hh.w, 1)}</td><td class="num">${fmt(hh.s, 1)}</td></tr>`;
+    h += `</table></div><p class="note">w is the hold’s difficulty in grade-points when it is the whole problem; a problem’s holds each contribute w ÷ number of hand holds. “Per +10°” is noisy per hold and reliable only as a group average — read it as a hint.</p>`;
+    $("#decomp").innerHTML = h;
+    let s = `<h2>The sequence the model would climb</h2>`;
+    if (!sol) s += `<p class="note">No route found between start and finish within the reach limits — a genuinely long move, or a problem the model cannot read.</p>`;
+    else { const f = sol.f; const crux = sol.moves.reduce((m, x, i) => x.cost > sol.moves[m].cost ? i : m, 0);
+      s += `<div class="stats"><div class="stat"><div class="v">${fmt(f.beta_cost_total, 1)}</div><div class="l">total move cost</div></div>
+        <div class="stat"><div class="v">${fmt(f.beta_cost_max, 2)}</div><div class="l">hardest move</div></div>
+        <div class="stat"><div class="v">${Math.round(100 * f.beta_max_ext)}%</div><div class="l">max foot-to-hand extension (of span)</div></div>
+        <div class="stat"><div class="v">${sol.moves.length}</div><div class="l">hand moves</div></div></div><ul class="moves">`;
+      sol.moves.forEach((m, i) => { s += `<li class="${i === crux ? "crux" : ""}"><span>${i + 1}</span><span>${m.hand} hand → (${DATA.holds[m.to].x}, ${DATA.holds[m.to].y}) · span ${Math.round(100 * m.bridge)}% · extension ${Math.round(100 * m.ext)}%${m.good_foot ? "" : " · <span class=\"warn\">no usable foot</span>"}</span><span class="c">${fmt(m.cost)}</span></li>`; });
+      s += `</ul><p class="note">Minimum-cost sequence over the hand holds (feet follow hands); each move is priced by hand span, foot-to-hand extension, hold difficulty and technique penalties. The crux is highlighted. Real climbers often ladder past this sequence — it is a difficulty estimate, not beta advice.</p>`; }
+    $("#seq").innerHTML = s;
+  }
+  function drawBoard(c, ex, sol) {
+    const svg = $("#board"); const Y = (y) => 156 - y; let s = `<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>`;
+    s += `<rect x="-2" y="-2" width="148" height="160" fill="none" stroke="var(--line)"/>`;
+    for (const k in DATA.holds) { const h = DATA.holds[k]; s += `<circle cx="${h.x}" cy="${Y(h.y)}" r="0.9" fill="var(--line)"/>`; }
+    if (c) { const roleCol = { 12: "var(--start)", 13: "var(--middle)", 14: "var(--finish)", 15: "var(--foot)" };
+      const contrib = {}; if (ex) for (const hh of ex.holds) contrib[hh.placement] = hh.contrib;
+      const seen = new Set();
+      for (const [p, r] of KT.parseFrames(c.f)) { const h = DATA.holds[p]; if (!h || seen.has(p)) continue; seen.add(p);
+        const v = contrib[p]; const fill = v === undefined ? "none" : (v > 0 ? "var(--harder)" : "var(--easier)");
+        const op = v === undefined ? 0 : Math.min(0.85, 0.15 + Math.abs(v) / 1.2);
+        s += `<circle cx="${h.x}" cy="${Y(h.y)}" r="${r === 15 ? 2.6 : 3.4}" fill="${fill}" fill-opacity="${op}" stroke="${roleCol[r] || "var(--muted)"}" stroke-width="1.4"><title>(${h.x}, ${h.y}) ${v !== undefined ? (v > 0 ? "+" : "") + v.toFixed(2) + " pts" : ""}</title></circle>`; }
+      if (sol) { const crux = sol.moves.reduce((m, x, i) => x.cost > sol.moves[m].cost ? i : m, 0);
+        sol.moves.forEach((m, i) => { const a = DATA.holds[m.frm], b = DATA.holds[m.to];
+          s += `<line x1="${a.x}" y1="${Y(a.y)}" x2="${b.x}" y2="${Y(b.y)}" stroke="${i === crux ? "var(--harder)" : "var(--accent)"}" stroke-width="${0.6 + 0.7 * m.cost}" stroke-opacity="0.85" marker-end="url(#arr)"/>`; }); } }
+    svg.innerHTML = s;
+  }
+
+  // ---- pane B ----
+  const drop = $("#drop");
+  drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
+  drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+  drop.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("over"); const f = e.dataTransfer.files[0]; if (f) f.text().then(t => { $("#paste").value = t; runLogbook(); }); });
+  $("#file").addEventListener("change", e => { const f = e.target.files[0]; if (f) f.text().then(t => { $("#paste").value = t; runLogbook(); }); });
+  $("#run").addEventListener("click", runLogbook);
+  $("#example").addEventListener("click", () => fetch("example-logbook.csv").then(r => r.text()).then(t => { $("#paste").value = t; runLogbook(true); }));
+
+  function runLogbook(isExample) {
+    const text = $("#paste").value; if (!text.trim()) { $("#bstatus").textContent = "Paste or drop a logbook first."; return; }
+    let lb; try { lb = KT.parseLogbook(text, INDEX); } catch (e) { $("#bstatus").textContent = e.message; $("#bstatus").classList.add("warn"); return; }
+    $("#bstatus").classList.remove("warn");
+    const rows = KT.career(lb.events); const prof = KT.profile(rows, DATA, { nPerm: 2000 });
+    const dates = rows.map(r => r.first).filter(Boolean).sort(); const mid = dates.length ? dates[Math.floor(dates.length / 2)] : "";
+    const logged = new Set(rows.map(r => r.climb.u)); const rec = KT.recommend(prof, DATA, INDEX, logged);
+    $("#bstatus").textContent = `${lb.format} · ${lb.events.length} events read`;
+    let h = "";
+    if (isExample) h += `<div class="card"><b>Example data.</b> This is a synthetic climber built to be reach-limited — not a real logbook — so you can see what the page does before pasting your own.</div>`;
+    h += `<div class="card"><h2>What was read</h2><div class="chips"><span class="chip">${lb.events.length} events</span><span class="chip">${rows.length} problem × angle</span><span class="chip">${prof.nGraded} with a community grade</span><span class="chip">most-climbed angle ${prof.modal}°</span><span class="chip">${prof.nStyle} used for the style analysis</span></div>`;
+    const dropNotes = [];
+    if (lb.dropped.unknown.length) dropNotes.push(`${lb.dropped.unknown.length} not in the catalogue (skipped): ${esc(lb.dropped.unknown.slice(0, 8).join(", "))}${lb.dropped.unknown.length > 8 ? "…" : ""}`);
+    if (lb.dropped.ambiguous.length) dropNotes.push(`${lb.dropped.ambiguous.length} ambiguous (two problems share the name; skipped, not guessed): ${esc(lb.dropped.ambiguous.slice(0, 5).join(", "))}`);
+    if (dropNotes.length) h += `<p class="note">${dropNotes.join(" · ")}</p>`;
+    h += `</div>`;
+    // pyramid
+    h += `<div class="card"><h2>Pyramid</h2><div class="stats">
+      <div class="stat"><div class="v">${prof.ceiling !== null ? vname(prof.ceiling) : "—"}</div><div class="l">hardest topped</div></div>
+      <div class="stat"><div class="v">${prof.firstGoCeiling !== null ? vname(prof.firstGoCeiling) : "—"}</div><div class="l">hardest first go</div></div>
+      <div class="stat"><div class="v">${Math.round(100 * prof.firstGoRate)}%</div><div class="l">first-go rate at ${prof.modal}°</div></div></div>
+      <div class="tbl"><table><tr><th>community grade</th><th class="num">tried</th><th class="num">topped</th><th class="num">first go</th><th class="num">first-go rate</th><th class="num">mean burns to top</th></tr>`;
+    for (const p of prof.pyramid) h += `<tr><td>${p.name}</td><td class="num">${p.n}</td><td class="num">${p.topped}</td><td class="num">${p.first_go}</td><td class="num">${p.n ? Math.round(100 * p.first_go / p.n) + "%" : "—"}</td><td class="num">${fmt(p.meanBurns, 1)}</td></tr>`;
+    h += `</table></div></div>`;
+    // axes
+    h += `<div class="card"><h2>Which axis separates your first-go problems from the rest?</h2><p class="note">At exactly matched community grade, at ${prof.modal}°: first-go problems minus the others, in population standard deviations. Negative = your first-go problems are easier on that axis than the ones you had to work. p from ${2000} label permutations within grade; q = false-discovery-rate corrected across the four axes.</p>`;
+    for (const a of prof.axes) { const v = a.obs, w = Number.isNaN(v) ? 0 : Math.min(50, Math.abs(v) * 50);
+      h += `<div class="axis"><div class="lab">${a.label}<span class="sub">n = ${a.n}</span></div><div class="bar"><i style="left:${v < 0 ? 50 - w : 50}%;width:${w}%;background:${a.q < 0.05 ? "var(--harder)" : "var(--accent2)"}"></i><i style="left:50%;width:1px;background:var(--muted)"></i></div><div class="num">${Number.isNaN(v) ? "too few" : `${v > 0 ? "+" : ""}${fmt(v)} SD<br><span class="note">p ${fmt(a.p, 3)} · q ${fmt(a.q, 3)}</span>`}</div></div>`; }
+    const sig = prof.axes.filter(a => a.q < 0.05 && a.obs < 0).sort((a, b) => a.q - b.q);
+    h += `<p style="margin-top:10px">${sig.length ? `<b>Reading:</b> ${sig.map(a => a.label).join(" and ")} ${sig.length > 1 ? "separate" : "separates"} your first-go problems from the ones you worked. ${sig[0].key === "mb" ? "Hold quality is your limiter — steepness will hurt you more than it hurts the grade." : sig[0].key === "bmax" || sig[0].key === "bext" ? "Move difficulty conditioned on the available feet is your limiter — the fix is footwork and body position on the moves where the feet run out, not a hangboard." : "The raw distance between holds is your limiter."}` : "<b>Reading:</b> no axis survives correction — at this logbook size nothing separates your first-go problems beyond the grade itself."}</p>
+      <p class="note">This is a comparison inside what you chose to climb; it cannot tell what you can do from what you decided to try. One block of sessions is a sample, not a trait — see the split below.</p></div>`;
+    // block split
+    h += `<div class="card"><h2>Does it survive a split?</h2><div class="row"><div><label for="split">Split at first-encounter date</label><input type="date" id="split" value="${mid}"></div><button id="dosplit" class="ghost">Split</button></div><div id="splitout"></div></div>`;
+    // recommendations
+    if (rec.axis) { const ax = rec.axis; const zc = (x) => `${x.z[ax.key] > 0 ? "+" : ""}${fmt(x.z[ax.key], 1)}`;
+      h += `<div class="card"><h2>Problems to try, at ${rec.angle}°</h2><p class="note">Direction is taken from your data: ${ax.q < 0.05 ? `your most reliably adverse axis is <b>${ax.label}</b>` : `no axis is significant yet, so the most adverse one (<b>${ax.label}</b>) is used provisionally`}. Well-rated (≥ 2.7 stars), established (≥ 30 ascents), not yet in your logbook. Each list is a style ranking, not a flash probability.</p>
+        <div class="two"><div><h3>Play to your strengths — ${vname(rec.ceiling)} to ${vname(rec.ceiling + 1)}, easiest on your limiting axis</h3><div class="tbl"><table><tr><th>problem</th><th>grade</th><th class="num">${ax.label} (SD)</th></tr>`;
+      for (const x of rec.picks) h += `<tr><td>${esc(x.c.n)}<br><span class="note">${esc(x.c.st)} · ${x.c.g[rec.angle][1]} ascents</span></td><td>${vname(x.gR)}</td><td class="num">${zc(x)}</td></tr>`;
+      h += `</table></div></div><div><h3>Train the weakness — two to four grades down, hardest on that axis, ordinary otherwise</h3><div class="tbl"><table><tr><th>problem</th><th>grade</th><th class="num">${ax.label} (SD)</th></tr>`;
+      for (const x of rec.trainers) h += `<tr><td>${esc(x.c.n)}<br><span class="note">${esc(x.c.st)} · ${x.c.g[rec.angle][1]} ascents</span></td><td>${vname(x.gR)}</td><td class="num">${zc(x)}</td></tr>`;
+      h += `</table></div></div></div></div>`; }
+    $("#results").innerHTML = h;
+    $("#dosplit").addEventListener("click", () => {
+      const d = $("#split").value; if (!d) return; const bs = KT.blockSplit(prof, d, 2000);
+      let t = `<div class="tbl" style="margin-top:10px"><table><tr><th>axis</th><th class="num">before ${d} (n)</th><th class="num">after (n)</th><th class="num">difference</th></tr>`;
+      for (const b of bs) t += `<tr><td>${b.label}</td><td class="num">${Number.isNaN(b.c1.obs) ? "too few" : `${fmt(b.c1.obs)} SD, p ${fmt(b.c1.p, 3)}`} (${b.n1})</td><td class="num">${Number.isNaN(b.c2.obs) ? "too few" : `${fmt(b.c2.obs)} SD, p ${fmt(b.c2.p, 3)}`} (${b.n2})</td><td class="num">${Number.isNaN(b.inter.obs) ? "—" : `${b.inter.obs > 0 ? "+" : ""}${fmt(b.inter.obs)}, p ${fmt(b.inter.p, 3)}`}</td></tr>`;
+      t += `</table></div><p class="note">If an axis that was significant before the split is near zero after it, treat the earlier reading as a block effect, not a trait. The “difference” p shuffles the block label within (grade, outcome) cells, so grade mix and success rate are held fixed.</p>`;
+      $("#splitout").innerHTML = t;
+    });
+    $("#dosplit").click();
+  }
+})();
+</script>
+</body>
+</html>
