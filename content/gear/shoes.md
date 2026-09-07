@@ -21,6 +21,10 @@ Here, I almost exclusively use La Sportiva shoes. I've tried the Scarpa Instinct
 - La Sportiva Skwama Lite (very nice fit out of the box, not too aggressive, good all-rounder at a more reasonable price)
 - La Sportiva Theory (quite soft, not amazing for small footholds)
 
+## Approach Shoes (size 9UK, 43EU)
+So far, I've only owned 2 pairs of the same model:
+- La Sportiva TX5 Evo GTX (great, waterproof, stiff toe for scrambling etc)
+
 ## Mountaineering boots (size 9.5UK, 43-44EU)
 So far I've only owned one pair:
 - Scarpa Charmoz OD (B2, so far good for Scottish winter and for [[alps2026|Alpine summer]])
