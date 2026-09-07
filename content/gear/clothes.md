@@ -13,3 +13,6 @@ tags:
 ## Warm Layers
 - Simond Mountaineering Jacket
 - Mountain Equipment Superflux Jacket
+
+## Gloves
+- Rab Guide GTX - I recently (September 2026) bought these for the upcoming winter season
