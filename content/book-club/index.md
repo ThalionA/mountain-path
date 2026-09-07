@@ -25,14 +25,17 @@ Audiobooks get the same treatment as physical reads. Footnotes are where you fin
 
 ## Psychology, attention, and rationality
 
+- [[algorithms-to-live-by|Algorithms to Live By — Brian Christian & Tom Griffiths]] — Computer-science algorithms as practical advice for everyday decisions: optimal stopping, caching, scheduling, and [[exploration-vs-exploitation|exploration vs exploitation]].
 - [[attention-span|Attention Span — Gloria Mark]] — How the human attention span has changed (45 seconds, down from 2.5 minutes in 2004), what drives it, and what cognitive-resource depletion actually is — with my own neuroscience-tinged questions.
 - [[comfort-crisis|The Comfort Crisis — Michael Easter]] — On engineering discomfort back into modern life: boredom, silence, hunger, hard physical work, awareness of death.
+- [[the-explorers-gene|The Explorer's Gene — Alex Hutchinson]] — Why humans explore, via the history, evolution and neuroscience of the urge — and a long treatment of [[exploration-vs-exploitation|exploration vs exploitation]]. I preferred *Endure*.
 - [[rationality|Rationality — Steven Pinker]] — Where humans are systematically rational vs systematically not. Formal and informal fallacies, signal detection, framing effects, and the my-side bias.
 - [[thinking-fast-and-slow|Thinking, Fast and Slow — Daniel Kahneman]] — The two-systems model of thinking. One of the best books I've ever read, and the one I've gifted most often.
 
 ## Training and toughness
 
 - [[do-hard-things|Do Hard Things — Steve Magness]] — Real toughness vs performative toughness; building resilience vs filtering for who's already tough.
+- [[endure|Endure — Alex Hutchinson]] — The brain as central governor: endurance limits are set well below where the body would actually break.
 
 > [!note] More notes incoming
 > This shelf will grow as I work through new reads and as I write up the books where I currently only have raw highlights.
