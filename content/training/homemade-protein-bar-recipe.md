@@ -9,6 +9,8 @@ tags:
 ---
 It's a super easy and fast process. 
 
+![Two thick homemade protein bars on a black plate, glossy dark chocolate tops flecked with peanut, dense oaty crumb studded with blueberries in the cut face](attachments/protein_bars.jpg)
+
 ## Ingredients
 - 280g Whey Protein
 - 150g Oats
