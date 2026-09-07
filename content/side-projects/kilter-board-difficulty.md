@@ -37,7 +37,7 @@ The first pass at prediction was a Deep-Sets network fed raw hold ids: it read g
 
 The second pass is a sum. One term per hold (its difficulty), one term per hold per degree of angle, the angle curve above, the counts of hands and feet, three geometry numbers, and six features from a *sequence* model — a shortest-path search over the hand holds that prices each move by hand span, how far the hands must travel beyond the available feet, hold difficulty and technique penalties (cross-throughs, matches, bumps). The sequence model is hand-tuned and was never fitted to grades; on its own its total cost correlates +0.77 to +0.80 with community grade at every angle.
 
-Scored strictly by problem (no problem informs its own prediction, and every derived feature is rebuilt inside the fold), the additive model scores 1.48 on exactly the test rows where the network scored 1.52, with 72 % within one V-grade. Better, and every point is accounted for: the holds are worth 1.3 points of error, the angle curve 0.06, the move sequence 0.37. The network's edge was never "raw hold identities"; it was interactions between holds, which the sequence model prices as moves.
+Scored strictly by problem (no problem informs its own prediction, and every derived feature is rebuilt inside the fold), the additive model scores 1.41 on exactly the test rows where the network scored 1.52, with 74 % within one V-grade. Better, and every point is accounted for: the holds are worth 1.3 points of error, the angle curve 0.06, geometry and the move sequence together 0.43. The network's edge was never "raw hold identities"; it was interactions between holds, which the sequence model prices as moves.
 
 The tool below shows the sum for any problem: which holds carry the grade, what the angle adds, and which move the model thinks is the crux.
 
@@ -65,7 +65,7 @@ Or paste a logbook into the tool.
 
 <iframe src="/side-projects/kilter/board" style="width:100%;height:1700px;border:0;border-radius:12px" title="Kilter Board Explainer" loading="lazy"></iframe>
 
-Open it full-screen: [Kilter Board Explainer](/side-projects/kilter/board). Nothing is uploaded — the catalogue (about 3 MB) loads into your browser and the logbook analysis runs there. It reads the CSV template, the JSON from the local Kilter puller, and an Aurora data export; names are matched exactly and ambiguous ones are skipped, not guessed. The grade-relative comparisons use the 40° population, so the logbook analysis runs at your most-climbed angle and is exact only at 40°.
+Open it full-screen: [Kilter Board Explainer](/side-projects/kilter/board). Nothing is uploaded — the catalogue (about 3 MB) loads into your browser and the logbook analysis runs there. It reads the CSV template, the JSON from the local Kilter puller, and an Aurora data export; names are matched exactly and ambiguous ones are skipped, not guessed. The grade-relative comparisons use the 40° population, so the logbook analysis runs at your most-climbed angle and is exact only at 40°. The logbook pane now also folds your four contrasts into one style score and lists **easy targets** above your ceiling (up to 8a+/V12, selectable) and **hard targets** below it — the problems that look most like the ones you do first go, and the ones that look most like the ones you fail.
 
 ## Method notes, briefly
 

@@ -349,6 +349,30 @@
     return { axis, picks, trainers, angle: modal, ceiling: ceil };
   }
 
-  return { W, BRIDGE_OK, EXT_OK, athlete, parseFrames, badZTable, Problem, explainGrade, stratContrast, bhFdr, mean, sd,
+  function styleTargets(prof, data, index, loggedSet, opts = {}) {
+    // One style vector: each axis weighted by the user's own grade-matched first-go contrast.
+    //   s(problem) = Σ_k c_k · z_k / Σ_k |c_k|   (c_k < 0 ⇒ first-goes sit LOW on axis k ⇒ low z scores high)
+    // s > 0 = the user's style, s < 0 = anti-style. No fit, no threshold; an indifferent axis contributes nothing.
+    const c = {}; let wsum = 0;
+    for (const a of prof.axes) { const v = Number.isNaN(a.obs) ? 0 : a.obs; c[a.key] = v; wsum += Math.abs(v); }
+    if (!(wsum > 0) || prof.ceiling === null) return null;
+    const clamp = (v) => Math.max(-3, Math.min(3, v));                       // winsorise: one absurd move must not own a list
+    const score = (z) => AXES.reduce((s, ax) => s + c[ax.key] * clamp(z[ax.key] ?? 0), 0) / wsum;
+    const modal = prof.modal, ceil = prof.ceiling, n = opts.n || 8;
+    const maxGrade = Math.min(opts.maxGrade ?? (ceil + 5), 28);
+    const pool = data.climbs.filter(cl => cl.g[modal] && !loggedSet.has(cl.u) && cl.g[modal][2] >= (opts.minQuality ?? 2.7) && cl.g[modal][1] >= (opts.minAsc ?? 30));
+    const scored = [];
+    for (const cl of pool) { const gR = Math.round(cl.g[modal][0]); if (!data.pop40[gR]) continue;
+      const z = Object.fromEntries(AXES.map(ax => [ax.key, zAgainst(data, ax.key, ax.from(cl), gR)]));
+      if (AXES.some(ax => z[ax.key] === null)) continue;
+      scored.push({ c: cl, gR, z, s: score(z) }); }
+    const byGrade = (lo, hi, asc) => { const out = [];
+      for (let g = lo; g <= hi; g++) { const items = scored.filter(x => x.gR === g).sort((a, b) => asc ? a.s - b.s : b.s - a.s).slice(0, n);
+        if (items.length) out.push({ grade: g, items }); }
+      return out; };
+    return { c, wsum, angle: modal, ceiling: ceil, maxGrade, easy: byGrade(ceil, maxGrade, false), hard: byGrade(Math.max(10, ceil - 5), ceil - 1, true), scoreOf: score };
+  }
+
+  return { W, BRIDGE_OK, EXT_OK, athlete, parseFrames, badZTable, Problem, explainGrade, stratContrast, bhFdr, mean, sd, styleTargets,
            buildIndex, resolveName, resolveUuid, gradeAt, parseCSV, parseLogbook, career, profile, blockSplit, recommend, AXES, zAgainst };
 });

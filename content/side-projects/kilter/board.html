@@ -287,14 +287,19 @@
       <p class="note">This is a comparison inside what you chose to climb; it cannot tell what you can do from what you decided to try. One block of sessions is a sample, not a trait — see the split below.</p></div>`;
     // block split
     h += `<div class="card"><h2>Does it survive a split?</h2><div class="row"><div><label for="split">Split at first-encounter date</label><input type="date" id="split" value="${mid}"></div><button id="dosplit" class="ghost">Split</button></div><div id="splitout"></div></div>`;
-    // recommendations
-    if (rec.axis) { const ax = rec.axis; const zc = (x) => `${x.z[ax.key] > 0 ? "+" : ""}${fmt(x.z[ax.key], 1)}`;
-      h += `<div class="card"><h2>Problems to try, at ${rec.angle}°</h2><p class="note">Direction is taken from your data: ${ax.q < 0.05 ? `your most reliably adverse axis is <b>${ax.label}</b>` : `no axis is significant yet, so the most adverse one (<b>${ax.label}</b>) is used provisionally`}. Well-rated (≥ 2.7 stars), established (≥ 30 ascents), not yet in your logbook. Each list is a style ranking, not a flash probability.</p>
-        <div class="two"><div><h3>Play to your strengths — ${vname(rec.ceiling)} to ${vname(rec.ceiling + 1)}, easiest on your limiting axis</h3><div class="tbl"><table><tr><th>problem</th><th>grade</th><th class="num">${ax.label} (SD)</th></tr>`;
-      for (const x of rec.picks) h += `<tr><td>${esc(x.c.n)}<br><span class="note">${esc(x.c.st)} · ${x.c.g[rec.angle][1]} ascents</span></td><td>${vname(x.gR)}</td><td class="num">${zc(x)}</td></tr>`;
-      h += `</table></div></div><div><h3>Train the weakness — two to four grades down, hardest on that axis, ordinary otherwise</h3><div class="tbl"><table><tr><th>problem</th><th>grade</th><th class="num">${ax.label} (SD)</th></tr>`;
-      for (const x of rec.trainers) h += `<tr><td>${esc(x.c.n)}<br><span class="note">${esc(x.c.st)} · ${x.c.g[rec.angle][1]} ascents</span></td><td>${vname(x.gR)}</td><td class="num">${zc(x)}</td></tr>`;
-      h += `</table></div></div></div></div>`; }
+    // targets from style: easy above the ceiling, hard below it
+    const tg = KT.styleTargets(prof, DATA, INDEX, logged, { maxGrade: Math.min(prof.ceiling + 5, 28) });
+    if (tg) {
+      const wtxt = KT.AXES.map(ax => `${ax.label} ${tg.c[ax.key] > 0 ? "+" : ""}${fmt(tg.c[ax.key])}`).join(" · ");
+      const zcell = (x) => KT.AXES.slice(0, 3).map(ax => `<span title="${ax.label}">${x.z[ax.key] > 0 ? "+" : ""}${fmt(x.z[ax.key], 1)}</span>`).join(" / ");
+      const table = (groups) => { let s = ""; for (const g of groups) { s += `<h3>${vname(g.grade)}</h3><div class="tbl"><table><tr><th>problem</th><th class="num">ascents</th><th class="num">style score</th><th class="num" title="hold quality / hardest move / foot-conditioned reach, SD from the grade mean">holds / move / reach (SD)</th></tr>`;
+        for (const x of g.items) s += `<tr><td>${esc(x.c.n)}<br><span class="note">${esc(x.c.st)} · ${x.c.g[tg.angle][2].toFixed(2)}★</span></td><td class="num">${x.c.g[tg.angle][1]}</td><td class="num"><b>${x.s > 0 ? "+" : ""}${fmt(x.s)}</b></td><td class="num note">${zcell(x)}</td></tr>`;
+        s += `</table></div>`; } return s; };
+      const gradeOpts = []; for (let g = prof.ceiling; g <= 28; g++) if (DATA.grades[g]) gradeOpts.push(`<option value="${g}" ${g === tg.maxGrade ? "selected" : ""}>${vname(g)}</option>`);
+      h += `<div class="card"><h2>Targets from your style</h2><p class="note">One score per problem: each axis weighted by <i>your</i> grade-matched contrast, so it reads as “how much this problem looks like the ones you do first go” — positive is your style, negative is your anti-style. Weights now: ${wtxt}. Unlogged, ≥ 2.7 stars, ≥ 30 ascents, at ${tg.angle}°. A ranking within each grade, not a probability; above your ceiling nothing is calibrated.</p>
+        <div class="two"><div><h3 style="margin-top:0">Easy targets — your style, from ${vname(tg.ceiling)} up to <select id="maxg">${gradeOpts.join("")}</select></h3><div id="easy">${table(tg.easy)}</div></div>
+        <div><h3 style="margin-top:0">Hard targets — your anti-style, ${vname(Math.max(10, tg.ceiling - 5))} to ${vname(tg.ceiling - 1)}</h3><p class="note">The problems that sit where your failures sit. Work these to move the weak axis; the score tells you which axis each one loads.</p>${table(tg.hard)}</div></div></div>`;
+    }
     $("#results").innerHTML = h;
     $("#dosplit").addEventListener("click", () => {
       const d = $("#split").value; if (!d) return; const bs = KT.blockSplit(prof, d, 2000);
@@ -304,6 +309,15 @@
       $("#splitout").innerHTML = t;
     });
     $("#dosplit").click();
+    const mg = $("#maxg");
+    if (mg) mg.addEventListener("change", () => {
+      const tg2 = KT.styleTargets(prof, DATA, INDEX, logged, { maxGrade: +mg.value });
+      const zcell = (x) => KT.AXES.slice(0, 3).map(ax => `<span title="${ax.label}">${x.z[ax.key] > 0 ? "+" : ""}${fmt(x.z[ax.key], 1)}</span>`).join(" / ");
+      let s = ""; for (const g of tg2.easy) { s += `<h3>${vname(g.grade)}</h3><div class="tbl"><table><tr><th>problem</th><th class="num">ascents</th><th class="num">style score</th><th class="num">holds / move / reach (SD)</th></tr>`;
+        for (const x of g.items) s += `<tr><td>${esc(x.c.n)}<br><span class="note">${esc(x.c.st)} · ${x.c.g[tg2.angle][2].toFixed(2)}★</span></td><td class="num">${x.c.g[tg2.angle][1]}</td><td class="num"><b>${x.s > 0 ? "+" : ""}${fmt(x.s)}</b></td><td class="num note">${zcell(x)}</td></tr>`;
+        s += `</table></div>`; }
+      $("#easy").innerHTML = s;
+    });
   }
 })();
 </script>
