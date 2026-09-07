@@ -5,6 +5,6 @@ tags:
   - section-index
 ---
 
-One note per month, written just after it ends. These are the public layer of a private monthly review that runs much deeper — the version here keeps the performance outputs (times, grades, lifts, volumes, PBs), monthly weight and fuelling aggregates, and the decisions worth explaining, and leaves out the day-by-day telemetry and the live decision system, per the standing policy in [[training/about-the-analyses|about the analyses]].
+One note per month, written just after it ends. These are the public layer of a private monthly review that runs much deeper — the version here keeps the performance outputs (times, grades, lifts, volumes, PBs), the month's recovery, weight and fuelling telemetry at daily resolution, and the decisions worth explaining, and leaves out the live decision system and the wider health context, per the standing policy in [[training/about-the-analyses|about the analyses]].
 
 Two rules I hold myself to in these: numbers are quoted with their measurement window, and a "PB" only counts if the effort was actually maximal — a fast training run is not a race, however much the watch wants it to be one.
