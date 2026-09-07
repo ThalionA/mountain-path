@@ -13,8 +13,9 @@ For mountain trips, the public write-up usually has:
 - **Trip narrative** — after the fact, what happened and what I learned. Failures get equal billing with summits.
 
 ## Current Expeditions
-- [[alps2026|Alps 2026]]
+- *Nothing scheduled yet — next block TBD.*
 ## Past Expeditions
+- [[alps2026|Alps 2026]] — Walliser Alps & Monte Rosa, June–July 2026
 - [[ebc2023|Everest Base Camp 2023]]
 ## Tools
 - [[gpx_files|GPX files for navigation]]
