@@ -9,6 +9,7 @@ Some things don't belong in a paper note, a training log, or a book entry. They'
 
 The pieces here range from a paragraph to a short essay. I keep them dated, because I expect I might disagree with past-me.
 
+- [[exploration-vs-exploitation|Exploration vs exploitation]] *(2026-09-02)* — The trade-off between trying something new and doubling down on what already works, and where it shows up across neuroscience, training and everyday choices.
 - [[zen-in-the-art-of-climbing|Zen in the art of climbing]] *(2025-05-24)* — On the impossibility of writing about Zen, the trap of grading rocks, and why our best climbs are the ones where the "I" disappears.
 - [[everything-is-a-trade-off|Everything is a trade off]] *(2024-10-18)* — Every pursuit gives up something else. The opportunity-cost view.
 - [[pain-is-inescapable|Pain is inescapable]] *(2024-07-25)* — We can't avoid pain; the brain normalises. What we can do is choose *which* pain we live with.
