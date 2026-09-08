@@ -1,6 +1,6 @@
 ---
 title: Pigne de la Lé
-description: 3396 m, F/PD- — first Alpine summit. Traverse NW ridge to SSW ridge direction, 23 June 2026.
+description: 3396 m, F/PD - first Alpine summit. Traverse NW ridge to SSW ridge direction, 23 June 2026.
 ---
 The first Alpine summit I ever stood on, and deliberately the easiest thing on the [[alps2026|Alps 2026]] list - essentially an acclimatisation day and testing that our gear etc work.
 ![View from the summit of Pigne de la Lé, with the Matterhorn in the background](pigne_de_la_le_summit.JPG)
@@ -9,7 +9,7 @@ The first Alpine summit I ever stood on, and deliberately the easiest thing on t
 |              |                                                                             |
 | ------------ | --------------------------------------------------------------------------- |
 | **Altitude** | 3396 m                                                                      |
-| **Grade**    | F / PD-                                                                     |
+| **Grade**    | F / PD                                                                      |
 | **Date**     | Tue 23 June 2026                                                            |
 | **Base**     | Cabane de Moiry (2825 m)                                                    |
 | **Route**    | NNW ridge, via the Col du Pigne (3140 m), traverse and descent by SSW ridge |
