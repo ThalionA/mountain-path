@@ -3,7 +3,8 @@ title: Pigne de la Lé
 description: 3396 m, F/PD- — first Alpine summit. Traverse NW ridge to SSW ridge direction, 23 June 2026.
 ---
 The first Alpine summit I ever stood on, and deliberately the easiest thing on the [[alps2026|Alps 2026]] list - essentially an acclimatisation day and testing that our gear etc work.
-![The view from the summit of Pigne de la Lé, with Mattehorn in the background](pigne_de_la_le_summit.JPG)
+![View from the summit of Pigne de la Lé, with the Matterhorn in the background](pigne_de_la_le_summit.JPG)
+*View from the summit of Pigne de la Lé, with the Matterhorn in the background on the right, and Weisshorn in the centre (Bishorn being its little left rounded shoulder)*
 
 |              |                                                                             |
 | ------------ | --------------------------------------------------------------------------- |
