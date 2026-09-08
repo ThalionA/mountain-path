@@ -4,11 +4,9 @@ description: Goals, plans, and trip write-ups. Alpine objectives and the project
 tags:
   - section-index
 ---
-"Expedition" is the unit I plan around — not single trips, but bounded multi-month projects with an objective, a training arc, a logistics layer, and a post-mortem. Some are literally alpine; others are research blocks or personal projects framed the same way.
-
-For mountain trips, the public write-up usually has:
+For mountain trips, the write-up will have some/all of the following:
 - **Objective and constraints** — what I'm trying to climb, the season, partner logistics.
-- **Training arc** — the block leading into it, benchmarks I'm using as green-light criteria.
+- **Training arc** — the block leading into it, benchmarks I'm using on the way etc. Trying to adhere to [[training-principles]] learned from the book [[training-for-the-new-alpinism|Training for the New Alpinism]]
 - Logistics, planning, itinerary
 - **Trip narrative** — after the fact, what happened and what I learned. Failures get equal billing with summits.
 
