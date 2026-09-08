@@ -4,27 +4,15 @@ description: Notes on books I'm reading or listening to — what I took from eac
 tags:
   - section-index
 ---
-
-I read across philosophy, science, mountaineering, and history, with the occasional novel. Most of what I keep are short notes on what each book changed in how I think — not chapter summaries, not ratings. Where I have my own synthesis worth publishing, the entry shows up here. Where I just have raw Kindle highlights and nothing else, I keep those private — they're useful as a memory aid for me but not really mine to publish.
-
-A typical entry has:
-
-- **Why I picked it up** — the question or curiosity that led me there.
-- **What it changed** — concretely, what I'd answer differently after reading.
-- **What I disagreed with** — places I think the author overreached.
-- **Threads** — links to other books or concepts on this site.
-
-Audiobooks get the same treatment as physical reads. Footnotes are where you find me.
+I read across philosophy, science, mountaineering, and history, with the occasional novel. Most of what I keep are short notes on what each book changed in how I think — not chapter summaries, not ratings. Where I have my own synthesis worth publishing, the entry shows up here. Where I just have raw Kindle highlights and nothing else, I keep those private — they're useful as a memory aid for me but not really mine to publish. These are from physical books, e-books, and audiobooks. 
 
 ## Big-picture history and science
-
 - [[enlightenment-now|Enlightenment Now — Steven Pinker]] — The case that reason, science, humanism, and progress have driven enormous improvements in human well-being, and why we systematically underestimate them.
 - [[guns-germs-and-steel|Guns, Germs, and Steel — Jared Diamond]] — Why Europeans colonised the Americas, Australia, and Africa rather than the other way around — and why the answer is "real estate luck" rather than racial or cultural superiority.
 - [[inheritance|Inheritance — Harvey Whitehouse]] — The three behavioural patterns common to all human cultures (conformism, religiosity, tribalism), and how rituals, agriculture, and identity fusion produced the societies we live in.
 - [[nexus|Nexus — Yuval Noah Harari]] — Information as the thing that *connects* rather than *represents*, and the dictatorship-to-democracy continuum understood through how information flows.
 
 ## Psychology, attention, and rationality
-
 - [[algorithms-to-live-by|Algorithms to Live By — Brian Christian & Tom Griffiths]] — Computer-science algorithms as practical advice for everyday decisions: optimal stopping, caching, scheduling, and [[exploration-vs-exploitation|exploration vs exploitation]].
 - [[attention-span|Attention Span — Gloria Mark]] — How the human attention span has changed (45 seconds, down from 2.5 minutes in 2004), what drives it, and what cognitive-resource depletion actually is — with my own neuroscience-tinged questions.
 - [[comfort-crisis|The Comfort Crisis — Michael Easter]] — On engineering discomfort back into modern life: boredom, silence, hunger, hard physical work, awareness of death.
@@ -32,8 +20,8 @@ Audiobooks get the same treatment as physical reads. Footnotes are where you fin
 - [[rationality|Rationality — Steven Pinker]] — Where humans are systematically rational vs systematically not. Formal and informal fallacies, signal detection, framing effects, and the my-side bias.
 - [[thinking-fast-and-slow|Thinking, Fast and Slow — Daniel Kahneman]] — The two-systems model of thinking. One of the best books I've ever read, and the one I've gifted most often.
 
-## Training and toughness
-
+## Training, endurance, and related
+- [[training-for-the-new-alpinism|Training for the New Alpinism - Steve House and Scott Johnston]] - The ultimate training book for mountaineering.
 - [[do-hard-things|Do Hard Things — Steve Magness]] — Real toughness vs performative toughness; building resilience vs filtering for who's already tough.
 - [[endure|Endure — Alex Hutchinson]] — The brain as central governor: endurance limits are set well below where the body would actually break.
 
