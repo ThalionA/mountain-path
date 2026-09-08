@@ -35,9 +35,9 @@ Everything splits evenly down the middle — two people, one pooled budget.
 
 ## The three lessons
 
-1. **Food was the big miss.** £626 against a plan of £130–215 — the single worst estimate in the budget. The assumption that "half-board covers most dinners" collapsed against a self-catering camping base: repeated supermarket shops in three countries, plus valley restaurant meals on rest days. Budget food as if the huts feed you on hut nights only, and as if every other day is a normal holiday.
-2. **Fuel ran over.** ~2,400 km round trip at a real-world 52 mpg is roughly 130 litres of diesel, but across UK, French, Swiss and Italian pumps. Driving still won on gear capacity — no airline restrictions on sharp objects or lithium batteries, and no re-booking penalty for extending.
-3. **Alpine insurance came in under plan, via a side door.** Two **Austrian Alpine Club memberships at £57.50 each** covered worldwide alpine rescue and repatriation across both Switzerland and Italy, replacing the separate REGA membership plus travel policy the budget had assumed. £115 total against £97–147 planned, for better cover.
+1. **Food was the big miss.** £626 against a plan of £250-300 — the single worst estimate in the budget. Many visits to supermarkets (with high prices of meat in Switzerland..), plus some meals at restaurants put us over. Budget food as if the huts feed you on hut nights only, and as if every other day is a normal holiday.
+2. **Fuel ran over.** ~2,400 km round trip at a real-world 52 mpg is roughly 130 litres of diesel, but across UK, French, Swiss and Italian pumps. Driving still won on gear capacity and flexibility in case of bad weather etc. 
+3. **Alpine insurance was cheaper than expected.** Two **Austrian Alpine Club memberships at £57.50 each** covered worldwide alpine rescue and repatriation across both Switzerland and Italy, replacing the separate REGA membership plus travel policy the budget had assumed. £115 total against £97–147 planned, for better cover.
 
 ## Not in these numbers
 

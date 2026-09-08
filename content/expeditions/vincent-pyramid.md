@@ -18,19 +18,19 @@ The second 4000er of [[alps2026|Alps 2026]], the hardest ground of the trip, and
 
 The *voie normale* runs from the Rifugio Gnifetti onto the **Lysgletscher**, north along the western flank to the glacier plateau at 4000–4050 m, then sharply east toward the Colle Vincent and up the **NW snow slopes**.
 
-We took a **technical SSW→SE ridge variant** instead — chosen to avoid a long glacier plod and to make a shorter day with a storm in the forecast. Mixed snow, ice and rock, above the PD ceiling the trip was planned around.
+We took a more **technical SSW→SE ridge variant** instead — chosen to avoid a long glacier plod and to make a shorter day with a storm in the forecast. Mixed snow, ice and rock, potentially above the PD ceiling the trip was planned around.
 
 The crux is an **exposed step left around a block on icy underclings**, passable only by way of two fixed cord loops threaded through drilled holes.
 
 ## What actually happened
 
-Away at 05:30. We kept crampons on throughout for the mixed ground — a crash course in crampons on rock, and the clearest statement of where my technical ceiling actually sits. I belayed across the crux step.
+Away at 05:30. We kept crampons on throughout for the mixed ground, gaining some more confidence with crampons on rock and with exposed non-protectable sections. I belayed across the crux step.
 
 **Punta Giordani was deliberately cut.** No tracks for the traverse, four hours already elapsed, cloud building. It was the right call and it was made cleanly rather than drifted into.
 
-Summit at about 5 h 15, then a whiteout descent across a lot of crevassed ground, passed by guided ski parties. Back at the hut at 6 h 30 with stomach pain from a sweat-then-chill. The route was within our ability; the margin was where it should have been.
+Summit at about 5 h 15, then a whiteout descent across a lot of crevassed ground, passed by guided ski parties. Back at the hut at 6 h 30 with stomach pain from a sweat-then-chill. The route was within our ability, but at a few moments during the day I did wonder whether we were in over our heads.
 
-The next day we chose not to attempt Signalkuppe. That decision starts here.
+When we came down we decided not to go for Signalkuppe the day after. It seemed like it would be just a very long glacier plod, no technical challenges, big crowds, all for a tick. So we took our time, had a chill breakfast, and then descended to the valley. 
 
 ## To add
 
