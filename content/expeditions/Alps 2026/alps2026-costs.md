@@ -1,5 +1,5 @@
 ---
-title: Alps 2026 — What it cost
+title: Alps 2026 - Expense breakdown
 description: Full cost breakdown for a 16-day self-guided Alpine trip — budget vs actual, per person, and where the estimate was wrong.
 ---
 What a sixteen-day, self-guided Alpine trip actually costs, for two people driving from the UK. Numbers are the real ones from [[alps2026|Alps 2026]], reconciled against the card export after we got home, not the plan.

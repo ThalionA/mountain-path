@@ -17,7 +17,7 @@ For mountain trips, the public write-up usually has:
 ## Past Expeditions
 - [[alps2026|Alps 2026]] — Walliser Alps & Monte Rosa, June–July 2026
 	- Peaks: [[pigne-de-la-le|Pigne de la Lé]] · [[pointes-de-mourti|Pointes de Mourti]] · [[bishorn|Bishorn]] · [[vincent-pyramid|Vincent Pyramid]]
-	- [[alps2026-costs|What it cost]] — full budget-vs-actual breakdown
+	- [[alps2026-costs|What it cost]] - full expense breakdown
 - [[ebc2023|Everest Base Camp 2023]]
 ## Tools
 - [[gpx_files|GPX files for navigation]]
