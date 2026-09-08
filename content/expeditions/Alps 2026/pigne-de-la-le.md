@@ -2,7 +2,8 @@
 title: Pigne de la Lé
 description: 3396 m, F/PD- — first Alpine summit. Traverse NW ridge to SSW ridge direction, 23 June 2026.
 ---
-The first Alpine summit I ever stood on, and deliberately the easiest thing on the [[alps2026|Alps 2026]] list — an acclimatisation day dressed up as an objective.
+The first Alpine summit I ever stood on, and deliberately the easiest thing on the [[alps2026|Alps 2026]] list - essentially an acclimatisation day and testing that our gear etc work.
+[[pigne_de_la_le_summit.JPG]]
 
 |              |                                                                             |
 | ------------ | --------------------------------------------------------------------------- |
