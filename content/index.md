@@ -5,7 +5,7 @@ socialImage: the-mountain-path.webp
 ---
 
 ![A climber with a pack traversing a rocky ridge above a snowfield, hazy ranges layered behind](attachments/the-mountain-path.webp)
-*En route to Pigne de la Lé, our first Alpine summit — June 2026 ([[expeditions/alps2026|Alps 2026]]).*
+*En route to Pigne de la Lé, our first Alpine summit — June 2026 ([[expeditions/Alps 2026/alps2026|Alps 2026]]).*
 
 This is a working notebook — a place to publish a curated subset of the notes I keep across several private vaults. It is not a finished essay collection; some pages here are quite rough, others less so.
 
