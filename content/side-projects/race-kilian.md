@@ -10,6 +10,8 @@ Nothing is uploaded; the GPX is read in your browser. If the file has timestamps
 
 Better: drop three or more of your own runs (hilly, with heart rate) into **Calibrate me** and the page fits your uphill economy, descent skill and power curve from the real segments, scaling easy runs to race effort by heart rate. Then **Race him on his course** puts you on the official course files for Sierre-Zinal, Zegama, Pikes Peak, the Bob Graham Round, UTMB and Hardrock, each against his real finishing time.
 
-<iframe src="/side-projects/kilian/race" style="width:100%;height:1500px;border:0;border-radius:12px" title="Race Kilian" loading="lazy"></iframe>
+<p style="margin:1.4rem 0"><a href="/side-projects/kilian/race" style="display:inline-block;padding:.7rem 1.2rem;border-radius:10px;background:var(--secondary);color:var(--light);font-weight:600;text-decoration:none">Open Race Kilian →</a></p>
 
-Open it full-screen: [Race Kilian](/side-projects/kilian/race). For the analysis of your own runs, see [Trail Profile](trail-profile). The calibration table at the bottom of the tool shows every reference effort with the model's residual, so you can judge how far to trust it — trail races land within about ±10 %; extreme altitude is over-promised.
+<p style="font-size:.9em;opacity:.75">Opens as its own full-width page — the race animation and map need the room.</p>
+
+For the analysis of your own runs, see [Trail Profile](trail-profile). The calibration table at the bottom of the tool shows every reference effort with the model's residual, so you can judge how far to trust it — trail races land within about ±10 %; extreme altitude is over-promised.
