@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Race Kilian</title>
+<meta name="description" content="Drop a GPX of a trail run and see how fast Kilian Jornet would run it — calibrated on his real records — then race him.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="">
+<style>
+  :root {
+    --bg: #f3f2ee; --line: #dcdad4; --muted: #878680; --text: #3a3a3a; --head: #1a1a1a;
+    --accent: #2d5a5f; --accent2: #6b8d8d; --hl: rgba(45,90,95,.10);
+    --you: #c2571a; --kj: #2d5a5f; --card: #ffffff; --ok: #3c7a3c; --warn: #a65d1a;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161617; --line: #2a2b2c; --muted: #6b6a66; --text: #cfcec9; --head: #ebebec;
+      --accent: #7da8a8; --accent2: #4d7878; --hl: rgba(125,168,168,.10);
+      --you: #e8895a; --kj: #7da8a8; --card: #1f2021; --ok: #7cc27c; --warn: #e0a56a;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161617; --line: #2a2b2c; --muted: #6b6a66; --text: #cfcec9; --head: #ebebec;
+    --accent: #7da8a8; --accent2: #4d7878; --hl: rgba(125,168,168,.10);
+    --you: #e8895a; --kj: #7da8a8; --card: #1f2021; --ok: #7cc27c; --warn: #e0a56a;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 -apple-system, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif; }
+  body { padding: 16px; max-width: 980px; margin: 0 auto; }
+  h1 { color: var(--head); font-size: 1.7rem; margin: 0 0 4px; letter-spacing: -.01em; }
+  h2 { color: var(--head); font-size: 1.05rem; margin: 0 0 10px; }
+  p { margin: 0 0 8px; }
+  .lede { color: var(--muted); margin-bottom: 18px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+  label { font-size: .85rem; color: var(--muted); display: block; }
+  select, input[type=text], input[type=number] { font: inherit; color: var(--text); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
+  input[type=range] { width: 160px; accent-color: var(--accent); }
+  button { font: inherit; font-weight: 600; color: #fff; background: var(--accent); border: 0; border-radius: 8px;
+    padding: 8px 14px; cursor: pointer; }
+  button.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  button:disabled { opacity: .5; cursor: default; }
+  .drop { border: 2px dashed var(--line); border-radius: 12px; padding: 22px; text-align: center; color: var(--muted);
+    transition: border-color .15s, background .15s; }
+  .drop.over { border-color: var(--accent); background: var(--hl); }
+  .drop input { display: none; }
+  .drop b { color: var(--accent); cursor: pointer; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin-top: 10px; }
+  .stat { background: var(--bg); border-radius: 8px; padding: 8px 10px; }
+  .stat .v { font-size: 1.15rem; font-weight: 700; color: var(--head); font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .verdict { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .runner { border-radius: 10px; padding: 12px 14px; border-left: 5px solid; background: var(--bg); }
+  .runner.kj { border-color: var(--kj); } .runner.you { border-color: var(--you); }
+  .runner .t { font-size: 2rem; font-weight: 800; color: var(--head); font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .runner .n { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .runner .s { font-size: .85rem; color: var(--muted); margin-top: 4px; }
+  .gap { margin-top: 10px; font-size: 1rem; color: var(--head); }
+  canvas { width: 100%; display: block; border-radius: 8px; background: var(--bg); }
+  #profile { height: 230px; } #map, #mapCanvas { height: 320px; }
+  #map { width: 100%; border-radius: 8px; background: var(--bg); }
+  .leaflet-container { font: inherit; }
+  .runner-label { background: transparent; border: 0; box-shadow: none; font-weight: 700; font-size: 11px; padding: 0 0 0 4px; }
+  .runner-label.kj { color: #2d5a5f; } .runner-label.you { color: #c2571a; }
+  .ctl { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin: 10px 0 6px; }
+  .ctl input[type=range] { flex: 1 1 200px; }
+  .clock { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--head); min-width: 76px; font-size: 1.1rem; }
+  .live { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-variant-numeric: tabular-nums; font-size: .9rem; }
+  .live div { padding: 6px 10px; border-radius: 8px; background: var(--bg); border-left: 4px solid; }
+  .live .k { border-color: var(--kj); } .live .y { border-color: var(--you); }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 5px 7px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child, th.l, td.l { text-align: left; }
+  th { color: var(--muted); font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; }
+  .tw { overflow-x: auto; }
+  .pill { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: .72rem; font-weight: 600; }
+  .pill.climb { background: rgba(194,87,26,.15); color: var(--warn); }
+  .pill.descent { background: rgba(45,90,95,.15); color: var(--accent); }
+  .pill.flat { background: var(--line); color: var(--muted); }
+  .err.good { color: var(--ok); } .err.bad { color: var(--warn); }
+  details summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+  .note { font-size: .85rem; color: var(--muted); }
+  .hidden { display: none !important; }
+  footer { color: var(--muted); font-size: .8rem; margin-top: 18px; }
+  a { color: var(--accent); }
+  @media (max-width: 560px) { .verdict, .live { grid-template-columns: 1fr; } .runner .t { font-size: 1.6rem; } body { padding: 10px; } }
+</style>
+</head>
+<body>
+
+<h1>Race Kilian</h1>
+<p class="lede">Drop a GPX of a run and find out how fast Kilian Jornet would do it — his speed on every 50 m of the route is set by gradient, altitude and terrain, calibrated on his real records. Then watch the two of you race.</p>
+
+<div class="card">
+  <div class="drop" id="drop">
+    <input type="file" id="file" accept=".gpx,application/gpx+xml">
+    <div><b id="pick">Choose a GPX file</b> or drag one here — or <b id="demo">load the demo route</b>.</div>
+    <div class="note" style="margin-top:6px">Nothing is uploaded; the file is read in your browser.</div>
+  </div>
+  <div class="row" style="margin-top:12px">
+    <div><label for="terrain">Terrain</label>
+      <select id="terrain"></select></div>
+    <div><label for="effort">Kilian's effort: <span id="effortV">100 %</span></label>
+      <input type="range" id="effort" min="70" max="100" step="1" value="100"></div>
+    <div id="youAuto" class="hidden"><label><input type="checkbox" id="strip" checked> Strip your stops (&gt;60 s stationary)</label>
+      <div class="note">Your time comes from the GPX timestamps.</div></div>
+    <div id="youManual"><label for="tenk">Your flat 10 km time</label>
+      <input type="text" id="tenk" value="45:00" size="6" pattern="[0-9:]+">
+      <label for="kyou" style="display:inline; margin-left:8px">endurance</label>
+      <select id="kyou"><option value="0.08">good</option><option value="0.11" selected>average</option><option value="0.15">fades</option></select>
+      <div class="note">No timestamps in the GPX, so "you" is modelled from your 10 km.</div></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Calibrate me</h2>
+  <p class="note">Drop three or more of your own runs — GPX with timestamps, ideally hilly, ideally with heart rate. The page fits how your speed changes with gradient (uphill economy, descent skill) and your power curve, using heart rate to scale easy runs up to race effort. Runs without heart rate are taken at face value, so make those hard ones. Nothing leaves your browser; the result is remembered on this device.</p>
+  <div class="drop" id="meDrop">
+    <input type="file" id="meFiles" multiple accept=".gpx,application/gpx+xml">
+    <div><b id="mePick">Choose your GPX files</b> or drag them here (several at once).</div>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <div><label for="hrMax">Max HR (blank = highest seen)</label><input type="number" id="hrMax" min="120" max="230" style="width:90px"></div>
+    <div><label for="hrRest">Resting HR</label><input type="number" id="hrRest" min="30" max="90" value="55" style="width:90px"></div>
+    <div><label>&nbsp;</label><button class="ghost" id="meClear">Forget me</button></div>
+  </div>
+  <div id="meOut" style="margin-top:10px"></div>
+</div>
+
+<div class="card">
+  <h2>Race him on his course</h2>
+  <div class="row">
+    <div><label for="course">Course</label><select id="course"></select></div>
+    <div><label>&nbsp;</label><button id="courseGo">Race Kilian here</button></div>
+  </div>
+  <p class="note" id="courseNote" style="margin-top:8px"></p>
+</div>
+
+<div id="results" class="hidden">
+  <div class="card">
+    <h2 id="routeName">Route</h2>
+    <div class="stats" id="routeStats"></div>
+  </div>
+
+  <div class="card">
+    <div class="verdict">
+      <div class="runner kj"><div class="n">Kilian</div><div class="t" id="tKJ">–</div><div class="s" id="sKJ"></div></div>
+      <div class="runner you"><div class="n" id="youLabel">You</div><div class="t" id="tYou">–</div><div class="s" id="sYou"></div></div>
+    </div>
+    <div class="gap" id="verdict"></div>
+  </div>
+
+  <div class="card">
+    <h2>The race</h2>
+    <canvas id="profile"></canvas>
+    <div class="ctl">
+      <button id="play">▶ Play</button>
+      <span class="clock" id="clock">0:00:00</span>
+      <input type="range" id="scrub" min="0" max="1000" value="0">
+      <label for="speed" style="display:inline">speed</label>
+      <select id="speed"><option value="auto">auto</option><option value="10">10×</option><option value="30">30×</option><option value="60">60×</option><option value="120">120×</option><option value="300">300×</option></select>
+    </div>
+    <div class="live">
+      <div class="k" id="liveK">Kilian —</div>
+      <div class="y" id="liveY">You —</div>
+    </div>
+    <div id="map" style="margin-top:10px"></div>
+    <canvas id="mapCanvas" class="hidden" style="margin-top:10px"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>Segment by segment</h2>
+    <div class="tw"><table id="legs"></table></div>
+    <p class="note" style="margin-top:8px">Pace is per horizontal km; VAM is vertical metres per hour on climbs. "×" is your time divided by Kilian's on that leg.</p>
+  </div>
+</div>
+
+<div class="card">
+  <details id="calib">
+    <summary>How well calibrated is this? (the model, the data, the residuals)</summary>
+    <div style="margin-top:10px">
+      <p class="note">Every 50 m segment gets an energy cost per metre from its gradient: Minetti's treadmill curves uphill (scaled by a fitted uphill-economy factor), an empirical braking curve downhill, times a terrain factor. The runner brings a power budget that decays with total duration, P(T) = P<sub>1</sub>·(T/1 h)<sup>−k</sup>, reduced by altitude (−6.3 % per 1000 m above 300 m, steeper above 4000 m). Time is the sum of cost ÷ power, solved in closed form. P<sub>1</sub>, k and the uphill factor are fitted by least squares on log-time to the rows marked <b>fit</b>; the rows marked <b>check</b> are alpine and high-altitude records the fit never saw.</p>
+      <div class="stats" id="fitStats"></div>
+      <div class="tw" style="margin-top:10px"><table id="calibTable"></table></div>
+      <p class="note" style="margin-top:8px">Reading the residuals: trail races from 2 h to 22 h land within about ±10 %; the fit trades his road speed (predicted a little fast) against Sierre-Zinal and Zegama (a little slow) — Kilian is a better mountain runner than his flat times imply and no single power curve captures both. Above ~5500 m (Denali, Aconcagua) the model over-promises by 20–30 %: unacclimatised extreme altitude, cold and snow are not modelled. Course distances for the older FKTs are approximate where marked.</p>
+      <p class="note">Sources: fastestknowntime.com athlete page; race results from iRunFar, Trail Runner, World Athletics and race organisers; Minetti et al. 2002 <i>J Appl Physiol</i> 93:1039; Wehrlin &amp; Hallén 2006 <i>Eur J Appl Physiol</i> 96:404.</p>
+    </div>
+  </details>
+</div>
+
+<footer>A toy, for perspective. Kilian does not know about this page.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin=""></script>
+<script src="kilian-model.js"></script>
+<script>
+(function () {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const fmt = s => { s = Math.max(0, Math.round(s)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    return h + ':' + String(m).padStart(2, '0') + ':' + String(x).padStart(2, '0'); };
+  const fmtShort = s => { s = Math.max(0, Math.round(s)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    return h ? h + ':' + String(m).padStart(2, '0') + ':' + String(x).padStart(2, '0') : m + ':' + String(x).padStart(2, '0'); };
+  const pace = (secs, metres) => { if (!(metres > 0)) return '–'; const p = secs / (metres / 1000); return Math.floor(p / 60) + ':' + String(Math.round(p % 60)).padStart(2, '0'); };
+  const km = m => (m / 1000).toFixed(m < 10000 ? 2 : 1) + ' km';
+  const parseClock = s => { const p = String(s).trim().split(':').map(Number); if (p.some(isNaN)) return NaN;
+    return p.length === 3 ? p[0] * 3600 + p[1] * 60 + p[2] : p.length === 2 ? p[0] * 60 + p[1] : p[0] * 60; };
+
+  // ---------------------------------------------------------- calibration
+  let FIT = KJ.fit();
+  const KILIAN = { P1: FIT.P1, k: FIT.k, u: FIT.u, effort: 1 };
+  const PROFILES = {};   // refKey → segments from real course GPX files
+  function renderCalib() {
+    const st = $('fitStats');
+    const P30 = KJ.power(1800, FIT.P1, FIT.k), P1h = FIT.P1, P10 = KJ.power(36000, FIT.P1, FIT.k);
+    const stat = (v, l) => `<div class="stat"><div class="v">${v}</div><div class="l">${l}</div></div>`;
+    st.innerHTML = stat(P1h.toFixed(1) + ' W/kg', 'P₁ (1 h power)') + stat(FIT.k.toFixed(3), 'k (duration decay)') +
+      stat(FIT.u.toFixed(2), 'uphill economy vs Minetti') + stat((FIT.rmsLog * 100).toFixed(1) + ' %', 'RMS log error, fit rows') +
+      stat(pace(3600, P1h / KJ.cost(0, 'road', FIT.u) * 3600) + ' /km', 'implied flat pace at 1 h') +
+      stat(Math.round(P30 / KJ.cost(0.3, 'trail', FIT.u) * 0.3 / Math.sqrt(1.09) * 3600) + ' m/h', 'VAM at 30 % for 30 min');
+    const rows = KJ.calibrationTable(KILIAN, KJ.REFS, PROFILES);
+    let h = '<tr><th class="l">Effort</th><th>Dist</th><th>Gain</th><th>Terrain</th><th>Actual</th><th>Model</th><th>Error</th><th class="l">Role</th></tr>';
+    for (const r of rows) {
+      const e = r.err * 100, cls = Math.abs(e) <= 10 ? 'good' : 'bad';
+      h += `<tr><td class="l" title="${r.note}">${r.name}${r.real ? ' <span class="note">(real profile)</span>' : ''}${r.conf === 'low' ? ' <span class="note">(course ≈)</span>' : ''}</td><td>${r.km} km</td><td>${r.gain} m</td><td>${r.terrain}</td><td>${r.time}</td><td>${fmtShort(r.pred)}</td><td class="err ${cls}">${e > 0 ? '+' : ''}${e.toFixed(1)} %</td><td class="l">${r.fit ? 'fit' + (r.w < 1 ? ' (w ' + r.w + ')' : '') : 'check'}</td></tr>`;
+    }
+    $('calibTable').innerHTML = h;
+  }
+  renderCalib();
+  // Load real course profiles for the references that have one, then refit.
+  const kilianReady = Promise.all(KJ.REFS.filter(r => r.gpx).map(r => fetch(r.gpx).then(x => x.text())
+    .then(t => { const g = KJ.parseGPX(t); if (g.hasEle) PROFILES[r.key] = KJ.buildRoute(g, { step: 50, smooth: 80 }).segs; }).catch(() => {})))
+    .then(() => { FIT = KJ.fit(KJ.REFS, PROFILES); Object.assign(KILIAN, { P1: FIT.P1, k: FIT.k, u: FIT.u }); renderCalib(); if (route) recompute(); });
+
+  // ---------------------------------------------------------- inputs
+  const terrainSel = $('terrain');
+  for (const [k, v] of Object.entries(KJ.TERRAIN)) { const o = document.createElement('option'); o.value = k; o.textContent = v.label; terrainSel.appendChild(o); }
+  terrainSel.value = 'trail';
+
+  let gpx = null, route = null, sim = null, mode = 'gpx', course = null;
+
+  // ---- "you": calibrated from your runs if available, else from the 10 km time
+  let ME = null, meRoutes = [];
+  try { ME = JSON.parse(localStorage.getItem('kj_me') || 'null'); } catch (e) { ME = null; }
+  function getYou() {
+    if (ME) return { athlete: { P1: ME.P1, k: ME.k, u: ME.u, d: ME.d, effort: 1 },
+      label: ME.demo ? 'Sample runner (not you)' : `You (calibrated, ${ME.runs.length} run${ME.runs.length > 1 ? 's' : ''})`,
+      how: ME.demo ? 'from the invented sample batch on the Trail Profile page' : `modelled from your ${ME.runs.length} calibration run${ME.runs.length > 1 ? 's' : ''}` };
+    const t10 = parseClock($('tenk').value);
+    if (!(t10 > 600)) return null;
+    return { athlete: KJ.athleteFrom10k(t10, +$('kyou').value), label: 'You (modelled)', how: 'modelled from your 10 km' };
+  }
+  function renderMe() {
+    const out = $('meOut');
+    if (!ME) { out.innerHTML = '<p class="note">Not calibrated yet — "you" falls back to the 10 km time above.</p>'; return; }
+    const stat = (v, l) => `<div class="stat"><div class="v">${v}</div><div class="l">${l}</div></div>`;
+    const P1h = ME.P1, flat = pace(3600, P1h / KJ.cost(0, 'road', ME.u, ME.d) * 3600);
+    let h = '<div class="stats">' + stat(P1h.toFixed(1) + ' W/kg', 'your 1 h power (Kilian ' + KILIAN.P1.toFixed(1) + ')') + stat(ME.k.toFixed(3) + (ME.kFitted ? '' : ' (assumed)'), 'duration decay k') +
+      stat(ME.u.toFixed(2) + ' (Kilian ' + KILIAN.u.toFixed(2) + ')', 'uphill economy') + stat(ME.d.toFixed(2) + (ME.d <= 1.001 ? ' (at Kilian\'s)' : ''), 'descent cost vs Kilian') +
+      stat(flat + ' /km', 'implied flat race pace at 1 h') + stat(ME.hrMax + ' / ' + ME.hrRest, 'max / rest HR used') + '</div>';
+    h += '<div class="tw" style="margin-top:8px"><table><tr><th class="l">Run</th><th>Dist</th><th>Gain</th><th>Time</th><th>Avg HR</th><th>Power</th><th>→ race</th></tr>';
+    for (const r of ME.runs) h += `<tr><td class="l">${r.name}</td><td>${r.km.toFixed(1)} km</td><td>+${Math.round(r.gain)}</td><td>${fmtShort(r.T)}</td><td>${r.useHR ? Math.round(r.avgHR) + ' (' + Math.round(r.hrFrac * 100) + ' %)' : '<span class="note">none</span>'}</td><td>${r.P.toFixed(1)}</td><td>${r.Prace.toFixed(1)}${r.useHR ? '' : ' <span class="note">as run</span>'}</td></tr>`;
+    h += '</table></div>';
+    if (!ME.anyHR) h += '<p class="note" style="margin-top:6px">No heart rate in these files: every run is taken as a race effort, so easy runs will make you slower than you are.</p>';
+    if (ME.d <= 1.001) h += '<p class="note" style="margin-top:6px">Descent skill sits at the lower bound (Kilian\'s own curve) — with 50 m segments and GPS noise that usually means "no evidence you descend worse", not that you descend like him.</p>';
+    out.innerHTML = h;
+  }
+  function calibrate() {
+    if (!meRoutes.length) return;
+    const fit = KJ.fitYou(meRoutes, { hrMax: +$('hrMax').value || 0, hrRest: +$('hrRest').value || 55, k: +$('kyou').value });
+    if (!fit) { alert('None of those files has timestamps; "you" needs recorded runs, not planned routes.'); return; }
+    ME = fit; if (!$('hrMax').value) $('hrMax').placeholder = String(Math.round(fit.hrMax));
+    try { localStorage.setItem('kj_me', JSON.stringify(ME)); } catch (e) {}
+    renderMe(); if (route) recompute();
+  }
+  function loadMeTexts(items) { // [{text, name}]
+    for (const { text, name } of items) {
+      try { const g = KJ.parseGPX(text); if (!g.hasEle || !g.hasTime) continue; if (!g.name) g.name = name.replace(/\.gpx$/i, '');
+        const r = KJ.buildRoute(g, { step: 50, smooth: 80, stripStops: true }); if (!meRoutes.some(x => x.name === r.name && Math.abs(x.total - r.total) < 1)) meRoutes.push(r); } catch (e) {}
+    }
+    calibrate();
+  }
+  function loadMeFiles(files) { Promise.all([...files].map(f => f.text().then(text => ({ text, name: f.name })))).then(loadMeTexts); }
+  $('meFiles').addEventListener('change', e => loadMeFiles(e.target.files));
+  $('mePick').addEventListener('click', () => $('meFiles').click());
+  const meDrop = $('meDrop');
+  ['dragenter', 'dragover'].forEach(ev => meDrop.addEventListener(ev, e => { e.preventDefault(); meDrop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => meDrop.addEventListener(ev, e => { e.preventDefault(); meDrop.classList.remove('over'); }));
+  meDrop.addEventListener('drop', e => loadMeFiles(e.dataTransfer.files));
+  ['hrMax', 'hrRest'].forEach(id => $(id).addEventListener('change', calibrate));
+  $('meClear').addEventListener('click', () => { ME = null; meRoutes = []; try { localStorage.removeItem('kj_me'); } catch (e) {} renderMe(); if (route) recompute(); });
+  renderMe();
+
+  // ---- his courses
+  const courseSel = $('course');
+  for (const c of KJ.COURSES) { const o = document.createElement('option'); o.value = c.key; o.textContent = `${c.name} — Kilian ${c.time} (${c.year})`; courseSel.appendChild(o); }
+  const showCourseNote = () => { const c = KJ.COURSES.find(x => x.key === courseSel.value); $('courseNote').textContent = c ? c.note : ''; };
+  courseSel.addEventListener('change', showCourseNote); showCourseNote();
+  function loadCourse(key) {
+    const c = KJ.COURSES.find(x => x.key === key); if (!c) return;
+    fetch(c.file).then(r => r.text()).then(t => {
+      const g = KJ.parseGPX(t); if (!g.hasEle) throw new Error('course file has no elevation');
+      g.name = c.name; g.hasTime = false; gpx = g; course = c; mode = 'course';
+      terrainSel.value = c.terrain;
+      $('youAuto').classList.add('hidden'); $('youManual').classList.toggle('hidden', !!ME);
+      $('results').classList.remove('hidden'); recompute();
+      $('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }).catch(e => alert(location.protocol === 'file:'
+      ? 'Browsers refuse to load files next to a page opened from disk (file://). Open this page through the site (or a local web server) and the courses will load.'
+      : 'Could not load that course: ' + (e.message || e) + '. If this page is embedded, open it directly at /side-projects/kilian/race.'));
+  }
+  $('courseGo').addEventListener('click', () => loadCourse(courseSel.value));
+
+  function loadText(text, name) {
+    try {
+      gpx = KJ.parseGPX(text);
+      if (!gpx.pts.length) throw new Error('No track points found in that file.');
+      if (!gpx.hasEle) throw new Error('That GPX has no elevation data, so gradients cannot be computed.');
+      if (name && !gpx.name) gpx.name = name.replace(/\.gpx$/i, '');
+      mode = 'gpx'; course = null;
+      $('youAuto').classList.toggle('hidden', !gpx.hasTime);
+      $('youManual').classList.toggle('hidden', gpx.hasTime || !!ME);
+      $('results').classList.remove('hidden');   // must be visible before the canvases are sized
+      recompute();
+      $('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (e) { alert(e.message || String(e)); }
+  }
+  window.KRACE = { loadText, loadMeTexts, loadCourse, get route() { return route; }, get sim() { return sim; }, get ME() { return ME; }, KILIAN, get FIT() { return FIT; }, kilianReady };
+
+  function loadFile(f) { if (!f) return; f.text().then(t => loadText(t, f.name)); }
+  $('file').addEventListener('change', e => loadFile(e.target.files[0]));
+  $('pick').addEventListener('click', () => $('file').click());
+  const drop = $('drop');
+  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => loadFile(e.dataTransfer.files[0]));
+  $('demo').addEventListener('click', () => fetch('demo.gpx').then(r => r.text()).then(t => loadText(t, 'demo')).catch(() => alert('Could not load the demo route.')));
+  const Q = new URLSearchParams(location.search);
+  const qMe = Q.get('me');   // ?me=a.gpx,b.gpx — calibration files by URL (testing / sharing)
+  const afterMe = qMe ? Promise.all(qMe.split(',').map(u => fetch(u).then(r => r.text()).then(text => ({ text, name: u.split('/').pop() })))).then(loadMeTexts).catch(() => {}) : Promise.resolve();
+  const q = Q.get('gpx');
+  afterMe.then(() => kilianReady).then(() => {
+    if (q) fetch(q).then(r => r.text()).then(t => loadText(t, q.split('/').pop())).catch(() => {});
+    else if (Q.get('course')) { courseSel.value = Q.get('course'); showCourseNote(); loadCourse(Q.get('course')); }
+  });
+
+  ['terrain', 'strip', 'tenk', 'kyou'].forEach(id => $(id).addEventListener('change', () => route && recompute()));
+  $('effort').addEventListener('input', () => { $('effortV').textContent = $('effort').value + ' %'; if (route) recompute(); });
+
+  // ---------------------------------------------------------- compute
+  function recompute() {
+    route = KJ.buildRoute(gpx, { step: 50, smooth: 80, stripStops: $('strip').checked });
+    const terrain = terrainSel.value;
+    const kj = KJ.predict(route.segs, terrain, { ...KILIAN, effort: mode === 'course' ? 1 : +$('effort').value / 100 });
+    // on his own course, distribute his REAL time along the model's segment times
+    const kScale = mode === 'course' ? KJ.parseTime(course.time) / kj.T : 1;
+    const cumK = new Float64Array(route.segs.length + 1);
+    for (let i = 0; i < route.segs.length; i++) cumK[i + 1] = cumK[i] + kj.secs[i] * kScale;
+    let cumY, youLabel = 'You', youMode, youHow = 'from your GPX';
+    if (route.hasTime && mode !== 'course') {
+      cumY = new Float64Array(route.segs.length + 1);
+      for (let i = 0; i < route.segs.length; i++) cumY[i + 1] = Math.max(cumY[i], route.segs[i].tYou);
+      youMode = 'gpx';
+    } else {
+      const you = getYou();
+      if (!you) { alert('Enter your 10 km time as mm:ss, or calibrate from your runs.'); return; }
+      const py = KJ.predict(route.segs, terrain, you.athlete);
+      cumY = new Float64Array(route.segs.length + 1);
+      for (let i = 0; i < route.segs.length; i++) cumY[i + 1] = cumY[i] + py.secs[i];
+      youLabel = you.label; youHow = you.how; youMode = 'model';
+    }
+    sim = { cumK, cumY, TK: cumK[cumK.length - 1], TY: cumY[cumY.length - 1], t: 0, playing: false, youMode, youHow, kModel: kj.T };
+    const tq = +new URLSearchParams(location.search).get('t'); // ?t=0.4 → start 40 % through the race (share a frame)
+    if (tq > 0 && tq <= 1) sim.t = tq * Math.max(sim.TK, sim.TY);
+    renderRoute(); renderVerdict(youLabel); renderLegs(terrain); resizeCanvases(); drawAll();
+    $('play').textContent = '▶ Play'; $('scrub').value = 0;
+  }
+
+  // distance along the route at simulated time t for a cumulative-time array
+  function distAt(cum, t) {
+    const n = cum.length - 1, L = route.total / n;
+    if (t <= 0) return 0; if (t >= cum[n]) return route.total;
+    let a = 0, b = n; while (b - a > 1) { const m = (a + b) >> 1; if (cum[m] <= t) a = m; else b = m; }
+    const dt = cum[b] - cum[a]; return (a + (dt > 0 ? (t - cum[a]) / dt : 0)) * L;
+  }
+  function eleAt(d) { const r = route, n = r.dist.length; let a = 0, b = n - 1;
+    while (b - a > 1) { const m = (a + b) >> 1; if (r.dist[m] <= d) a = m; else b = m; }
+    const w = r.dist[b] > r.dist[a] ? (d - r.dist[a]) / (r.dist[b] - r.dist[a]) : 0; return r.ele[a] + (r.ele[b] - r.ele[a]) * w; }
+  function llAt(d) { const r = route, n = r.dist.length; let a = 0, b = n - 1;
+    while (b - a > 1) { const m = (a + b) >> 1; if (r.dist[m] <= d) a = m; else b = m; }
+    const w = r.dist[b] > r.dist[a] ? (d - r.dist[a]) / (r.dist[b] - r.dist[a]) : 0;
+    return [r.pts[a].lat + (r.pts[b].lat - r.pts[a].lat) * w, r.pts[a].lon + (r.pts[b].lon - r.pts[a].lon) * w]; }
+
+  // ---------------------------------------------------------- render text
+  function renderRoute() {
+    $('routeName').textContent = (route.name || 'Your route') + (mode === 'course' ? ' — his course' : '');
+    const stat = (v, l) => `<div class="stat"><div class="v">${v}</div><div class="l">${l}</div></div>`;
+    $('routeStats').innerHTML = stat(km(route.total), 'distance') + stat('+' + Math.round(route.gain) + ' m', 'ascent') +
+      stat('−' + Math.round(route.loss) + ' m', 'descent') + stat(Math.round(route.altMin) + '–' + Math.round(route.altMax) + ' m', 'altitude') +
+      stat(route.segs.length, '50 m segments');
+  }
+  function renderVerdict(youLabel) {
+    const { TK, TY } = sim;
+    $('tKJ').textContent = fmt(TK); $('tYou').textContent = fmt(TY); $('youLabel').textContent = youLabel;
+    $('sKJ').textContent = pace(TK, route.total) + ' /km · ' + (mode === 'course' ? `his real time (${course.year}); the model said ${fmtShort(sim.kModel)}` : Math.round(route.gain / (TK / 3600)) + ' m/h gained per hour');
+    $('sYou').textContent = pace(TY, route.total) + ' /km ' + sim.youHow;
+    const ratio = TY / TK, atFinish = distAt(sim.cumY, TK);
+    let v;
+    if (TY > TK) v = `Kilian finishes <b>${fmtShort(TY - TK)}</b> ahead (you take ${ratio.toFixed(2)}× his time). When he crosses the line you are at <b>${km(atFinish)}</b>, with ${km(route.total - atFinish)} still to run.`;
+    else v = `You beat Kilian by ${fmtShort(TK - TY)}. Check the terrain setting, or check your GPX — or congratulations.`;
+    if (sim.youMode === 'model' && ME) {
+      const longest = Math.max(...ME.runs.map(r => r.T));
+      if (TY > 3 * longest) v += ` <span class="note">Your longest calibration run was ${fmtShort(longest)}; a ${fmtShort(TY)} effort is a long extrapolation of your power curve, so treat this as a guess. Add a long run to tighten it.</span>`;
+    }
+    $('verdict').innerHTML = v;
+  }
+  function renderLegs(terrain) {
+    const legs = KJ.splitLegs(route);
+    const { cumK, cumY } = sim;
+    let h = '<tr><th class="l">#</th><th class="l">Leg</th><th>From</th><th>Dist</th><th>Gain</th><th>Loss</th><th>Grade</th><th>Kilian</th><th>pace</th><th>VAM</th><th>You</th><th>×</th></tr>';
+    legs.forEach((g, i) => {
+      const tk = cumK[g.b + 1] - cumK[g.a], ty = cumY[g.b + 1] - cumY[g.a];
+      const vam = g.kind === 'climb' ? Math.round(g.gain / (tk / 3600)) + ' m/h' : '';
+      h += `<tr><td class="l">${i + 1}</td><td class="l"><span class="pill ${g.kind}">${g.kind}</span></td><td>${km(g.d0)}</td><td>${km(g.len)}</td><td>${g.gain >= 5 ? '+' + Math.round(g.gain) : ''}</td><td>${g.loss >= 5 ? '−' + Math.round(g.loss) : ''}</td><td>${(g.grade * 100).toFixed(0)} %</td><td>${fmtShort(tk)}</td><td>${pace(tk, g.len)}</td><td>${vam}</td><td>${fmtShort(ty)}</td><td>${(ty / tk).toFixed(2)}</td></tr>`;
+    });
+    const TK = sim.TK, TY = sim.TY;
+    h += `<tr><td class="l"></td><td class="l"><b>Total</b></td><td></td><td><b>${km(route.total)}</b></td><td>+${Math.round(route.gain)}</td><td>−${Math.round(route.loss)}</td><td></td><td><b>${fmtShort(TK)}</b></td><td>${pace(TK, route.total)}</td><td></td><td><b>${fmtShort(TY)}</b></td><td>${(TY / TK).toFixed(2)}</td></tr>`;
+    $('legs').innerHTML = h;
+  }
+
+  // ---------------------------------------------------------- canvases
+  const cvP = $('profile'), cvM = $('mapCanvas');
+  const HAVE_LEAFLET = typeof L !== 'undefined';
+  if (!HAVE_LEAFLET) { $('map').classList.add('hidden'); cvM.classList.remove('hidden'); }
+  function resizeCanvases() {
+    for (const c of [cvP, cvM]) { if (c.classList.contains('hidden')) continue;
+      const r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+      c.width = Math.max(1, Math.round(r.width * dpr)); c.height = Math.max(1, Math.round(r.height * dpr)); }
+  }
+  window.addEventListener('resize', () => { if (route) { resizeCanvases(); drawAll(); } });
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => { if (route) { resizeCanvases(); drawAll(); } }).observe(cvP);
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+  function drawProfile(t) {
+    const c = cvP, ctx = c.getContext('2d'), dpr = window.devicePixelRatio || 1;
+    const W = c.width / dpr, H = c.height / dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    const padL = 44, padR = 12, padT = 14, padB = 22;
+    const r = route, emin = r.altMin - 20, emax = r.altMax + 20;
+    const X = d => padL + (W - padL - padR) * d / r.total, Y = e => padT + (H - padT - padB) * (1 - (e - emin) / (emax - emin));
+    // fill
+    ctx.beginPath(); ctx.moveTo(X(0), Y(emin));
+    for (let i = 0; i < r.dist.length; i++) ctx.lineTo(X(r.dist[i]), Y(r.ele[i]));
+    ctx.lineTo(X(r.total), Y(emin)); ctx.closePath();
+    ctx.fillStyle = css('--hl'); ctx.fill();
+    ctx.beginPath(); for (let i = 0; i < r.dist.length; i++) i ? ctx.lineTo(X(r.dist[i]), Y(r.ele[i])) : ctx.moveTo(X(r.dist[i]), Y(r.ele[i]));
+    ctx.strokeStyle = css('--accent2'); ctx.lineWidth = 1.5; ctx.stroke();
+    // axes
+    ctx.fillStyle = css('--muted'); ctx.font = '11px sans-serif'; ctx.textAlign = 'right';
+    const step = (emax - emin) > 1500 ? 500 : (emax - emin) > 600 ? 200 : 100;
+    for (let e = Math.ceil(emin / step) * step; e <= emax; e += step) { ctx.fillText(e + ' m', padL - 4, Y(e) + 4);
+      ctx.strokeStyle = css('--line'); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(padL, Y(e)); ctx.lineTo(W - padR, Y(e)); ctx.stroke(); }
+    ctx.textAlign = 'center';
+    const kstep = r.total > 60000 ? 10000 : r.total > 25000 ? 5000 : r.total > 8000 ? 2000 : 1000;
+    for (let d = 0; d <= r.total; d += kstep) ctx.fillText((d / 1000) + '', X(d), H - 6);
+    // runners
+    const dk = distAt(sim.cumK, t), dy = distAt(sim.cumY, t);
+    const dot = (d, col, label, above) => { const x = X(d), y = Y(eleAt(d));
+      ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill(); ctx.strokeStyle = css('--card'); ctx.lineWidth = 2; ctx.stroke();
+      ctx.fillStyle = col; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = x > W - 60 ? 'right' : 'left';
+      ctx.fillText(label, x + (x > W - 60 ? -9 : 9), y + (above ? -8 : 14)); };
+    dot(dy, css('--you'), 'you', false); dot(dk, css('--kj'), 'Kilian', true);
+  }
+
+  // ---- real map (Leaflet + OpenTopoMap tiles); the canvas below is the offline fallback
+  let map = null, mapLine = null, mkK = null, mkY = null, mapRoute = null;
+  function setupMap() {
+    if (!HAVE_LEAFLET) return;
+    if (!map) {
+      map = L.map('map', { scrollWheelZoom: false, zoomControl: true });
+      L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 17,
+        attribution: 'map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM · style © <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)' }).addTo(map);
+      mkY = L.circleMarker([0, 0], { radius: 7, color: '#fff', weight: 2, fillColor: '#c2571a', fillOpacity: 1 }).addTo(map)
+        .bindTooltip('you', { permanent: true, direction: 'right', className: 'runner-label you', offset: [6, 0] });
+      mkK = L.circleMarker([0, 0], { radius: 7, color: '#fff', weight: 2, fillColor: '#2d5a5f', fillOpacity: 1 }).addTo(map)
+        .bindTooltip('Kilian', { permanent: true, direction: 'right', className: 'runner-label kj', offset: [6, 0] });
+    }
+    if (mapRoute !== route) {
+      const ll = route.pts.map(p => [p.lat, p.lon]);
+      if (mapLine) mapLine.remove();
+      mapLine = L.polyline(ll, { color: '#2d5a5f', weight: 4, opacity: 0.85 }).addTo(map);
+      L.circleMarker(ll[0], { radius: 4, color: '#555', fillColor: '#fff', fillOpacity: 1, weight: 2 }).addTo(map).bindTooltip('start');
+      map.fitBounds(mapLine.getBounds(), { padding: [20, 20] });
+      mapRoute = route;
+      setTimeout(() => map.invalidateSize(), 50);
+    }
+  }
+  function drawMap(t) {
+    if (HAVE_LEAFLET) {
+      if (mapRoute !== route) setupMap();
+      const [la, lo] = llAt(distAt(sim.cumY, t)), [lk, lok] = llAt(distAt(sim.cumK, t));
+      mkY.setLatLng([la, lo]); mkK.setLatLng([lk, lok]);
+      return;
+    }
+    const c = cvM, ctx = c.getContext('2d'), dpr = window.devicePixelRatio || 1;
+    const W = c.width / dpr, H = c.height / dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    const r = route;
+    if (!mapProj || mapProj.W !== W || mapProj.H !== H || mapProj.route !== r) {
+      let la0 = 90, la1 = -90, lo0 = 180, lo1 = -180;
+      for (const p of r.pts) { la0 = Math.min(la0, p.lat); la1 = Math.max(la1, p.lat); lo0 = Math.min(lo0, p.lon); lo1 = Math.max(lo1, p.lon); }
+      const cosl = Math.cos((la0 + la1) / 2 * Math.PI / 180);
+      const w = (lo1 - lo0) * cosl || 1e-6, h = (la1 - la0) || 1e-6, pad = 20;
+      const s = Math.min((W - 2 * pad) / w, (H - 2 * pad) / h);
+      const ox = (W - w * s) / 2, oy = (H - h * s) / 2;
+      mapProj = { W, H, route: r, X: lon => ox + (lon - lo0) * cosl * s, Y: lat => oy + (la1 - lat) * s };
+    }
+    const { X, Y } = mapProj;
+    ctx.beginPath(); r.pts.forEach((p, i) => i ? ctx.lineTo(X(p.lon), Y(p.lat)) : ctx.moveTo(X(p.lon), Y(p.lat)));
+    ctx.strokeStyle = css('--accent2'); ctx.lineWidth = 2.5; ctx.lineJoin = 'round'; ctx.stroke();
+    // start marker
+    ctx.beginPath(); ctx.arc(X(r.pts[0].lon), Y(r.pts[0].lat), 4, 0, Math.PI * 2); ctx.fillStyle = css('--muted'); ctx.fill();
+    ctx.fillStyle = css('--muted'); ctx.font = '11px sans-serif'; ctx.textAlign = 'left'; ctx.fillText('start', X(r.pts[0].lon) + 7, Y(r.pts[0].lat) + 4);
+    // scale bar
+    const kmPx = Math.abs(X(r.pts[0].lon + 1 / (111.32 * Math.cos(r.pts[0].lat * Math.PI / 180))) - X(r.pts[0].lon));
+    const bar = kmPx > 120 ? 0.5 : kmPx > 40 ? 1 : kmPx > 15 ? 5 : 10;
+    ctx.strokeStyle = css('--muted'); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(12, H - 12); ctx.lineTo(12 + kmPx * bar, H - 12); ctx.stroke();
+    ctx.textAlign = 'left'; ctx.fillText(bar + ' km', 12, H - 16);
+    const dot = (d, col, label) => { const [la, lo] = llAt(d), x = X(lo), y = Y(la);
+      ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill(); ctx.strokeStyle = css('--card'); ctx.lineWidth = 2; ctx.stroke();
+      ctx.fillStyle = col; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = x > W - 60 ? 'right' : 'left'; ctx.fillText(label, x + (x > W - 60 ? -9 : 9), y - 8); };
+    dot(distAt(sim.cumY, t), css('--you'), 'you'); dot(distAt(sim.cumK, t), css('--kj'), 'Kilian');
+  }
+
+  function drawLive(t) {
+    const dk = distAt(sim.cumK, t), dy = distAt(sim.cumY, t);
+    $('clock').textContent = fmt(t);
+    const kDone = t >= sim.TK, yDone = t >= sim.TY;
+    $('liveK').innerHTML = `<b>Kilian</b> · ${kDone ? 'finished in ' + fmt(sim.TK) : km(dk) + ' · ' + Math.round(eleAt(dk)) + ' m'}`;
+    const gap = dk - dy;
+    $('liveY').innerHTML = `<b>You</b> · ${yDone ? 'finished in ' + fmt(sim.TY) : km(dy) + ' · ' + Math.round(eleAt(dy)) + ' m'}` +
+      (kDone && !yDone ? ` · ${km(route.total - dy)} to go` : !yDone ? ` · ${gap >= 0 ? km(gap) + ' behind' : km(-gap) + ' ahead'}` : '');
+    $('scrub').value = Math.round(1000 * t / Math.max(sim.TK, sim.TY));
+  }
+  function drawAll() { const t = sim.t; drawProfile(t); drawMap(t); drawLive(t); }
+
+  // ---------------------------------------------------------- playback
+  let raf = null, last = 0;
+  function speedFactor() { const v = $('speed').value; return v === 'auto' ? Math.max(sim.TK, sim.TY) / 45 : +v; }
+  function frame(now) {
+    if (!sim.playing) return;
+    const dt = (now - last) / 1000; last = now;
+    sim.t += dt * speedFactor();
+    const end = Math.max(sim.TK, sim.TY);
+    if (sim.t >= end) { sim.t = end; sim.playing = false; $('play').textContent = '↺ Replay'; }
+    drawAll();
+    if (sim.playing) raf = requestAnimationFrame(frame);
+  }
+  $('play').addEventListener('click', () => {
+    if (!sim) return;
+    const end = Math.max(sim.TK, sim.TY);
+    if (sim.playing) { sim.playing = false; $('play').textContent = '▶ Play'; cancelAnimationFrame(raf); return; }
+    if (sim.t >= end) sim.t = 0;
+    sim.playing = true; $('play').textContent = '❚❚ Pause'; last = performance.now(); raf = requestAnimationFrame(frame);
+  });
+  $('scrub').addEventListener('input', () => { if (!sim) return; sim.t = +$('scrub').value / 1000 * Math.max(sim.TK, sim.TY);
+    if (sim.playing) { sim.playing = false; $('play').textContent = '▶ Play'; cancelAnimationFrame(raf); } drawAll(); });
+})();
+</script>
+</body>
+</html>

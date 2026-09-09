@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trail Profile</title>
+<meta name="description" content="Drop a batch of your trail-run GPX files and get a coach's report card: engine, climbing, descending, durability, intensity — in your own units, with one thing to do for each.">
+<style>
+  :root {
+    --bg: #f3f2ee; --line: #dcdad4; --muted: #878680; --text: #3a3a3a; --head: #1a1a1a;
+    --accent: #2d5a5f; --accent2: #6b8d8d; --hl: rgba(45,90,95,.10);
+    --you: #c2571a; --you2: #e8a070; --kj: #2d5a5f; --club: #8a8a8a; --card: #ffffff; --ok: #3c7a3c; --warn: #a65d1a;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161617; --line: #2a2b2c; --muted: #6b6a66; --text: #cfcec9; --head: #ebebec;
+      --accent: #7da8a8; --accent2: #4d7878; --hl: rgba(125,168,168,.10);
+      --you: #e8895a; --you2: #f0b78f; --kj: #7da8a8; --club: #8f8f8f; --card: #1f2021; --ok: #7cc27c; --warn: #e0a56a;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161617; --line: #2a2b2c; --muted: #6b6a66; --text: #cfcec9; --head: #ebebec;
+    --accent: #7da8a8; --accent2: #4d7878; --hl: rgba(125,168,168,.10);
+    --you: #e8895a; --you2: #f0b78f; --kj: #7da8a8; --club: #8f8f8f; --card: #1f2021; --ok: #7cc27c; --warn: #e0a56a;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 -apple-system, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif; }
+  body { padding: 16px; max-width: 980px; margin: 0 auto; }
+  h1 { color: var(--head); font-size: 1.7rem; margin: 0 0 4px; letter-spacing: -.01em; }
+  h2 { color: var(--head); font-size: 1.05rem; margin: 0 0 10px; }
+  h3 { color: var(--head); font-size: .95rem; margin: 0 0 6px; }
+  p { margin: 0 0 8px; }
+  .lede { color: var(--muted); margin-bottom: 18px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+  label { font-size: .85rem; color: var(--muted); display: block; }
+  select, input[type=text], input[type=number] { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
+  button { font: inherit; font-weight: 600; color: #fff; background: var(--accent); border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; }
+  button.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  .drop { border: 2px dashed var(--line); border-radius: 12px; padding: 22px; text-align: center; color: var(--muted); transition: border-color .15s, background .15s; }
+  .drop.over { border-color: var(--accent); background: var(--hl); }
+  .drop input { display: none; }
+  .drop b { color: var(--accent); cursor: pointer; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cap { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .cap .big { font-size: 1.9rem; font-weight: 800; color: var(--head); line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .cap .big small { font-size: .9rem; font-weight: 500; color: var(--muted); margin-left: 6px; }
+  .cap .read { font-size: .92rem; }
+  .cap .do { font-size: .9rem; border-left: 3px solid var(--you); padding-left: 10px; color: var(--text); }
+  .cap .do b { color: var(--you); }
+  .cap .ref { font-size: .78rem; color: var(--muted); }
+  .spark { width: 100%; height: 44px; display: block; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin-top: 10px; }
+  .stat { background: var(--bg); border-radius: 8px; padding: 8px 10px; }
+  .stat .v { font-size: 1.15rem; font-weight: 700; color: var(--head); font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .pb { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+  .pb div { background: var(--bg); border-radius: 8px; padding: 8px 10px; }
+  .pb .v { font-size: 1.2rem; font-weight: 700; color: var(--head); font-variant-numeric: tabular-nums; }
+  .pb .l { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .pb .w { font-size: .75rem; color: var(--muted); }
+  .race { font-size: 1rem; color: var(--head); }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; font-variant-numeric: tabular-nums; }
+  th, td { padding: 5px 7px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child, th.l, td.l { text-align: left; }
+  th { color: var(--muted); font-weight: 600; font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; }
+  .tw { overflow-x: auto; }
+  .note { font-size: .85rem; color: var(--muted); }
+  .hidden { display: none !important; }
+  .good { color: var(--ok); } .bad { color: var(--warn); }
+  svg.chart { width: 100%; height: auto; display: block; }
+  svg.chart text { font: 11px -apple-system, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif; fill: var(--muted); }
+  svg.chart .grid { stroke: var(--line); stroke-width: 1; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .8rem; color: var(--muted); margin: 6px 0 2px; }
+  .legend span::before { content: ''; display: inline-block; width: 18px; height: 3px; margin-right: 6px; vertical-align: middle; background: currentColor; }
+  .legend .dash::before { background: repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 8px); }
+  .bars div { display: grid; grid-template-columns: 220px 1fr 80px; gap: 8px; align-items: center; margin: 4px 0; font-size: .9rem; }
+  .bars .bar { height: 14px; border-radius: 4px; background: var(--you); }
+  .bars .bar.neg { background: var(--accent2); }
+  .ibar { display: flex; height: 18px; border-radius: 6px; overflow: hidden; margin: 4px 0; }
+  .ibar span { display: block; height: 100%; }
+  details { margin-top: 6px; } details summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+  details .card { margin-top: 12px; }
+  footer { color: var(--muted); font-size: .8rem; margin-top: 18px; }
+  a { color: var(--accent); }
+  @media (max-width: 640px) { body { padding: 10px; } .grid2 { grid-template-columns: 1fr; } .bars div { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>Trail Profile</h1>
+<p class="lede">Drop a batch of your own trail runs (GPX with timestamps, heart rate and cadence if you have them) and get a coach's read: five capacities in your own units, what each one is doing over time, and one thing to do about each. Kilian Jornet and a synthetic club runner appear only as a grey line under each card. Nothing is uploaded; runs are remembered on this device.</p>
+
+<div class="card">
+  <div class="drop" id="drop">
+    <input type="file" id="files" multiple accept=".gpx,application/gpx+xml">
+    <div><b id="pick">Choose GPX files</b> or drag a whole batch here. Add more any time.</div>
+    <div class="note" style="margin-top:6px">No GPX to hand? <b id="demo">Load a sample batch</b> — six <i>invented</i> runs by a simulated runner on fictional hills, so you can see what the page does.</div>
+  </div>
+  <div class="row" style="margin-top:12px">
+    <div><label for="hrMax">Max HR (blank = highest seen)</label><input type="number" id="hrMax" min="120" max="230" style="width:90px"></div>
+    <div><label for="hrRest">Resting HR</label><input type="number" id="hrRest" min="30" max="90" value="55" style="width:90px"></div>
+    <div><label for="terrain">Usual terrain</label><select id="terrain"></select></div>
+    <div><label for="raceKm">Recent race, optional (km · gain m · time) — pins your engine</label>
+      <input type="number" id="raceKm" min="1" max="200" step="0.1" placeholder="10" style="width:70px"> <input type="number" id="raceGain" min="0" max="10000" placeholder="0" style="width:70px"> <input type="text" id="raceTime" placeholder="44:28" size="7"></div>
+    <div><label>&nbsp;</label><button class="ghost" id="clear">Forget everything</button></div>
+  </div>
+  <p class="note" id="status" style="margin-top:8px">No runs loaded yet.</p>
+</div>
+
+<div id="out" class="hidden">
+  <div class="stats" id="topStats" style="margin:0 0 14px"></div>
+  <p class="note" id="caveat" style="margin:-6px 0 14px"></p>
+
+  <div class="grid2" id="cards"></div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>Race day</h2>
+    <div class="row" style="margin-bottom:8px"><div><label for="course">Course</label><select id="course"></select></div><div><label for="ref">Against</label><select id="ref"></select></div></div>
+    <div class="race" id="raceLine"></div>
+    <div id="gapOut" style="margin-top:8px"></div>
+  </div>
+
+  <div class="card">
+    <h2>Personal bests in this batch</h2>
+    <div class="pb" id="pbs"></div>
+  </div>
+
+  <details>
+    <summary>Explore the data (charts and tables behind the cards)</summary>
+
+    <div class="card">
+      <h2>Gradient signature</h2>
+      <p class="note">Median speed in each gradient band relative to your flat speed, raw and effort-adjusted by heart rate. Reference lines are the shapes of the references' cost curves.</p>
+      <div class="legend"><span style="color:var(--you)">you, raw</span><span style="color:var(--you2)" class="dash">you, effort-adjusted</span><span style="color:var(--kj)">Kilian's shape</span><span style="color:var(--club)" class="dash">club runner's shape</span></div>
+      <div id="sigChart"></div>
+      <div class="tw" style="margin-top:8px"><table id="sigTable"></table></div>
+    </div>
+
+    <div class="card">
+      <h2>Best effort by duration</h2>
+      <p class="note">Best flat-equivalent pace you sustained over each window across all runs (solid) and the same per heartbeat (dashed, right axis). References: Kilian's fitted curve and the club runner.</p>
+      <div class="legend"><span style="color:var(--you)">your best</span><span style="color:var(--you2)" class="dash">per beat</span><span style="color:var(--kj)">Kilian</span><span style="color:var(--club)">club runner</span></div>
+      <div id="pdChart"></div>
+      <p class="note" id="pdNote"></p>
+    </div>
+
+    <div class="card">
+      <h2>Any metric over time</h2>
+      <div class="row"><div><label for="metric">Metric</label><select id="metric"></select></div></div>
+      <div class="legend"><span style="color:var(--you)">per run</span><span style="color:var(--you2)" class="dash">rolling median of 5</span></div>
+      <div id="trendChart"></div>
+      <p class="note" id="trendNote"></p>
+      <h2 style="margin-top:14px">Weekly volume</h2>
+      <div class="legend"><span style="color:var(--you)">km per week</span><span style="color:var(--kj)">ascent per week (right axis, m)</span></div>
+      <div id="weekChart"></div>
+    </div>
+
+    <div class="card">
+      <h2>Climbs of 100 m or more</h2>
+      <div class="tw"><table id="climbTable"></table></div>
+    </div>
+
+    <div class="card">
+      <h2>Runs</h2>
+      <div class="tw"><table id="runTable"></table></div>
+      <p class="note" id="dropped"></p>
+    </div>
+
+    <div class="card">
+      <h3>How accurate is this?</h3>
+      <p class="note">The sample batch is a runner simulated with known qualities, so the page can be marked against an answer sheet. Given a correct max heart rate it recovers the engine to within about 3 %, and uphill economy to within about 6 %. Two honest failures: if the max heart rate is guessed from training runs it reads roughly 10 % low and drags the engine about 17 % down with it; and the descent model has a single degree of freedom, which sets how steep and gentle descents differ but cannot express a runner who is simply slower on all descents — for that runner the leftover error lands in the engine, about 9 % in the test. Endurance decay only comes from your own efforts if you have gone hard at several durations; otherwise the page says it assumed a value. The measured halves of this page — pace by gradient, climb rates, heart-rate mix, personal bests, trends — carry none of that modelling risk.</p>
+      <h3>Method, in short</h3>
+      <p class="note">Each run is cut into 50 m segments with gradient, altitude, your time, heart rate (lagged 60 m) and cadence. The energy cost of a segment comes from the same model as <a href="race">Race Kilian</a>; implied power is cost ÷ time and "flat-equivalent pace" is the flat pace that would cost the same. Engine: a per-run fit of flat-equivalent speed against heart rate, read at the reference HR. Climbing: median vertical speed per gradient band; walking is cadence below 124 steps/min. Descending: median speed per band against your flat speed; braking is the spread of speed within descent legs. Durability: per-beat power in the second half of a run versus the first (first 10 min dropped). Your uphill economy and descent factor are the cost-curve parameters that make your per-beat power constant across gradients; your endurance decay comes from your best efforts by duration; your engine from HR-scaled runs (hard runs weighted most) or from a race result if you give one. Hikes are excluded by activity type or implied power below 6.5 W/kg. The club runner is synthetic.</p>
+    </div>
+  </details>
+</div>
+
+<footer>Companion to <a href="race">Race Kilian</a>. A calibration saved here is used there too.</footer>
+
+<script src="kilian-model.js"></script>
+<script src="trail-analysis.js"></script>
+<script>
+(function () {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const fmt = s => { s = Math.max(0, Math.round(s)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    return h ? h + ':' + String(m).padStart(2, '0') + ':' + String(x).padStart(2, '0') : m + ':' + String(x).padStart(2, '0'); };
+  const paceF = TA.paceStr;
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const KFIT = KJ.fit();
+  const KILIAN = { P1: KFIT.P1, k: KFIT.k, u: KFIT.u, d: 1 };
+
+  // ---------------------------------------------------------- storage
+  const compact = r => ({ name: r.name, type: r.type || '', t0: r.pts[0] ? r.pts[0].t : NaN, total: r.total, gain: r.gain, loss: r.loss, hasHR: r.hasHR, hasCad: r.hasCad, maxHR: r.maxHR, avgHR: r.avgHR, movingTime: r.movingTime,
+    segs: r.segs.map(s => [+s.d0.toFixed(1), +s.e0.toFixed(1), +s.e1.toFixed(1), +s.grade.toFixed(4), Math.round(s.alt), +s.tYou.toFixed(1), Number.isFinite(s.hr) ? Math.round(s.hr) : null, Number.isFinite(s.cad) ? Math.round(s.cad) : null]) });
+  const expand = c => { const L = c.total / c.segs.length; return { name: c.name, type: c.type, pts: [{ t: c.t0 }], total: c.total, gain: c.gain, loss: c.loss, hasHR: c.hasHR, hasCad: !!c.hasCad, maxHR: c.maxHR, avgHR: c.avgHR, movingTime: c.movingTime, hasTime: true,
+    segs: c.segs.map(a => ({ d0: a[0], d1: a[0] + L, e0: a[1], e1: a[2], grade: a[3], alt: a[4], len: L * Math.sqrt(1 + a[3] * a[3]), tYou: a[5], hr: a[6] == null ? NaN : a[6], cad: a[7] == null ? NaN : a[7] })) }; };
+  let store = { routes: [], hrMax: '', hrRest: 55, terrain: 'trail', raceKm: '', raceGain: '', raceTime: '' };
+  try { const s = JSON.parse(localStorage.getItem('kj_profile') || 'null'); if (s && s.routes) store = s; } catch (e) {}
+  const save = () => { try { localStorage.setItem('kj_profile', JSON.stringify(store)); } catch (e) { $('status').textContent += ' (could not save: storage full?)'; } };
+
+  for (const [k, v] of Object.entries(KJ.TERRAIN)) { const o = document.createElement('option'); o.value = k; o.textContent = v.label; $('terrain').appendChild(o); }
+  $('terrain').value = store.terrain; $('hrMax').value = store.hrMax; $('hrRest').value = store.hrRest;
+  $('raceKm').value = store.raceKm || ''; $('raceGain').value = store.raceGain || ''; $('raceTime').value = store.raceTime || '';
+  const parseClock = s => { const p = String(s).trim().split(':').map(Number); if (!p.length || p.some(isNaN)) return NaN; return p.length === 3 ? p[0] * 3600 + p[1] * 60 + p[2] : p.length === 2 ? p[0] * 60 + p[1] : p[0] * 60; };
+  const anchor = () => { const km = +store.raceKm, secs = parseClock(store.raceTime); return km > 0 && secs > 60 ? { km, secs, gain: +store.raceGain || 0 } : null; };
+  for (const m of TA.METRICS) { const o = document.createElement('option'); o.value = m.key; o.textContent = m.label; $('metric').appendChild(o); }
+  for (const c of KJ.COURSES) { const o = document.createElement('option'); o.value = c.key; o.textContent = `${c.name} (Kilian ${c.time})`; $('course').appendChild(o); }
+  $('ref').innerHTML = '<option value="kilian">Kilian</option><option value="club">Good club runner (synthetic)</option>';
+
+  // ---------------------------------------------------------- ingest
+  function addTexts(items) {
+    let added = 0, skipped = 0;
+    for (const { text, name } of items) {
+      try {
+        const g = KJ.parseGPX(text); if (!g.hasEle || !g.hasTime) { skipped++; continue; }
+        if (!g.name) g.name = name.replace(/\.gpx$/i, '');
+        const r = KJ.buildRoute(g, { step: 50, smooth: 80, stripStops: true });
+        const c = compact(r);
+        if (store.routes.some(x => Math.abs(x.t0 - c.t0) < 60 && Math.abs(x.total - c.total) < 5)) { skipped++; continue; }
+        store.routes.push(c); added++;
+      } catch (e) { skipped++; }
+    }
+    save(); analyseAll();
+    $('status').textContent = `${store.routes.length} runs stored (${added} added${skipped ? ', ' + skipped + ' skipped: duplicates or no timestamps/elevation' : ''}).`;
+  }
+  const addFilesReal = files => { store.demo = false; return addFiles(files); };
+  const addFiles = files => Promise.all([...files].map(f => f.text().then(text => ({ text, name: f.name })))).then(addTexts);
+  const DEMO = ['demo-1-2026-04-12', 'demo-2-2026-04-26', 'demo-3-2026-05-10', 'demo-4-2026-05-24', 'demo-5-2026-06-07', 'demo-6-2026-06-21'];
+  $('demo').addEventListener('click', () => {
+    $('status').textContent = 'Loading the sample batch…';
+    // the simulated runner's real max/rest HR, so the sample is not hobbled by the
+    // very max-HR problem the caveat below describes
+    $('hrMax').value = 188; $('hrRest').value = 52; store.hrMax = '188'; store.hrRest = 52; store.demo = true;
+    Promise.all(DEMO.map(n => fetch('demo-runs/' + n + '.gpx').then(r => { if (!r.ok) throw new Error(r.status); return r.text(); }).then(text => ({ text, name: n }))))
+      .then(items => { addTexts(items); $('status').textContent += ' Sample batch: six invented runs, not real data.'; })
+      .catch(() => { $('status').textContent = 'Could not load the sample batch (open this page through the site, not from disk).'; });
+  });
+  $('files').addEventListener('change', e => addFilesReal(e.target.files));
+  $('pick').addEventListener('click', () => $('files').click());
+  const drop = $('drop');
+  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => addFilesReal(e.dataTransfer.files));
+  $('clear').addEventListener('click', () => { store = { routes: [], hrMax: '', hrRest: 55, terrain: 'trail', raceKm: '', raceGain: '', raceTime: '' }; save(); try { localStorage.removeItem('kj_me'); } catch (e) {} $('out').classList.add('hidden'); $('status').textContent = 'Forgotten.'; });
+  ['hrMax', 'hrRest', 'terrain', 'raceKm', 'raceGain', 'raceTime'].forEach(id => $(id).addEventListener('change', () => { store.hrMax = $('hrMax').value; store.hrRest = +$('hrRest').value || 55; store.terrain = $('terrain').value;
+    store.raceKm = $('raceKm').value; store.raceGain = $('raceGain').value; store.raceTime = $('raceTime').value; save(); analyseAll(); }));
+  window.KPROFILE = { addTexts, get analysis() { return A; }, get report() { return R; } };
+
+  // ---------------------------------------------------------- analyse + render
+  let A = null, R = null;
+  function analyseAll() {
+    if (!store.routes.length) { $('out').classList.add('hidden'); return; }
+    const routes = store.routes.map(expand);
+    A = TA.analyse(routes, { hrMax: +store.hrMax || 0, hrRest: store.hrRest, terrain: store.terrain, kilian: KILIAN, anchor: anchor() });
+    if (!A) { $('status').textContent = 'No usable runs (all hikes or without timestamps).'; return; }
+    R = TA.report(A);
+    try { localStorage.setItem('kj_me', JSON.stringify({ ...A.fit, P1: A.athlete.P1, k: A.athlete.k, runs: A.fit.runs, demo: !!store.demo })); } catch (e) {}
+    $('out').classList.remove('hidden');
+    $('caveat').innerHTML = A.athlete.hrMaxTyped ? '' :
+      `<b>Max heart rate was guessed at ${A.athlete.hrMax} bpm</b> — the highest beat in these files. Training runs rarely touch a true maximum, and every number on this page scales off it: on a test where the true max was known, letting the page guess it read the engine about 17 % low. Type your real max above, or give a recent race result, before believing the engine card.`;
+    renderTop(); renderCards(); renderGap(); renderPBs();
+    renderSignature(); renderPD(); renderTrends(); renderWeeks(); renderClimbs(); renderRuns();
+  }
+  $('metric').addEventListener('change', renderTrends);
+  $('course').addEventListener('change', renderGap); $('ref').addEventListener('change', renderGap);
+
+  const stat = (v, l) => `<div class="stat"><div class="v">${v}</div><div class="l">${l}</div></div>`;
+  function renderTop() {
+    const runs = A.runs, dates = runs.filter(r => r.date).map(r => r.date).sort((x, y) => x - y);
+    const km = runs.reduce((s, r) => s + r.km, 0), gain = runs.reduce((s, r) => s + r.gain, 0), hrs = runs.reduce((s, r) => s + r.T, 0) / 3600;
+    $('topStats').innerHTML = stat(runs.length, 'runs') + stat(dates.length ? dates[0].toISOString().slice(0, 10) + ' → ' + dates[dates.length - 1].toISOString().slice(0, 10) : '–', 'span') +
+      stat(km.toFixed(0) + ' km', 'distance') + stat('+' + Math.round(gain) + ' m', 'ascent') + stat(hrs.toFixed(1) + ' h', 'time') + stat(A.athlete.hrMax + ' / ' + A.athlete.hrRest, 'max / rest HR') +
+      stat(runs.filter(r => r.hasHR).length + ' / ' + runs.filter(r => r.hasCad).length, 'with HR / cadence');
+  }
+
+  // tiny sparkline: series [{date, dateStr, y}]
+  function spark(series, fmtV) {
+    const pts = series.filter(p => Number.isFinite(p.y)); if (pts.length < 2) return '<div class="note">Trend needs more runs.</div>';
+    const W = 300, H = 44, GUT = 52, ys = pts.map(p => p.y), lo = Math.min(...ys), hi = Math.max(...ys), xs = pts.map(p => +p.date), x0 = Math.min(...xs), x1 = Math.max(...xs);
+    const X = x => 6 + (W - 12 - GUT) * (x1 > x0 ? (x - x0) / (x1 - x0) : 0.5), Y = y => 6 + (H - 12) * (hi > lo ? (hi - y) / (hi - lo) : 0.5);
+    const d = pts.map((p, i) => (i ? 'L' : 'M') + X(+p.date).toFixed(1) + ' ' + Y(p.y).toFixed(1)).join(' ');
+    const last = pts[pts.length - 1];
+    return `<svg class="spark" viewBox="0 0 ${W} ${H}"><path d="${d}" fill="none" stroke="${css('--you')}" stroke-width="2"/>${pts.map(p => `<circle cx="${X(+p.date)}" cy="${Y(p.y)}" r="2.5" fill="${css('--you')}"><title>${p.dateStr}: ${fmtV(p.y)}</title></circle>`).join('')}<text x="${W - 4}" y="${Y(last.y) + 4}" text-anchor="end" style="font:10px sans-serif;fill:${css('--muted')}">${fmtV(last.y)}</text></svg>`;
+  }
+  const capCard = (title, big, unit, read, doLine, ref, sparkHtml) => `<div class="cap"><h3>${title}</h3><div class="big">${big}<small>${unit}</small></div>${sparkHtml || ''}<div class="read">${read}</div><div class="do"><b>Do:</b> ${doLine}</div><div class="ref">${ref}</div></div>`;
+
+  function renderCards() {
+    const e = R.engine, c = R.climbing, d = R.descending, u = R.durability, i = R.intensity, rd = R.readings;
+    const sb = c.bands[1];
+    let h = '';
+    h += capCard('Engine', paceF(e.pace), `/km flat-equivalent at ${e.refHR} bpm`, rd.engine, rd.engineDo,
+      `Kilian's flat race pace at 1 h ≈ ${paceF(e.kilian)} /km; club runner ≈ ${paceF(e.club)} /km. Your race engine: ${paceF(1000 / (A.athlete.P1 / KJ.cost(0, 'road', A.athlete.u, A.athlete.d)))} /km at 1 h (${A.athlete.P1From}).`,
+      spark(e.series, paceF));
+    h += capCard('Climbing', Number.isFinite(sb.vam) ? Math.round(sb.vam) : '–', `m/h on 15–25 %${Number.isFinite(sb.hr) ? ' at ' + Math.round(sb.hr) + ' bpm' : ''}`, rd.climbing, rd.climbingDo,
+      `Kilian at race effort ≈ ${Math.round(sb.kilian)} m/h on this grade; club runner ≈ ${Math.round(sb.club)} m/h. Your best climbs: ${['small', 'mid', 'big'].map(k => c.best[k] ? Math.round(c.best[k].vam) + ' m/h (' + Math.round(c.best[k].gain) + ' m)' : null).filter(Boolean).join(', ') || '–'}.`,
+      spark(c.series, v => Math.round(v) + ' m/h'));
+    h += capCard('Descending', Number.isFinite(d.gentle.pace) ? paceF(d.gentle.pace) : '–', `/km on −8…−15 % (flat ${paceF(d.flatPace)})`, rd.descending, rd.descendingDo,
+      `Relative to flat: you ${d.gentle.ratio.toFixed(2)}× on gentle, ${d.steep.ratio.toFixed(2)}× on steep; Kilian ${d.kilianGentle.toFixed(2)}× / ${d.kilianSteep.toFixed(2)}×; club ${d.clubGentle.toFixed(2)}× / ${d.clubSteep.toFixed(2)}×.`,
+      spark(d.series, v => v.toFixed(2) + '× flat'));
+    h += capCard('Durability', Number.isFinite(u.drift) ? (u.drift >= 0 ? '+' : '') + Math.round(u.drift * 100) + ' %' : '–', '2nd half vs 1st, per beat', rd.durability, rd.durabilityDo,
+      `Kilian's endurance decay k ≈ ${KILIAN.k.toFixed(2)}; yours ${A.athlete.k.toFixed(2)} (${A.athlete.kFrom}) — lower means you keep more of your pace as the hours go on.`,
+      spark(u.series, v => (v >= 0 ? '+' : '') + v.toFixed(0) + ' %'));
+    const cols = [css('--accent2'), css('--kj'), css('--you2'), css('--you'), css('--warn')];
+    const bar = i.total ? `<div class="ibar">${i.bands.map((b, k) => `<span style="width:${(b.share * 100).toFixed(1)}%;background:${cols[k]}" title="${b.label}: ${Math.round(b.share * 100)} %"></span>`).join('')}</div><div class="note">${i.bands.map((b, k) => `<span style="color:${cols[k]}">■</span> ${b.label} ${Math.round(b.share * 100)} %`).join(' · ')}</div>` : '';
+    h += capCard('Intensity mix', i.total ? Math.round(i.bands[2].share * 100) + ' %' : '–', 'of time at 78–88 % of max', rd.intensity, rd.intensityDo, 'Elites train mostly below 78 % with a little above 88 %; the middle band is where recreational runners quietly spend their weeks.', bar);
+    $('cards').innerHTML = h;
+  }
+
+  const courseCache = {};
+  function renderGap() {
+    const key = $('course').value, c = KJ.COURSES.find(x => x.key === key), refKey = $('ref').value;
+    const ref = refKey === 'kilian' ? { ...KILIAN, name: 'Kilian' } : { ...TA.CLUB, name: 'the club runner' };
+    const draw = segs => {
+      const g = TA.gapDecomposition(segs, c.terrain, A.athlete, ref);
+      const tot = g.you - g.ref, longest = Math.max(...A.runs.map(r => r.T));
+      const parts = g.parts.slice().sort((x, y) => y.secs - x.secs), big = parts[0];
+      $('raceLine').innerHTML = `On <b>${c.name}</b> you would run about <b>${fmt(g.you)}</b>${refKey === 'kilian' ? ` against Kilian's real ${c.time}` : ` against the club runner's ${fmt(g.ref)}`}. ${tot > 0 ? `You would gain most from your <b>${big.label}</b>: about <b>${fmt(big.secs)}</b> of the ${fmt(tot)} gap.` : `You are ahead by ${fmt(-tot)}.`}`;
+      const maxAbs = Math.max(...g.parts.map(p => Math.abs(p.secs)), 1);
+      let h = '<div class="bars">';
+      for (const p of g.parts) h += `<div><span>${p.label}</span><span><span class="bar ${p.secs < 0 ? 'neg' : ''}" style="width:${(Math.abs(p.secs) / maxAbs * 100).toFixed(0)}%"></span></span><span>${p.secs >= 0 ? '' : '−'}${fmt(Math.abs(p.secs))}</span></div>`;
+      h += '</div><p class="note">Two orders of substitution averaged; negative bars are where you already beat the reference.' + (g.you > 3 * longest ? ` Your longest run is ${fmt(longest)}, so a ${fmt(g.you)} effort is an extrapolation and the engine/endurance split is soft.` : '') + '</p>';
+      $('gapOut').innerHTML = h;
+    };
+    if (courseCache[key]) return draw(courseCache[key]);
+    $('raceLine').innerHTML = '<span class="note">Loading course…</span>';
+    fetch(c.file).then(r => r.text()).then(t => { courseCache[key] = KJ.buildRoute(KJ.parseGPX(t), { step: 50, smooth: 80 }).segs; draw(courseCache[key]); })
+      .catch(() => { $('raceLine').innerHTML = '<span class="note">Could not load the course file (open this page through the site, not from disk).</span>'; });
+  }
+
+  function renderPBs() {
+    const p = R.pbs;
+    const box = (v, l, w) => `<div><div class="v">${v}</div><div class="l">${l}</div><div class="w">${w || ''}</div></div>`;
+    let h = '';
+    for (const e of p.efforts) h += box(paceF(e.pace) + ' /km', `best ${e.min} min (flat-eq.)`, e.run ? e.run.dateStr + ' ' + e.run.name : '');
+    for (const [k, l] of [['small', 'best climb 100–200 m'], ['mid', 'best climb 200–400 m'], ['big', 'best climb 400 m+']]) { const c = p.climbs[k]; if (c) h += box(Math.round(c.vam) + ' m/h', l, `${c.date} · +${Math.round(c.gain)} m at ${Math.round(c.grade * 100)} %${Number.isFinite(c.hr) ? ' · ' + Math.round(c.hr) + ' bpm' : ''}`); }
+    if (p.bestDescent) h += box(paceF(p.bestDescent.pace) + ' /km', 'best descent (100 m+)', `${p.bestDescent.run.dateStr} · −${Math.round(p.bestDescent.loss)} m at ${Math.round(p.bestDescent.grade * 100)} %`);
+    if (p.longest) h += box(fmt(p.longest.T), 'longest run', p.longest.dateStr + ' · ' + p.longest.km.toFixed(1) + ' km');
+    if (p.mostVert) h += box('+' + Math.round(p.mostVert.gain) + ' m', 'most ascent', p.mostVert.dateStr + ' · ' + p.mostVert.km.toFixed(1) + ' km');
+    $('pbs').innerHTML = h;
+  }
+
+  // ---------------------------------------------------------- explore: charts
+  function svgChart(el, cfg) {
+    const W = 900, H = cfg.h || 300, padL = 52, padR = cfg.y2 ? 52 : 16, padT = 12, padB = 34;
+    const xs = cfg.xs;
+    const xmin = cfg.xmin ?? Math.min(...xs), xmax = cfg.xmax ?? Math.max(...xs);
+    const xf = cfg.xlog ? (x => padL + (W - padL - padR) * (Math.log(x) - Math.log(xmin)) / (Math.log(xmax) - Math.log(xmin))) : (x => padL + (W - padL - padR) * (x - xmin) / ((xmax - xmin) || 1));
+    const yScale = (ser, y2) => { const ys = ser.flatMap(s => s.points.map(p => p.y)).filter(Number.isFinite); if (!ys.length) return null;
+      let lo = Math.min(...ys), hi = Math.max(...ys); if (cfg.ymin != null && !y2) lo = Math.min(lo, cfg.ymin); const pad = (hi - lo) * 0.08 || 1; lo -= pad; hi += pad;
+      return { lo, hi, f: y => padT + (H - padT - padB) * (1 - (y - lo) / (hi - lo)) }; };
+    const s1 = cfg.series.filter(s => !s.y2), s2 = cfg.series.filter(s => s.y2);
+    const Y = yScale(s1), Y2 = s2.length ? yScale(s2, true) : null;
+    let g = '';
+    if (Y) { const n = 5; for (let i = 0; i <= n; i++) { const y = Y.lo + (Y.hi - Y.lo) * i / n, py = Y.f(y);
+      g += `<line class="grid" x1="${padL}" x2="${W - padR}" y1="${py}" y2="${py}"/><text x="${padL - 6}" y="${py + 4}" text-anchor="end">${(cfg.yfmt || (v => v.toFixed(1)))(y)}</text>`; } }
+    if (Y2) { const n = 5; for (let i = 0; i <= n; i++) { const y = Y2.lo + (Y2.hi - Y2.lo) * i / n; g += `<text x="${W - 2}" y="${Y2.f(y) + 4}" text-anchor="end">${(cfg.y2fmt || (v => v.toFixed(2)))(y)}</text>`; } }
+    const labels = cfg.xlabels || xs.map((x, i) => ({ x, t: cfg.xfmt ? cfg.xfmt(x) : String(x) }));
+    let lastX = -1e9;
+    for (const l of labels) { const px = xf(l.x); if (px - lastX < 64) continue; lastX = px; g += `<text x="${Math.min(px, W - 24)}" y="${H - padB + 16}" text-anchor="middle">${l.t}</text>`; }
+    for (const s of cfg.series) {
+      const sc = s.y2 ? Y2 : Y; if (!sc) continue;
+      const pts = s.points.filter(p => Number.isFinite(p.y));
+      if (s.bars) { const bw = Math.max(2, (W - padL - padR) / (xs.length * 1.6));
+        for (const p of pts) g += `<rect x="${xf(p.x) - bw / 2}" y="${sc.f(p.y)}" width="${bw}" height="${Math.max(0, sc.f(sc.lo) - sc.f(p.y))}" fill="${s.color}" opacity=".8"><title>${p.title || ''}</title></rect>`; continue; }
+      const d = pts.map((p, i) => (i ? 'L' : 'M') + xf(p.x).toFixed(1) + ' ' + sc.f(p.y).toFixed(1)).join(' ');
+      g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.width || 2}" ${s.dashed ? 'stroke-dasharray="6 5"' : ''} stroke-linejoin="round"/>`;
+      if (s.dots) for (const p of pts) g += `<circle cx="${xf(p.x)}" cy="${sc.f(p.y)}" r="${s.r || 3.5}" fill="${s.color}"><title>${p.title || ''}</title></circle>`;
+    }
+    el.innerHTML = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`;
+  }
+
+  function renderSignature() {
+    const sig = A.signature, xs = sig.map((b, i) => i);
+    const ser = [
+      { color: css('--kj'), points: sig.map((b, i) => ({ x: i, y: b.ref.kilian })) },
+      { color: css('--club'), dashed: true, points: sig.map((b, i) => ({ x: i, y: b.ref.club })) },
+      { color: css('--you'), dots: true, points: sig.map((b, i) => ({ x: i, y: b.n >= 20 ? b.rel : NaN, title: `${b.label}: ${b.v.toFixed(2)} m/s, ${b.n} segments` })) },
+      { color: css('--you2'), dashed: true, dots: true, points: sig.map((b, i) => ({ x: i, y: b.n >= 20 ? b.relAdj : NaN, title: `${b.label}: effort-adjusted` })) },
+    ];
+    svgChart($('sigChart'), { xs, series: ser, xlabels: sig.map((b, i) => ({ x: i, t: b.label })), yfmt: v => v.toFixed(2), ymin: 0, h: 300 });
+    let h = '<tr><th class="l">Gradient</th><th>Segments</th><th>Time</th><th>Median pace</th><th>Median HR</th><th>Rel. speed</th><th>Effort-adj.</th><th>Kilian shape</th><th>You ÷ Kilian</th></tr>';
+    for (const b of sig) h += `<tr><td class="l">${b.label}</td><td>${b.n}</td><td>${fmt(b.time)}</td><td>${Number.isFinite(b.v) ? paceF(1000 / b.v) : '–'}</td><td>${Number.isFinite(b.hr) ? b.hr.toFixed(0) : '–'}</td><td>${Number.isFinite(b.rel) ? b.rel.toFixed(2) : '–'}</td><td>${Number.isFinite(b.relAdj) ? b.relAdj.toFixed(2) : '–'}</td><td>${b.ref.kilian.toFixed(2)}</td><td class="${Number.isFinite(b.relAdj) ? (b.relAdj / b.ref.kilian >= 1 ? 'good' : 'bad') : ''}">${Number.isFinite(b.relAdj) ? (b.relAdj / b.ref.kilian).toFixed(2) : '–'}</td></tr>`;
+    $('sigTable').innerHTML = h;
+  }
+
+  function renderPD() {
+    const pts = A.pd.points, xs = pts.map(p => p.min), a = A.athlete, C0 = KJ.cost(0, A.terrain, a.u, a.d);
+    const toPace = P => 1000 / (P / C0);
+    const ref = ath => pts.map(p => ({ x: p.min, y: toPace(KJ.power(p.min * 60, ath.P1, ath.k)) }));
+    const ser = [
+      { color: css('--kj'), points: ref(KILIAN) }, { color: css('--club'), points: ref(TA.CLUB) },
+      { color: css('--you'), dots: true, points: pts.map(p => ({ x: p.min, y: p.P > 0 ? toPace(p.P) : NaN, title: p.run ? `${p.min} min: ${paceF(toPace(p.P))} /km on ${p.run.dateStr} ${p.run.name}` : '' })) },
+      { color: css('--you2'), dashed: true, dots: true, y2: true, points: pts.map(p => ({ x: p.min, y: p.beat > 0 ? p.beat : NaN, title: p.runBeat ? `${p.min} min per beat: ${p.beat.toFixed(3)} on ${p.runBeat.dateStr}` : '' })) },
+    ];
+    svgChart($('pdChart'), { xs, xlog: true, series: ser, xfmt: x => x + ' min', yfmt: paceF, y2fmt: v => v.toFixed(2), h: 300 });
+    const have = pts.filter(p => p.P > 0);
+    $('pdNote').textContent = have.length ? `Endurance decay from your best windows: k ${Number.isFinite(A.pd.k) ? A.pd.k.toFixed(3) : '–'} (Kilian ${KILIAN.k.toFixed(3)}). Longest window with data: ${have[have.length - 1].min} min.` : '';
+  }
+
+  function renderTrends() {
+    const key = $('metric').value, m = TA.METRICS.find(x => x.key === key), pts = A.trends.series[key] || [];
+    if (!pts.length) { $('trendChart').innerHTML = ''; $('trendNote').textContent = m.hr ? 'Needs runs with heart rate.' : 'No data.'; return; }
+    const xs = pts.map(p => +p.x);
+    const months = []; let last = '';
+    for (const p of pts) { const t = p.x.toISOString().slice(0, 7); if (t !== last) { months.push({ x: +p.x, t }); last = t; } }
+    const ser = [
+      { color: css('--you'), dots: true, width: 1, points: pts.map(p => ({ x: +p.x, y: p.y, title: `${p.run.dateStr} ${p.run.name}: ${m.fmt(p.y)}` })) },
+      { color: css('--you2'), dashed: true, points: pts.map(p => ({ x: +p.x, y: p.roll })) },
+    ];
+    svgChart($('trendChart'), { xs, series: ser, xlabels: months, yfmt: m.fmt, h: 260 });
+    const first = pts.slice(0, Math.max(1, Math.floor(pts.length / 3))), lastQ = pts.slice(-Math.max(1, Math.floor(pts.length / 3)));
+    const med = a => TA.wmedian(a.map(p => [p.y, 1]));
+    const f = med(first), l = med(lastQ), dir = l > f ? 'up' : l < f ? 'down' : 'flat';
+    $('trendNote').textContent = `${pts.length} runs. Median of the first third ${m.fmt(f)}, last third ${m.fmt(l)} (${dir}${m.higher == null ? '' : (m.higher ? (l > f) : (l < f)) ? ', better' : ', worse'}).`;
+  }
+
+  function renderWeeks() {
+    const w = A.trends.weeks; if (!w.length) return;
+    const xs = w.map(x => +x.x);
+    const months = []; let last = ''; for (const p of w) { const t = p.x.toISOString().slice(0, 7); if (t !== last) { months.push({ x: +p.x, t }); last = t; } }
+    svgChart($('weekChart'), { xs, series: [
+      { color: css('--you'), bars: true, points: w.map(x => ({ x: +x.x, y: x.km, title: `${x.week}: ${x.km.toFixed(0)} km, +${x.gain.toFixed(0)} m, ${x.n} runs` })) },
+      { color: css('--kj'), dots: true, width: 1.5, y2: true, points: w.map(x => ({ x: +x.x, y: x.gain })) } ],
+      xlabels: months, yfmt: v => v.toFixed(0), y2fmt: v => v.toFixed(0), ymin: 0, h: 220 });
+  }
+
+  function renderClimbs() {
+    let h = '<tr><th class="l">Date</th><th class="l">Run</th><th>At</th><th>Length</th><th>Gain</th><th>Grade</th><th>Time</th><th>VAM</th><th>Avg HR</th><th>per beat</th></tr>';
+    for (const c of A.climbs.slice(0, 20)) h += `<tr><td class="l">${c.date}</td><td class="l">${c.run}</td><td>${c.atKm.toFixed(1)} km</td><td>${(c.len / 1000).toFixed(2)} km</td><td>+${Math.round(c.gain)}</td><td>${(c.grade * 100).toFixed(0)} %</td><td>${fmt(c.T)}</td><td><b>${c.vam.toFixed(0)}</b> m/h</td><td>${Number.isFinite(c.hr) ? c.hr.toFixed(0) : '–'}</td><td>${Number.isFinite(c.vamBeat) ? c.vamBeat.toFixed(1) : '–'}</td></tr>`;
+    $('climbTable').innerHTML = h;
+  }
+
+  function renderRuns() {
+    let h = '<tr><th class="l">Date</th><th class="l">Run</th><th>Dist</th><th>Gain</th><th>Time</th><th>Pace</th><th>Flat-eq.</th><th>Avg HR</th><th>% max</th><th>Durability</th><th>Best VAM</th></tr>';
+    for (const r of A.runs.slice().sort((a, b) => (b.date || 0) - (a.date || 0))) h += `<tr><td class="l">${r.dateStr}</td><td class="l">${r.name}</td><td>${r.km.toFixed(1)} km</td><td>+${Math.round(r.gain)}</td><td>${fmt(r.T)}</td><td>${paceF(r.pace)}</td><td>${paceF(r.gapPace)}</td><td>${Number.isFinite(r.hr) ? r.hr.toFixed(0) : '–'}</td><td>${Number.isFinite(r.hr) ? Math.round(r.hr / A.athlete.hrMax * 100) + ' %' : '–'}</td><td class="${Number.isFinite(r.drift) ? (r.drift < -0.05 ? 'bad' : 'good') : ''}">${Number.isFinite(r.drift) ? (r.drift >= 0 ? '+' : '') + (r.drift * 100).toFixed(0) + ' %' : '–'}</td><td>${Number.isFinite(r.bestVAM) ? r.bestVAM.toFixed(0) : '–'}</td></tr>`;
+    $('runTable').innerHTML = h;
+    $('dropped').textContent = A.dropped.length ? 'Left out: ' + A.dropped.map(d => `${d.name} (${d.why})`).join('; ') + '.' : '';
+  }
+
+  // ---------------------------------------------------------- boot
+  const Q = new URLSearchParams(location.search);
+  const qRuns = Q.get('runs');
+  if (Q.get('demo')) $('demo').click();
+  else if (qRuns) Promise.all(qRuns.split(',').map(u => fetch(u).then(r => r.text()).then(text => ({ text, name: u.split('/').pop() })))).then(addTexts).catch(() => {});
+  else if (store.routes.length) { $('status').textContent = `${store.routes.length} runs remembered on this device.`; analyseAll(); }
+})();
+</script>
+</body>
+</html>
