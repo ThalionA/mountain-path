@@ -20,6 +20,6 @@ Nothing is uploaded; runs are remembered in your browser, and a calibration made
 
 Because that simulated runner has known qualities, the page can be marked against an answer sheet, and it says so in its own "how accurate is this?" section: the engine lands within about 3 % when it is given a real max heart rate, and roughly 17 % low when it has to guess one from training runs. The measured halves — pace by gradient, climb rates, heart-rate mix, personal bests, trends — carry none of that modelling risk.
 
-<p style="margin:1.4rem 0"><a href="/side-projects/kilian/profile" style="display:inline-block;padding:.7rem 1.2rem;border-radius:10px;background:var(--secondary);color:var(--light);font-weight:600;text-decoration:none">Open Trail Profile →</a></p>
+<p style="margin:1.4rem 0"><a href="/side-projects/kilian/profile.htm" style="display:inline-block;padding:.7rem 1.2rem;border-radius:10px;background:var(--secondary);color:var(--light);font-weight:600;text-decoration:none">Open Trail Profile →</a></p>
 
 <p style="font-size:.9em;opacity:.75">Opens as its own full-width page. Bring a batch of GPX files, or press "Load a sample batch" to see it work first.</p>
