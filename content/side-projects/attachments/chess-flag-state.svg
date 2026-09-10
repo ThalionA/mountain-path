@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="604.8pt" height="187.2pt" viewBox="0 0 604.8 187.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-10T14:29:22.477827</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.8.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 187.2 
+L 604.8 187.2 
+L 604.8 0 
+L 0 0 
+z
+" style="fill: #f7f9f7"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 10.26 176.94 
+L 594.54 176.94 
+L 594.54 24.18 
+L 10.26 24.18 
+z
+" style="fill: #f7f9f7"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 10.26 141.034872 
+L 162.515375 141.034872 
+L 162.515375 69.224615 
+L 10.26 69.224615 
+z
+" clip-path="url(#p2e7453c383)" style="fill: #17707f; stroke: #f7f9f7; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 162.515375 141.034872 
+L 196.772834 141.034872 
+L 196.772834 69.224615 
+L 162.515375 69.224615 
+z
+" clip-path="url(#p2e7453c383)" style="fill: #4e96a3; stroke: #f7f9f7; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 196.772834 141.034872 
+L 269.094137 141.034872 
+L 269.094137 69.224615 
+L 196.772834 69.224615 
+z
+" clip-path="url(#p2e7453c383)" style="fill: #a8cdd3; stroke: #f7f9f7; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 269.094137 141.034872 
+L 322.383518 141.034872 
+L 322.383518 69.224615 
+L 269.094137 69.224615 
+z
+" clip-path="url(#p2e7453c383)" style="fill: #a9b4ae; stroke: #f7f9f7; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 322.383518 141.034872 
+L 594.54 141.034872 
+L 594.54 69.224615 
+L 322.383518 69.224615 
+z
+" clip-path="url(#p2e7453c383)" style="fill: #dfe5e0; stroke: #f7f9f7; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2"/>
+   <g id="line2d_1">
+    <path d="M 179.644104 67.266154 
+L 179.644104 58.126667 
+" clip-path="url(#p2e7453c383)" style="fill: none; stroke: #6e7c76; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 269.094137 164.7192 
+L 269.094137 36.4008 
+" clip-path="url(#p2e7453c383)" style="fill: none; stroke-dasharray: 4.8,2.4; stroke-dashoffset: 0; stroke: #23312c; stroke-width: 1.2"/>
+   </g>
+   <g id="text_1">
+    <text style="fill: #f7f9f7; font: 700 8.5px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(67.428703 102.682939)">winning</text>
+    <text style="fill: #f7f9f7; font: 700 8.5px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(76.214914 112.267486)">26%</text>
+   </g>
+   <g id="text_2">
+    <text style="fill: #6e7c76; font: 8px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="179.644104" y="52.545994" transform="rotate(-0 179.644104 52.545994)">better 6%</text>
+   </g>
+   <g id="text_3">
+    <text style="fill: #23312c; font: 8.5px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(222.826454 102.716142)">level</text>
+    <text style="fill: #23312c; font: 8.5px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(223.487196 112.234283)">12%</text>
+   </g>
+   <g id="text_4">
+    <text style="fill: #23312c; font: 8.5px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(283.086445 102.716142)">worse</text>
+    <text style="fill: #23312c; font: 8.5px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(288.996601 112.234283)">9%</text>
+   </g>
+   <g id="text_5">
+    <text style="fill: #23312c; font: 8.5px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(433.040782 102.716142)">lost anyway</text>
+    <text style="fill: #23312c; font: 8.5px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif" transform="translate(449.01547 112.234283)">47%</text>
+   </g>
+   <g id="text_6">
+    <text style="fill: #23312c; font: 8.5px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="276.105497" y="160.810214" transform="rotate(-0 276.105497 160.810214)">44% of them were still playable</text>
+   </g>
+   <g id="text_7">
+    <text style="fill: #23312c; font: 700 10.5px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="10.26" y="18.18" transform="rotate(-0 10.26 18.18)">The position when the flag fell  ·  307 games lost on time</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p2e7453c383">
+   <rect x="10.26" y="24.18" width="584.28" height="152.76"/>
+  </clipPath>
+ </defs>
+</svg>
