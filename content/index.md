@@ -12,20 +12,18 @@ This is a working notebook — a place to publish a curated subset of the notes 
 The framing is "the mountain path" because most of what I care about — research, alpinism, strength, reading books — is a path, a process, rather than an endpoint (summit). A song that feels quite fitting is ["I'm the Mountain" by Stoned Jesus](https://www.youtube.com/results?search_query=stoned+jesus+i%27m+the+mountain). In my mind, it describes exactly the process of "scaling oneself", self-improvement/discovery/actualisation to put it in less flowery terms. 
 
 ## Sections
-
+- [[training/index|Training]] — climbing, lifting, running, football. Logs, analyses, and the lessons I extract from them. 
+- [[expeditions/index|Expeditions]] — goals and plans. Alpine objectives, projects, training blocks built around them.
+- [[musings/index|Musings]] — essays and half-formed thoughts. 
+- [[youtube/index|YouTube]] — video plans, transcripts, and links to anything that gets published.
+- [[gear/index|Gear]] — Notes and reviews on gear I use (no sponsors)
 - [[neuroscience/index|Neuroscience]] — papers I'm reading, concept syntheses, and thoughts on experimental/analytical/computational methods. 
 - [[book-club/index|Book Club]] — books and audiobooks, what I took from each, and (hopefully) connections between them and some further thoughts. 
-- [[training/index|Training]] — climbing, lifting, running, football. Logs, analyses, and what lessons I extract from them. 
-- [[expeditions/index|Expeditions]] — goals and plans. Alpine objectives, projects, training blocks built around them.
-- [[musings/index|Musings]] — essays and half-formed thoughts. The interpretive layer that doesn't fit anywhere else.
-- [[youtube/index|YouTube]] — video plans, transcripts, and links to anything that gets published.
-- [[side-projects/index|Side Projects]] — fun side projects, usually with Claude
-- [[gear/index|Gear]] - Notes and reviews on gear I use (no sponsors)
+- [[side-projects/index|Side Projects]] — fun little side projects, usually with Claude
+
 
 ## A note on completeness
-
 Most pages here are stubs, drafts, or work-in-progress. Some sections (book club, YouTube) start with placeholder content while I work out what to pull from my private notes. Expect the site to fill out over time.
 
 ## Contact
-
 If anything here is useful, wrong, or worth a conversation — climbing, training, neuroscience, or otherwise — write to [mountainpath.theo@gmail.com](mailto:mountainpath.theo@gmail.com).
