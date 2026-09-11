@@ -12,7 +12,7 @@ This is a working notebook — a place to publish a curated subset of the notes 
 The framing is "the mountain path" because most of what I care about — research, alpinism, strength, reading books — is a path, a process, rather than an endpoint (summit). A song that feels quite fitting is ["I'm the Mountain" by Stoned Jesus](https://www.youtube.com/results?search_query=stoned+jesus+i%27m+the+mountain). In my mind, it describes exactly the process of "scaling oneself", self-improvement/discovery/actualisation to put it in less flowery terms. 
 
 ## Sections
-- [[training/index|Training]] — climbing, lifting, running, football. Logs, analyses, and the lessons I extract from them. 
+- [[training/index|Training and Nutrition]] — climbing, lifting, running, nutrition. Logs, analyses, and the lessons I extract from them. 
 - [[expeditions/index|Expeditions]] — goals and plans. Alpine objectives, projects, training blocks built around them.
 - [[musings/index|Musings]] — essays and half-formed thoughts. 
 - [[youtube/index|YouTube]] — video plans, transcripts, and links to anything that gets published.
