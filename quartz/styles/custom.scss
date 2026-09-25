@@ -31,3 +31,34 @@ body[data-slug="index"] {
 .markdown-preview-view a {
   text-underline-offset: 3px;
 }
+
+// --- Mobile header + explorer drawer ---
+// The explorer drawer is absolutely positioned inside the left sidebar, which sits 16px in from
+// the viewport edge, so its 100vw width overflowed by 16px (sideways scroll on phones, even when
+// collapsed). Pin it to the viewport instead. The title also wrapped onto three lines; make room for it on one.
+@media (max-width: 800px) {
+  .explorer .explorer-content {
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    padding-inline: 16px; // the gutter it used to inherit from the sidebar offset
+  }
+
+  .page-title,
+  .page-title a {
+    font-size: 1.25rem;
+    white-space: nowrap;
+  }
+
+  // Icon-only search button (it keeps aria-label="Search") so the title fits on one line.
+  .search .search-button p {
+    display: none;
+  }
+}
+
+// Comment form fields were width:100% plus padding, overflowing the column on phones.
+.oc-input {
+  box-sizing: border-box;
+  max-width: 100%;
+}
