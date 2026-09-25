@@ -11,6 +11,7 @@ Each video below has its own page on this site with the embed, a short descripti
 
 ## 2026
 
+- [[science-of-learning-climbing-movement-episode-0|The Science of Learning Climbing Movement — Episode 0]] *(Sept 2026, 8:58)* — Opener to a series on the principles of skilled movement learning: why technique is hard to learn, and performance in the session versus learning that lasts.
 - [[identify-your-climbing-weaknesses|How to identify your climbing weaknesses like a scientist]] *(Aug 2026, 14:32)* — Only the weaknesses that actually limit your goal are worth fixing; three frameworks for finding them, borrowed loosely from machine learning.
 
 ## 2025
